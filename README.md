@@ -8,4 +8,4 @@ Site oficial do WhatAnime, desenvolvido em conjunto com o designer Iago Centenar
 
 Site: https://www.whatanime.org/
 
-![Logo WhatAnime](https://github.com/giovanifranz/WhatAnime/blob/main/public/LogoWhatAnime.png)
+![Logo WhatAnime](https://github.com/giovanifranz/WhatAnime/blob/main/src/assets/LogoWhatAnime.png)
