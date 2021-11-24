@@ -67,7 +67,7 @@ export default function Search() {
           <option value="word">by word</option>
           <option value="image">by image</option>
         </Select>
-        {isLoading && <Spinner color="yellow.500"/>}
+        {isLoading && <Spinner ml="10px" color="yellow.500"/>}
       </Flex>
       <InputGroup bgColor="white">
         <Input
