@@ -92,6 +92,7 @@ export default function Search() {
           icon={<HiOutlineSearch />}
           _hover={{
             bgColor: "gray.100",
+            filter: "brightness(90%)",
           }}
           onClick={() => handleSubmit()}
         />
