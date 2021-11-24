@@ -7,10 +7,14 @@ import Heading from "../components/home/Heading";
 import ResultCard from "../components/home/ResultCard";
 import TopAiring from "../components/home/Ranking/TopAiring";
 import TopPopular from "../components/home/Ranking/TopPopular";
-import MiniCards from "../components/home/MiniCards";
 import { useSearch } from "../hooks/useSearch";
 import { SSG } from "../utils/SSG";
 import BackToTop from "../components/home/BackToTop";
+import { CardsProps } from "../components/home/MiniCards";
+import dynamic from "next/dynamic";
+const MiniCards = dynamic<CardsProps>(
+  () => import("../components/home/MiniCards")
+);
 
 interface HomeData {
   animeTodayID: number;

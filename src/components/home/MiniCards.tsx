@@ -2,7 +2,7 @@ import { Text, Link } from "@chakra-ui/react";
 import { handlePerfetchAnime } from "../../utils/handlePerfetchAnime";
 import NextLink from "next/link";
 
-interface CardsProps {
+export interface CardsProps {
   animeResults: Array<Anime>;
 }
 

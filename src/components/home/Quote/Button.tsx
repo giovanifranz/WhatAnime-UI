@@ -20,7 +20,7 @@ export default function Button({ id }: ButtonQuoteProps) {
             bgColor="grey.100"
             color="#959A9C"
             bgRepeat="no-repeat"
-            transition="0.7s"
+            transition="0.5s"
             icon={<HiArrowRight />}
             _hover={{
               bgColor: "#959A9C",
