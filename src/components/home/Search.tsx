@@ -90,6 +90,7 @@ export default function Search() {
           aria-label="Search database"
           type="submit"
           icon={<HiOutlineSearch />}
+          transition="filter 0.2s"
           _hover={{
             bgColor: "gray.100",
             filter: "brightness(90%)",
