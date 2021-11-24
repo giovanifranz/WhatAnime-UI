@@ -83,6 +83,9 @@ export default function WhatAnime({ animeToday, home, quote }: WhatAnimeProps) {
               <TopPopular topPopular={home.topPopular} />
             </Flex>
           </Box>
+          <Flex as="section" mt="15px" w="790px" justifyContent={"center"}>
+            <BackToTop />
+          </Flex>
         </Stack>
       </Box>
     </>
