@@ -1,5 +1,5 @@
 export const SSG = {
-  animeTodayID: {
+  animeToday: {
     mal_id: 918,
     title: "Gintama",
     image_url: "https://cdn.myanimelist.net/images/anime/10/73274.jpg",

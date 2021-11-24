@@ -93,32 +93,16 @@ export default function Home({ animeToday, home, quote }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const HOME_DATA: HomeData = await api.get("/home").then((res) => res.data);
-  const QUOTE_DATA: AnimeQuoteData = await api
-    .get("/quote")
-    .then((res) => res.data);
-  const ANIME_TODAY: AnimeTodayData = await api
-    .get(`/anime/id/${HOME_DATA.animeTodayID}`)
-    .then((res) => res.data);
-  if (ANIME_TODAY !== undefined) {
-    return {
-      props: {
-        home: HOME_DATA,
-        quote: QUOTE_DATA,
-        animeToday: ANIME_TODAY,
-      },
-      revalidate: 60 * 60 * 24,
-    };
-  } else {
+  
     return {
       props: {
         home: {
-          animeTodayID: SSG.animeTodayID,
+          animeToday: SSG.animeToday,
           topAiring: SSG.topAiring,
           topPopular: SSG.topPopular,
         },
         revalidate: 5,
       },
     };
-  }
+  
 };
