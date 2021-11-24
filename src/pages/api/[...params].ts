@@ -31,8 +31,6 @@ export async function SEARCH_ANIME_BY_ID(id: string) {
 }
 
 export async function SEARCH_ANIME_BY_IMAGE(payload: string) {
-  console.log(payload);
-
   const data = await axios
     .get(`${traceMoeAPI}${payload}`)
     .then(async (response) => {

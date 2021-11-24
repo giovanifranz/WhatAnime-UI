@@ -6,7 +6,6 @@ export async function handlePerfetchAnime(id: number) {
     ["anime-page", id],
     async () => {
       const { data } = await api.get(`/anime/id/${id}`);
-      console.log(data);
       return data;
     },
     {
