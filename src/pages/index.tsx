@@ -65,6 +65,24 @@ export default function WhatAnime({ animeToday, home, quote }: WhatAnimeProps) {
               <TopAiring topAiring={home.topAiring} />
             </Flex>
           </Box>
+          <Box as="section">
+            {animeResults.length > 0 && <Heading title="Results" />}
+            <Flex mt="15px" alignItems="center" justifyContent="space-between">
+              <Flex
+                height="505px"
+                direction="column"
+                justifyContent="space-between"
+              >
+                {animeResults.length > 0 && <ResultCard value={animeResult} />}
+                <HStack w="100%" justifyContent="space-between">
+                  {animeResults.length > 1 && (
+                    <MiniCards animeResults={animeResults} />
+                  )}
+                </HStack>
+              </Flex>
+              <TopPopular topPopular={home.topPopular} />
+            </Flex>
+          </Box>
         </Stack>
       </Box>
     </>
