@@ -76,7 +76,6 @@ export function useDataFetch({
     },
     {
       initialData: QUOTE_DATA,
-      staleTime: 1000 * 5,
     }
   );
 
@@ -88,7 +87,6 @@ export function useDataFetch({
     },
     {
       initialData: ANIME_TODAY,
-      staleTime: 1000 * 5,
     }
   );
 
@@ -100,7 +98,6 @@ export function useDataFetch({
     },
     {
       initialData: HOME_DATA,
-      staleTime: 1000 * 5,
     }
   );
 
@@ -135,7 +132,7 @@ export function useDataFetch({
 
   useEffect(() => {
     if (AnimeToday.data && !AnimeToday.isLoading) {
-      setAnimeToday(AnimeToday.data) ;
+      setAnimeToday(AnimeToday.data);
     }
   }, [AnimeToday.data, AnimeToday.isLoading, AnimeToday.isError]);
   return {
