@@ -7,7 +7,7 @@ export default function Header() {
   return (
     <Box minWidth={1050} w="100%" as="header">
       <Box w={1100} h="32" mx="auto" py="6" align="left">
-        <NextLink href="/">
+        <NextLink href="/" passHref>
           <Link display="flex" _hover={{ textDecoration: "none" }}>
             <Image
               src={LogoWhatAnime}

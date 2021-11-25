@@ -1,30 +1,22 @@
-import {
-  Stack,
-  Link as LinkChakra,
-  Text,
-  Button,
-  HStack,
-} from "@chakra-ui/react";
-import { IconType } from "react-icons";
+import { Stack, Link as LinkChakra, Text, HStack } from "@chakra-ui/react";
+import { ReactNode } from "react";
 import { AiFillFacebook, AiOutlineTwitter } from "react-icons/ai";
 import { SiMyanimelist, SiAnilist } from "react-icons/si";
+import NextLink from "next/link";
 
 interface HeadingProps {
   title: string;
 }
 
 interface LinkProps {
-  icon: IconType;
+  children: ReactNode;
   href: string;
 }
 
-function Link({ icon, href }: LinkProps) {
+function Link({ children, href }: LinkProps) {
   return (
-    <LinkChakra href={href}>
-      <Button
-        as={icon}
-        w="50px"
-        h="50px"
+    <NextLink href={href} passHref>
+      <LinkChakra
         borderRadius="8px"
         bgColor="gray.100"
         color="gray.500"
@@ -33,8 +25,10 @@ function Link({ icon, href }: LinkProps) {
           bgColor: "yellow.500",
           color: "gray.800",
         }}
-      />
-    </LinkChakra>
+      >
+        {children}
+      </LinkChakra>
+    </NextLink>
   );
 }
 
@@ -57,22 +51,21 @@ export default function Links() {
     <Stack as="section" spacing="20px">
       <Heading title="Connect" />
       <HStack w="110px" justifyContent="space-between" spacing="20px">
-        <Link icon={SiAnilist} href="https://anilist.co" />
-        <Link
-          icon={SiMyanimelist}
-          href="https://myanimelist.net/profile/HighlanderTech"
-        />
+        <Link href="https://anilist.co">
+          <SiAnilist size="50px" />
+        </Link>
+        <Link href="https://myanimelist.net/profile/HighlanderTech">
+          <SiMyanimelist size="50px" />
+        </Link>
       </HStack>
       <Heading title="Share" />
       <HStack w="110px" justifyContent="space-between" spacing="20px">
-        <Link
-          icon={AiFillFacebook}
-          href="https://www.facebook.com/sharer/sharer.php?u=https%3A//www.whatanime.org/"
-        />
-        <Link
-          icon={AiOutlineTwitter}
-          href="https://twitter.com/intent/tweet?text=https%3A//www.whatanime.org/"
-        />
+        <Link href="https://www.facebook.com/sharer/sharer.php?u=https%3A//www.whatanime.org/">
+          <AiFillFacebook size="50px" />
+        </Link>
+        <Link href="https://twitter.com/intent/tweet?text=https%3A//www.whatanime.org/">
+          <AiOutlineTwitter size="50px" />
+        </Link>
       </HStack>
     </Stack>
   );
