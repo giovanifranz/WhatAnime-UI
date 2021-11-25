@@ -1,13 +1,15 @@
-import { Flex, Box, Heading as HeadingChakra, Spinner } from "@chakra-ui/react";
+import { Flex, Box, Spinner } from "@chakra-ui/react";
 import { useQuery } from "react-query";
 import Aside from "../components/animePage/Aside";
 import Heading from "../components/animePage/Heading";
-import Text from "../components/animePage/Text";
+import Synopsis from "../components/animePage/Synopsis";
 import RelatedAnime from "../components/animePage/RelatedAnime";
 import BackToSearch from "../components/animePage/BackToSearch";
 import { api } from "../utils/api";
 import { GetStaticProps, GetStaticPaths, GetStaticPropsContext } from "next";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
+const NotFound = dynamic(() => import("../components/animePage/404"));
 
 interface AnimePageProps {
   image_url: string;
@@ -114,7 +116,7 @@ export default function AnimePage({ ANIME_DATA, mal_id }: AnimePageProps) {
           />
 
           <Box w="885px" as="section">
-            <Text synopsis={AnimePage.synopsis} />
+            <Synopsis synopsis={AnimePage.synopsis} />
             <RelatedAnime related={AnimePage.related} />
           </Box>
           <Box mt="50px" w="310px" h="50px" mx="auto" mb="50px">
@@ -126,29 +128,7 @@ export default function AnimePage({ ANIME_DATA, mal_id }: AnimePageProps) {
   } else if (isLoading) {
     return <Spinner color="yellow.500" size="xl" />;
   } else {
-    return (
-      <Flex
-        w="1105px"
-        minH={900}
-        mx="auto"
-        alignItems="center"
-        justifyContent="center"
-        direction="column"
-      >
-        <HeadingChakra
-          as="h1"
-          fontSize="2.25rem"
-          fontWeight="bold"
-          lineHeight="2.5rem"
-          fontStyle="normal"
-          color="black"
-          mb="25px"
-        >
-          Anime not found: 404
-        </HeadingChakra>
-        <BackToSearch />
-      </Flex>
-    );
+    return <NotFound />;
   }
 }
 

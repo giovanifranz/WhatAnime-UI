@@ -1,5 +1,5 @@
 import { Box, Heading, Text, Link, Stack } from "@chakra-ui/react";
-import { handlePerfetchAnime } from "../../utils/handlePerfetchAnime";
+import { handlePerfetchAnime } from "../../../utils/handlePerfetchAnime";
 import NextLink from "next/link";
 
 export interface ProductOrderProps {

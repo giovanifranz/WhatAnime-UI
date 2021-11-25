@@ -1,9 +1,9 @@
 import { Box, Heading, Text, Stack, Image } from "@chakra-ui/react";
-import { ProductOrderProps } from "../../components/animePage/ProductOrder";
+import { ProductOrderProps } from "./ProductOrder";
+import { AlternativeTitlesProps } from "./AlternativeTitles";
 import dynamic from "next/dynamic";
-const ProductOrder = dynamic<ProductOrderProps>(
-  () => import("../../components/animePage/ProductOrder")
-);
+const ProductOrder = dynamic<ProductOrderProps>(() => import("./ProductOrder"));
+const AlternativeTitles = dynamic<AlternativeTitlesProps>(() => import("./AlternativeTitles"));
 
 interface AsideProps {
   title: string;
@@ -69,37 +69,7 @@ export default function Aside({
       />
       <Box ml="5px" fontStyle="normal" color="black">
         {(title_english || title_japanese) && (
-          <Box as="section">
-            <Heading
-              as="h3"
-              fontSize="20px"
-              fontWeight="bold"
-              lineHeight="23px"
-              mt="40px"
-            >
-              Alternative Titles:
-            </Heading>
-            <Stack
-              as="section"
-              lineHeight="16px"
-              fontSize="14px"
-              mt="10px"
-              fontWeight="normal"
-            >
-              {title_english && (
-                <Text>
-                  <strong>English: </strong>
-                  {title_english}
-                </Text>
-              )}
-              {title_japanese && (
-                <Text>
-                  <strong>Japanese: </strong>
-                  {title_japanese}
-                </Text>
-              )}
-            </Stack>
-          </Box>
+          <AlternativeTitles english={title_english} japanese={title_japanese} />
         )}
         <Box as="section">
           <Heading
