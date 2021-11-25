@@ -25,9 +25,9 @@ export default function List({ related, title }: ListProps) {
       <UnorderedList>
         {related.map(({ name, mal_id }) => {
           return (
-            <Box key={mal_id}>
+            <ListItem key={mal_id}>
               {name && <Link mal_id={mal_id} name={name} />}
-            </Box>
+            </ListItem>
           );
         })}
       </UnorderedList>
@@ -37,12 +37,10 @@ export default function List({ related, title }: ListProps) {
 
 export function Link({ name, mal_id }: LinkProps) {
   return (
-    <ListItem key={mal_id}>
-      <NextLink href={`/${mal_id}`}>
-        <ChakraLink onMouseEnter={() => handlePerfetchAnime(mal_id)}>
-          {name}
-        </ChakraLink>
-      </NextLink>
-    </ListItem>
+    <NextLink href={`/${mal_id}`}>
+      <ChakraLink onMouseEnter={() => handlePerfetchAnime(mal_id)}>
+        {name}
+      </ChakraLink>
+    </NextLink>
   );
 }
