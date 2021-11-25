@@ -31,7 +31,7 @@ export default function Quote({ anime, character, quote, id }: QuoteProps) {
       >
         “{quote}”
       </Text>
-      <HStack as="article">
+      <HStack as="div">
         <Stack h="50px" w="182px" justifyContent="space-between">
           <Heading
             as="h4"
