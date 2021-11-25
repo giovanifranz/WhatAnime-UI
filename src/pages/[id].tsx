@@ -1,4 +1,4 @@
-import { Flex, Box } from "@chakra-ui/react";
+import { Flex, Box, Heading as HeadingChakra, Spinner } from "@chakra-ui/react";
 import { useQuery } from "react-query";
 import Aside from "../components/animePage/Aside";
 import Heading from "../components/animePage/Heading";
@@ -65,8 +65,10 @@ interface AnimePageProps {
 }
 
 export default function AnimePage({ ANIME_DATA, mal_id }: AnimePageProps) {
-  const route = useRouter().query.id;
-  const id = mal_id ? mal_id : route;
+  const router = useRouter();
+  const route = router.query.id as string;
+  const id = mal_id ? mal_id : parseInt(route, 10);
+
   const { data, isLoading } = useQuery<AnimePageProps>(
     ["anime-page", id],
     async () => {
@@ -88,7 +90,7 @@ export default function AnimePage({ ANIME_DATA, mal_id }: AnimePageProps) {
     return (
       <Flex w="1105px" minH={900} mx="auto">
         {isLoading && !data ? (
-          "Loading..."
+          <Spinner color="yellow.500" size="xl" />
         ) : (
           <>
             <Aside
@@ -128,7 +130,29 @@ export default function AnimePage({ ANIME_DATA, mal_id }: AnimePageProps) {
       </Flex>
     );
   } else {
-    return null;
+    return (
+      <Flex
+        w="1105px"
+        minH={900}
+        mx="auto"
+        alignItems="center"
+        justifyContent="center"
+        direction="column"
+      >
+        <HeadingChakra
+          as="h1"
+          fontSize="2.25rem"
+          fontWeight="bold"
+          lineHeight="2.5rem"
+          fontStyle="normal"
+          color="black"
+          mb="25px"
+        >
+          Anime not found: 404
+        </HeadingChakra>
+        <BackToSearch />
+      </Flex>
+    );
   }
 }
 
@@ -150,7 +174,7 @@ export const getStaticProps: GetStaticProps = async (
   const { params } = context;
   if (params !== undefined) {
     if (typeof params.id === "string") {
-      const mal_id = Number(params.id);
+      const mal_id = parseInt(params.id, 10);
       const ANIME_DATA: AnimePageProps = await api
         .get(`/anime/id/${mal_id}`)
         .then((res) => res.data);
