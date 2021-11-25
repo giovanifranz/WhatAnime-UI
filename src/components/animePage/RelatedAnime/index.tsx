@@ -23,21 +23,17 @@ export interface RelatedAnimeProps {
 export default function RelatedAnime({ related }: RelatedAnimeProps) {
   return (
     <Box as="section">
-      {related["Side story"] ||
-        related["Alternative version"] ||
-        (related.Other && (
-          <Heading
-            as="h2"
-            fontWeight="bold"
-            fontSize="1.375rem"
-            lineHeight="1.625rem"
-            color="black"
-            mt="30px"
-          >
-            Related Anime
-            <Box bgColor="gray.500" w="210px" h="1px" />
-          </Heading>
-        ))}
+      <Heading
+        as="h2"
+        fontWeight="bold"
+        fontSize="1.375rem"
+        lineHeight="1.625rem"
+        color="black"
+        mt="30px"
+      >
+        Related Anime
+        <Box bgColor="gray.500" w="210px" h="1px" />
+      </Heading>
       <Stack
         mt="20px"
         fontSize="1.25rem"

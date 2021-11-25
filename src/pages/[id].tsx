@@ -92,7 +92,8 @@ export default function AnimePage({ ANIME_DATA, mal_id }: AnimePageProps) {
       staleTime: 1000 * 60,
     }
   );
-
+    console.log(data);
+    
   if (data && !isLoading) {
     const { aired } = data as AnimePageProps;
     const year = 2006;
