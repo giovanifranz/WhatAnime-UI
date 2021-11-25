@@ -92,8 +92,6 @@ export default function AnimePage({ ANIME_DATA, mal_id }: AnimePageProps) {
       staleTime: 1000 * 60,
     }
   );
-    console.log(data);
-    
   if (data && !isLoading) {
     const { aired } = data as AnimePageProps;
     const year = 2006;
@@ -131,7 +129,12 @@ export default function AnimePage({ ANIME_DATA, mal_id }: AnimePageProps) {
 
           <Box w="885px" as="article">
             <Synopsis synopsis={AnimePage.synopsis} />
-            {AnimePage.related && <RelatedAnime related={AnimePage.related} />}
+            {AnimePage.related &&
+              (AnimePage.related["Alternative version"] ||
+                AnimePage.related["Side story"] ||
+                AnimePage.related.Other) && (
+                <RelatedAnime related={AnimePage.related} />
+              )}
           </Box>
           <Box as="div" mt="50px" w="310px" h="50px" mx="auto" mb="50px">
             <BackToSearch />

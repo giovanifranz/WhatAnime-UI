@@ -20,12 +20,16 @@ interface LinkProps {
 export default function List({ related, title }: ListProps) {
   return (
     <UnorderedList>
-      <Heading as="h3" fontSize="1.25rem" fontWeight="bold">
+      <Heading as="h3" fontSize="1.25rem" fontWeight="bold" mt="20px">
         {title}:
       </Heading>
       {related.map(({ name, mal_id }) => {
+        if (name.trim() === "") {
+          return null;
+        }
+
         return (
-          <ListItem key={mal_id}>
+          <ListItem mt="5px" key={mal_id}>
             {name && <Link mal_id={mal_id} name={name} />}
           </ListItem>
         );

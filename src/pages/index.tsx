@@ -13,95 +13,63 @@ import BackToTop from "../components/home/BackToTop";
 import { api } from "../utils/api";
 import { SSG } from "../utils/SSG";
 //hooks
-import { useQuery } from "react-query";
 import { useSearch } from "../hooks/useSearch";
+import { useDataFetch } from "../hooks/useDataFetch";
 //props
 import { QuoteProps } from "../components/home/Quote";
 import { CardsProps } from "../components/home/MiniCards";
+import {
+  WhatAnimeProps,
+  HomeData,
+  AnimeQuoteData,
+  AnimeTodayData,
+} from "../hooks/useDataFetch";
 import { GetStaticProps } from "next";
 //dyanmic components
 const MiniCards = dynamic<CardsProps>(
   () => import("../components/home/MiniCards")
 );
-const Quote = dynamic<QuoteProps>(() => import("../components/home/Quote"));
+const QuoteComponent = dynamic<QuoteProps>(
+  () => import("../components/home/Quote")
+);
 
-interface HomeData {
-  animeTodayID: number;
-  topAiring: Array<Top>;
-  topPopular: Array<Top>;
-}
-
-interface Top {
-  mal_id: number;
-  title: string;
-  rank: number;
-}
-
-interface AnimeQuoteData {
-  anime: string;
-  character: string;
-  quote: string;
-  id: number;
-}
-
-interface WhatAnimeProps {
-  home: HomeData;
-  quote: AnimeQuoteData;
-  animeToday: AnimeTodayData;
-}
-
-interface AnimeTodayData {
-  mal_id: number;
-  title: string;
-  image_url: string;
-  score: number;
-  episodes: number;
-  synopsis: string;
-  similarity?: string;
-  aired: {
-    prop: {
-      from: {
-        year: number;
-      };
-    };
-  };
-}
-
-interface AnimeQuote {
-  anime: string;
-  character: string;
-  quote: string;
-  id: number;
-}
-
-export default function WhatAnime({ animeToday, home, quote }: WhatAnimeProps) {
-  const { data, isLoading } = useQuery<AnimeQuote>(
-    "quote",
-    async () => {
-      const { data } = await api.get("/quote");
-      return data;
-    },
-    {
-      initialData: quote,
-      staleTime: 1000 * 5,
-    }
-  );
-
+export default function WhatAnime({
+  ID,
+  HOME_DATA,
+  QUOTE_DATA,
+  ANIME_TODAY,
+}: WhatAnimeProps) {
   const { animeResults } = useSearch();
   const animeResult = { ...animeResults[0] };
+
+  const {
+    animeToday,
+    topAiring,
+    topPopular,
+    Home,
+    quote,
+    Quote,
+    title,
+  } = useDataFetch({
+    ID,
+    HOME_DATA,
+    QUOTE_DATA,
+    ANIME_TODAY,
+  });
+
   return (
     <Box as="main" maxW={1110} minW={1050} margin="0 auto 60px">
       <Head>
-        <title>WhatAnime | {animeToday.title}</title>
+        <title>WhatAnime | {title}</title>
       </Head>
       <Flex mt="25px" alignItems="center" justifyContent="space-between">
         <Search />
-        {data && !isLoading && (
-          <Quote
-            anime={data.anime}
-            quote={data.quote}
-            character={data.character}
-            id={data.id}
+        {!Quote.isError && (
+          <QuoteComponent
+            anime={quote.anime}
+            quote={quote.quote}
+            character={quote.character}
+            id={quote.id}
           />
         )}
       </Flex>
@@ -109,8 +77,8 @@ export default function WhatAnime({ animeToday, home, quote }: WhatAnimeProps) {
         <Box as="article">
           <Heading title="Anime of the day" />
           <Flex mt="15px" alignItems="center" justifyContent="space-between">
-            <ResultCard value={animeToday} />
-            <TopAiring topAiring={home.topAiring} />
+            {animeToday && <ResultCard value={animeToday} />}
+            {!Home.isError && <TopAiring topAiring={topAiring} />}
           </Flex>
         </Box>
         <Box as="article">
@@ -128,7 +96,7 @@ export default function WhatAnime({ animeToday, home, quote }: WhatAnimeProps) {
                 )}
               </HStack>
             </Flex>
-            <TopPopular topPopular={home.topPopular} />
+            {!Home.isError && <TopPopular topPopular={topPopular} />}
           </Flex>
         </Box>
         <Flex as="div" mt="15px" w="790px" justifyContent={"center"}>
@@ -150,9 +118,10 @@ export const getStaticProps: GetStaticProps = async () => {
   if (ANIME_TODAY !== undefined) {
     return {
       props: {
-        home: HOME_DATA,
-        quote: QUOTE_DATA,
-        animeToday: ANIME_TODAY,
+        ID: HOME_DATA.animeTodayID,
+        HOME_DATA,
+        QUOTE_DATA,
+        ANIME_TODAY,
       },
       revalidate: 60 * 60 * 24,
     };
@@ -160,6 +129,7 @@ export const getStaticProps: GetStaticProps = async () => {
     return {
       props: {
         home: {
+          ID: 918,
           animeToday: SSG.animeToday,
           topAiring: SSG.topAiring,
           topPopular: SSG.topPopular,

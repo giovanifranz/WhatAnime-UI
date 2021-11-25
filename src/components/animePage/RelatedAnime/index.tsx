@@ -1,7 +1,5 @@
-import { Heading, Stack, Box } from "@chakra-ui/react";
-import dynamic from "next/dynamic";
-import { ListProps } from "./List";
-const List = dynamic<ListProps>(() => import("./List"));
+import { Heading, Stack, Box, Flex } from "@chakra-ui/react";
+import List from "./List";
 
 export interface RelatedAnimeProps {
   related: {
@@ -34,7 +32,7 @@ export default function RelatedAnime({ related }: RelatedAnimeProps) {
         Related Anime
         <Box bgColor="gray.500" w="210px" h="1px" />
       </Heading>
-      <Stack
+      <Flex
         mt="20px"
         fontSize="1.25rem"
         fontWeight="normal"
@@ -42,6 +40,7 @@ export default function RelatedAnime({ related }: RelatedAnimeProps) {
         fontStyle="normal"
         spacing="20px"
         ml="20px"
+        direction="column"
       >
         {related["Side story"] && (
           <List title="Side story" related={related["Side story"]} />
@@ -53,7 +52,7 @@ export default function RelatedAnime({ related }: RelatedAnimeProps) {
           />
         )}
         {related.Other && <List title="Other" related={related.Other} />}
-      </Stack>
+      </Flex>
     </Box>
   );
 }
