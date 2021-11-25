@@ -1,7 +1,6 @@
 import { Text, Flex, Box, Heading, Image } from "@chakra-ui/react";
 import { api } from "../../../utils/api";
 import { useQuery } from "react-query";
-
 import Button from "./Button";
 
 export interface ResultCardProps {
