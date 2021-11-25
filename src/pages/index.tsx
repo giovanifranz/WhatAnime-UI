@@ -85,7 +85,7 @@ export default function WhatAnime({
                 {animeToday ? (
                   <ResultCard value={animeToday} />
                 ) : (
-                  <Box w="790px" h="220px"/>
+                  <Box w="790px" h="220px" />
                 )}
                 <TopAiring topAiring={topAiring} />
               </Flex>
@@ -125,13 +125,15 @@ export default function WhatAnime({
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const HOME_DATA: HomeData = await api.get("/home").then((res) => res.data);
+  const HOME_DATA: HomeData = await api
+    .get("/welcome")
+    .then((res: { data: HomeData }) => res.data);
   const QUOTE_DATA: AnimeQuoteData = await api
     .get("/quote")
-    .then((res) => res.data);
+    .then((res: { data: AnimeQuoteData }) => res.data);
   const ANIME_TODAY: AnimeTodayData = await api
     .get(`/anime/id/${HOME_DATA.animeTodayID}`)
-    .then((res) => res.data);
+    .then((res: { data: AnimeTodayData }) => res.data);
   if (ANIME_TODAY !== undefined) {
     return {
       props: {
