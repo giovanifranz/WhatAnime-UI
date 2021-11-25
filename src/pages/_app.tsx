@@ -1,4 +1,3 @@
-import Head from "next/head";
 import type { AppProps } from "next/app";
 import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClientProvider } from "react-query";
@@ -14,9 +13,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <ChakraProvider theme={theme}>
         <SearchProvider>
-          <Head>
-            <title>WhatAnime</title>
-          </Head>
           <Header />
           <Component {...pageProps} />
           <Footer />

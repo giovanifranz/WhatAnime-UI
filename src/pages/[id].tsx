@@ -1,5 +1,6 @@
 import { Flex, Box, Spinner } from "@chakra-ui/react";
 import { useQuery } from "react-query";
+import Head from "next/head";
 import Aside from "../components/animePage/Aside";
 import Heading from "../components/animePage/Heading";
 import Synopsis from "../components/animePage/Synopsis";
@@ -94,6 +95,9 @@ export default function AnimePage({ ANIME_DATA, mal_id }: AnimePageProps) {
     const AnimePage = { ...data, year, synopsis };
     return (
       <Flex w="1105px" minH={900} mx="auto">
+        <Head>
+          <title>WhatAnime | {AnimePage.title}</title>
+        </Head>
         <Aside
           related={AnimePage.related}
           image={AnimePage.image_url}
