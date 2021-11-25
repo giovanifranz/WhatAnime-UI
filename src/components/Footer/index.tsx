@@ -50,7 +50,9 @@ export default function Footer() {
               </Heading>
             </Link>
           </Nextlink>
-          <Links />
+          {
+            //         <Links />
+          }
         </Box>
         <Box mt="15px" borderLeft="1px solid black" pl="15px">
           <Flex>
@@ -65,7 +67,9 @@ export default function Footer() {
               This site is our baby, so please consider donating if you are able
               so that we can keep working on it!
             </Text>
-            <Paypal />
+            {
+              //          <Paypal />
+            }
           </Flex>
           <Text
             fontStyle="normal"

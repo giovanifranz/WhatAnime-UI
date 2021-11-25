@@ -1,5 +1,4 @@
 import { Flex, Box } from "@chakra-ui/react";
-import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import Aside from "../components/animePage/Aside";
 import Heading from "../components/animePage/Heading";
@@ -8,6 +7,7 @@ import RelatedAnime from "../components/animePage/RelatedAnime";
 import BackToSearch from "../components/animePage/BackToSearch";
 import { api } from "../utils/api";
 import { GetStaticProps, GetStaticPaths, GetStaticPropsContext } from "next";
+import { useRouter } from "next/router";
 
 interface AnimePageProps {
   image_url: string;
@@ -58,24 +58,31 @@ interface AnimePageProps {
   };
 }
 
-export default function AnimePage(initialStateAnime: AnimePageProps) {
-  const route = useRouter().query.id;
+interface AnimePageProps {
+  ANIME_DATA: AnimePageProps;
+  mal_id: number;
+  error: boolean;
+}
 
+export default function AnimePage({ ANIME_DATA, mal_id }: AnimePageProps) {
+  const route = useRouter().query.id;
+  const id = mal_id ? mal_id : route;
   const { data, isLoading } = useQuery<AnimePageProps>(
-    ["anime-page", route],
+    ["anime-page", id],
     async () => {
-      const { data } = await api.get(`/anime/id/${route}`);
+      const { data } = await api.get(`/anime/id/${id}`);
       return data;
     },
     {
-      initialData: initialStateAnime,
+      initialData: ANIME_DATA ? ANIME_DATA : undefined,
       staleTime: 1000 * 60,
     }
   );
 
   if (data) {
     const { aired } = data as AnimePageProps;
-    const year = new Date(aired.from).getFullYear();
+    const year = 2006;
+    new Date(aired.from).getFullYear();
     const synopsis = data.synopsis.replace("[Written by MAL Rewrite]", "");
     const AnimePage = { ...data, year, synopsis };
     return (
@@ -143,13 +150,14 @@ export const getStaticProps: GetStaticProps = async (
   const { params } = context;
   if (params !== undefined) {
     if (typeof params.id === "string") {
-      const id = params.id;
+      const mal_id = Number(params.id);
       const ANIME_DATA: AnimePageProps = await api
-        .get(`/anime/id/${id}`)
+        .get(`/anime/id/${mal_id}`)
         .then((res) => res.data);
       return {
         props: {
-          initialStateAnime: ANIME_DATA,
+          ANIME_DATA,
+          mal_id,
         },
         revalidate: 60 * 60 * 24,
       };
@@ -157,7 +165,8 @@ export const getStaticProps: GetStaticProps = async (
   }
   return {
     props: {
-      error: true,
+      ANIME_DATA: undefined,
+      mal_id: null,
     },
     revalidate: 5,
   };
