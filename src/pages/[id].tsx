@@ -81,7 +81,7 @@ export default function AnimePage({ ANIME_DATA, mal_id }: AnimePageProps) {
     }
   );
 
-  if (data) {
+  if (data && !isLoading) {
     const { aired } = data as AnimePageProps;
     const year = 2006;
     new Date(aired.from).getFullYear();
@@ -89,46 +89,42 @@ export default function AnimePage({ ANIME_DATA, mal_id }: AnimePageProps) {
     const AnimePage = { ...data, year, synopsis };
     return (
       <Flex w="1105px" minH={900} mx="auto">
-        {isLoading && !data ? (
-          <Spinner color="yellow.500" size="xl" />
-        ) : (
-          <>
-            <Aside
-              related={AnimePage.related}
-              image={AnimePage.image_url}
-              title={AnimePage.title}
-              title_english={AnimePage.title_english}
-              title_japanese={AnimePage.title_japanese}
-              type={AnimePage.type}
-              source={AnimePage.source}
-              episodes={AnimePage.episodes}
-              status={AnimePage.status}
-              duration={AnimePage.duration}
-              airedString={AnimePage.airedString}
-              premiered={AnimePage.premiered}
-              studios={AnimePage.studios}
-              rating={AnimePage.rating}
-            />
-            <Box mt="25px" ml="20px">
-              <Heading
-                title={AnimePage.title}
-                year={AnimePage.year}
-                score={AnimePage.score}
-                episodes={AnimePage.episodes}
-              />
+        <Aside
+          related={AnimePage.related}
+          image={AnimePage.image_url}
+          title={AnimePage.title}
+          title_english={AnimePage.title_english}
+          title_japanese={AnimePage.title_japanese}
+          type={AnimePage.type}
+          source={AnimePage.source}
+          episodes={AnimePage.episodes}
+          status={AnimePage.status}
+          duration={AnimePage.duration}
+          airedString={AnimePage.airedString}
+          premiered={AnimePage.premiered}
+          studios={AnimePage.studios}
+          rating={AnimePage.rating}
+        />
+        <Box mt="25px" ml="20px">
+          <Heading
+            title={AnimePage.title}
+            year={AnimePage.year}
+            score={AnimePage.score}
+            episodes={AnimePage.episodes}
+          />
 
-              <Box w="885px" as="section">
-                <Text synopsis={AnimePage.synopsis} />
-                <RelatedAnime related={AnimePage.related} />
-              </Box>
-              <Box mt="50px" w="310px" h="50px" mx="auto" mb="50px">
-                <BackToSearch />
-              </Box>
-            </Box>
-          </>
-        )}
+          <Box w="885px" as="section">
+            <Text synopsis={AnimePage.synopsis} />
+            <RelatedAnime related={AnimePage.related} />
+          </Box>
+          <Box mt="50px" w="310px" h="50px" mx="auto" mb="50px">
+            <BackToSearch />
+          </Box>
+        </Box>
       </Flex>
     );
+  } else if (isLoading) {
+    return <Spinner color="yellow.500" size="xl" />;
   } else {
     return (
       <Flex
