@@ -1,16 +1,18 @@
 import { Flex, Box, Spinner } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import Aside from "../components/animePage/Aside";
 import Heading from "../components/animePage/Heading";
 import Synopsis from "../components/animePage/Synopsis";
-import RelatedAnime from "../components/animePage/RelatedAnime";
+import { RelatedAnimeProps } from "../components/animePage/RelatedAnime";
 import BackToSearch from "../components/animePage/BackToSearch";
 import { api } from "../utils/api";
 import { GetStaticProps, GetStaticPaths, GetStaticPropsContext } from "next";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 const NotFound = dynamic(() => import("../components/animePage/404"));
+const RelatedAnime = dynamic<RelatedAnimeProps>(
+  () => import("../components/animePage/RelatedAnime")
+);
 
 interface AnimePageProps {
   image_url: string;
@@ -118,7 +120,7 @@ export default function AnimePage({ ANIME_DATA, mal_id }: AnimePageProps) {
 
           <Box w="885px" as="section">
             <Synopsis synopsis={AnimePage.synopsis} />
-            <RelatedAnime related={AnimePage.related} />
+            {AnimePage.related && <RelatedAnime related={AnimePage.related} />}
           </Box>
           <Box mt="50px" w="310px" h="50px" mx="auto" mb="50px">
             <BackToSearch />

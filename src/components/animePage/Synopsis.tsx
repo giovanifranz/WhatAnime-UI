@@ -15,8 +15,8 @@ export default function Text({ synopsis }: TextProps) {
         mt="30px"
       >
         Synopsis
+        <Box bgColor="gray.500" w="210px" h="1px" />
       </Heading>
-      <Box bgColor="gray.500" w="210px" h="1px" />
       <TextChakra
         mt="20px"
         fontSize="20px"
