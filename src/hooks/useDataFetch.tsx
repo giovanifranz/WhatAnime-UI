@@ -91,9 +91,9 @@ export function useDataFetch({
   );
 
   const Home = useQuery<HomeData>(
-    "home",
+    "welcome",
     async () => {
-      const { data } = await api.get("/home");
+      const { data } = await api.get("/welcome");
       return data;
     },
     {

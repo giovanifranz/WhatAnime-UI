@@ -155,7 +155,7 @@ export default async function WhatAnimeAPI(
     } else if (params[0] === "quote") {
       const QUOTE_ANIME = await FETCH_QUOTE_ANIME();
       return response.status(200).json(QUOTE_ANIME);
-    } else if (params[0] === "home") {
+    } else if (params[0] === "welcome") {
       const HOME_PAGE_DATA = await SSG_HOME_PAGE();
       return response.status(200).json(HOME_PAGE_DATA);
     }
