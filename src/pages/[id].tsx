@@ -7,6 +7,7 @@ import Text from "../components/animePage/Text";
 import RelatedAnime from "../components/animePage/RelatedAnime";
 import BackToSearch from "../components/animePage/BackToSearch";
 import { api } from "../utils/api";
+import { GetStaticProps, GetStaticPaths, GetStaticPropsContext } from "next";
 
 interface AnimePageProps {
   image_url: string;
@@ -57,17 +58,21 @@ interface AnimePageProps {
   };
 }
 
-export default function AnimePage() {
+export default function AnimePage(initialStateAnime: AnimePageProps) {
   const route = useRouter().query.id;
-  console.log(route);
 
   const { data, isLoading } = useQuery<AnimePageProps>(
     ["anime-page", route],
     async () => {
       const { data } = await api.get(`/anime/id/${route}`);
       return data;
+    },
+    {
+      initialData: initialStateAnime,
+      staleTime: 1000 * 60,
     }
   );
+
   if (data) {
     const { aired } = data as AnimePageProps;
     const year = new Date(aired.from).getFullYear();
@@ -119,3 +124,41 @@ export default function AnimePage() {
     return null;
   }
 }
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [
+      { params: { id: "918" } },
+      { params: { id: "21" } },
+      { params: { id: "20" } },
+      { params: { id: "1535" } },
+    ],
+    fallback: "blocking",
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (
+  context: GetStaticPropsContext
+) => {
+  const { params } = context;
+  if (params !== undefined) {
+    if (typeof params.id === "string") {
+      const id = params.id;
+      const ANIME_DATA: AnimePageProps = await api
+        .get(`/anime/id/${id}`)
+        .then((res) => res.data);
+      return {
+        props: {
+          initialStateAnime: ANIME_DATA,
+        },
+        revalidate: 60 * 60 * 24,
+      };
+    }
+  }
+  return {
+    props: {
+      error: true,
+    },
+    revalidate: 5,
+  };
+};
