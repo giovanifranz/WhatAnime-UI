@@ -1,6 +1,12 @@
-import { Box, Image, Heading, Text, Link, Stack } from "@chakra-ui/react";
+import { Box, Heading, Text, Stack, Image } from "@chakra-ui/react";
+import { ProductOrderProps } from "../../components/animePage/ProductOrder";
+import dynamic from "next/dynamic";
+const ProductOrder = dynamic<ProductOrderProps>(
+  () => import("../../components/animePage/ProductOrder")
+);
 
 interface AsideProps {
+  title: string;
   image: string;
   title_english?: string;
   title_japanese?: string;
@@ -32,6 +38,7 @@ interface AsideProps {
 export default function Aside({
   related,
   image,
+  title,
   title_english,
   title_japanese,
   type,
@@ -54,11 +61,11 @@ export default function Aside({
     >
       <Image
         h="315px"
-        w="225px"
+        w="100%"
         borderY="1px solid black"
         mt="30px"
         src={image}
-        alt="Banner"
+        alt={title}
       />
       <Box ml="5px" fontStyle="normal" color="black">
         {(title_english || title_japanese) && (
@@ -73,23 +80,24 @@ export default function Aside({
               Alternative Titles:
             </Heading>
             <Stack
+              as="section"
               lineHeight="16px"
               fontSize="14px"
               mt="10px"
               fontWeight="normal"
             >
-              {title_english ? (
+              {title_english && (
                 <Text>
                   <strong>English: </strong>
                   {title_english}
                 </Text>
-              ) : null}
-              {title_japanese ? (
+              )}
+              {title_japanese && (
                 <Text>
                   <strong>Japanese: </strong>
                   {title_japanese}
                 </Text>
-              ) : null}
+              )}
             </Stack>
           </Box>
         )}
@@ -140,7 +148,7 @@ export default function Aside({
             </Text>
             <Text>
               <strong>Studio: </strong>
-              {studios ? studios[0].name : "-"}
+              {studios && studios.length > 0 ? studios[0].name : "-"}
             </Text>
             <Text>
               <strong>Rating: </strong>
@@ -149,46 +157,7 @@ export default function Aside({
           </Stack>
         </Box>
         {related && (
-          <Box as="section">
-            <Heading
-              as="h3"
-              fontSize="20px"
-              fontWeight="bold"
-              lineHeight="23px"
-              mt="30px"
-            >
-              Production Order:
-            </Heading>
-            <Stack
-              mt="10px"
-              fontWeight="normal"
-              lineHeight="16px"
-              fontSize="14px"
-              mb="50px"
-              spacing="5px"
-            >
-              <Text>
-                <strong>Sequel: </strong>
-                {related.Sequel ? (
-                  <Link href={`/${related.Sequel[0].mal_id}`}>
-                    {related.Sequel[0].name}
-                  </Link>
-                ) : (
-                  "-"
-                )}
-              </Text>
-              <Text>
-                <strong>Prequel: </strong>
-                {related.Prequel ? (
-                  <Link href={`/${related.Prequel[0].mal_id}`}>
-                    {related.Prequel[0].name}
-                  </Link>
-                ) : (
-                  "-"
-                )}
-              </Text>
-            </Stack>
-          </Box>
+          <ProductOrder Sequel={related.Sequel} Prequel={related.Prequel} />
         )}
       </Box>
     </Box>

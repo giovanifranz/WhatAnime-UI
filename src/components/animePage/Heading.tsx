@@ -19,9 +19,9 @@ export default function Heading({
         <Flex>
           <ChakraHeading
             as="h1"
-            fontSize="30px"
+            fontSize="1.875rem"
             fontWeight="bold"
-            lineHeight="35px"
+            lineHeight="1.9rem"
             fontStyle="normal"
             color="black"
             maxW="442.5px"
@@ -30,9 +30,9 @@ export default function Heading({
           </ChakraHeading>
 
           <Text
-            fontSize="30px"
+            fontSize="1.875rem"
             fontWeight="normal"
-            lineHeight="35px"
+            lineHeight="1.9rem"
             color="black"
             ml="15px"
           >
@@ -42,8 +42,8 @@ export default function Heading({
         <Text
           fontWeight="normal"
           fontStyle="normal"
-          fontSize="22px"
-          lineHeight="26px"
+          fontSize="1.375rem"
+          lineHeight="1.40rem"
           color="black"
           mt="10px"
         >
@@ -56,16 +56,16 @@ export default function Heading({
           color="gray.500"
           h="30px"
           textTransform="uppercase"
-          fontSize="18px"
+          fontSize="1.125rem"
           fontWeight="bold"
           fontStyle="normal"
-          lineHeight="21px"
+          lineHeight="1.25"
           borderRadius="5px"
           pt="5px"
         >
           Score
         </Text>
-        <Text fontWeight="bold" fontSize="28px" lineHeight="30px">
+        <Text fontWeight="bold" fontSize="1.75rem" lineHeight="1.85rem">
           {score}
         </Text>
       </Box>

@@ -82,6 +82,7 @@ export default function AnimePage() {
             <Aside
               related={AnimePage.related}
               image={AnimePage.image_url}
+              title={AnimePage.title}
               title_english={AnimePage.title_english}
               title_japanese={AnimePage.title_japanese}
               type={AnimePage.type}
