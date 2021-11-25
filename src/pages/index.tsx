@@ -43,6 +43,7 @@ export default function WhatAnime({
   const animeResult = { ...animeResults[0] };
 
   const {
+    AnimeToday,
     animeToday,
     topAiring,
     topPopular,
@@ -59,50 +60,66 @@ export default function WhatAnime({
 
   return (
     <Box as="main" maxW={1110} minW={1050} margin="0 auto 60px">
-      <Head>
-        <title>WhatAnime | {title}</title>
-      </Head>
-      <Flex mt="25px" alignItems="center" justifyContent="space-between">
-        <Search />
-        {!Quote.isError && (
-          <QuoteComponent
-            anime={quote.anime}
-            quote={quote.quote}
-            character={quote.character}
-            id={quote.id}
-          />
-        )}
-      </Flex>
-      <Stack as="section" spacing="20px" mt="11px">
-        <Box as="article">
-          <Heading title="Anime of the day" />
-          <Flex mt="15px" alignItems="center" justifyContent="space-between">
-            {animeToday && <ResultCard value={animeToday} />}
-            {!Home.isError && <TopAiring topAiring={topAiring} />}
+      {!AnimeToday.isLoading && !Home.isLoading && !Quote.isLoading && (
+        <>
+          <Head>
+            <title>WhatAnime | {title}</title>
+          </Head>
+          <Flex mt="25px" alignItems="center" justifyContent="space-between">
+            <Search />
+            <QuoteComponent
+              anime={quote.anime}
+              quote={quote.quote}
+              character={quote.character}
+              id={quote.id}
+            />
           </Flex>
-        </Box>
-        <Box as="article">
-          {animeResults.length > 0 && <Heading title="Results" />}
-          <Flex mt="15px" alignItems="center" justifyContent="space-between">
-            <Flex
-              height="505px"
-              direction="column"
-              justifyContent="space-between"
-            >
-              {animeResults.length > 0 && <ResultCard value={animeResult} />}
-              <HStack w="100%" justifyContent="space-between">
-                {animeResults.length > 1 && (
-                  <MiniCards animeResults={animeResults} />
+          <Stack as="section" spacing="20px" mt="11px">
+            <Box as="article">
+              <Heading title="Anime of the day" />
+              <Flex
+                mt="15px"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                {animeToday ? (
+                  <ResultCard value={animeToday} />
+                ) : (
+                  <Box w="790px" h="220px"/>
                 )}
-              </HStack>
+                <TopAiring topAiring={topAiring} />
+              </Flex>
+            </Box>
+            <Box as="article">
+              {animeResults.length > 0 && <Heading title="Results" />}
+              <Flex
+                mt="15px"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <Flex
+                  height="505px"
+                  direction="column"
+                  justifyContent="space-between"
+                >
+                  {animeResults.length > 0 && (
+                    <ResultCard value={animeResult} />
+                  )}
+                  <HStack w="100%" justifyContent="space-between">
+                    {animeResults.length > 1 && (
+                      <MiniCards animeResults={animeResults} />
+                    )}
+                  </HStack>
+                </Flex>
+                <TopPopular topPopular={topPopular} />
+              </Flex>
+            </Box>
+            <Flex as="div" mt="15px" w="790px" justifyContent={"center"}>
+              <BackToTop />
             </Flex>
-            {!Home.isError && <TopPopular topPopular={topPopular} />}
-          </Flex>
-        </Box>
-        <Flex as="div" mt="15px" w="790px" justifyContent={"center"}>
-          <BackToTop />
-        </Flex>
-      </Stack>
+          </Stack>
+        </>
+      )}
     </Box>
   );
 }

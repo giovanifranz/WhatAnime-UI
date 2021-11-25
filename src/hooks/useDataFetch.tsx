@@ -105,10 +105,7 @@ export function useDataFetch({
     if (AnimeToday.data && !AnimeToday.isLoading) {
       setTitle(AnimeToday.data.title);
     }
-    if (AnimeToday.isError) {
-      setTitle("");
-    }
-  }, [AnimeToday.data, AnimeToday.isLoading, AnimeToday.isError]);
+  }, [AnimeToday.data, AnimeToday.isLoading]);
 
   useEffect(() => {
     if (Quote.data && !Quote.isLoading) {
@@ -119,23 +116,22 @@ export function useDataFetch({
         id: Quote.data.id,
       });
     }
-  }, [Quote.data, Quote.isLoading, Quote.isError]);
+  }, [Quote.data, Quote.isLoading]);
 
   useEffect(() => {
     if (Home.data && !Home.isLoading) {
       setTopAiring(Home.data.topAiring);
       setTopPopular(Home.data.topPopular);
     }
-    if (Home.isError) {
-    }
-  }, [Home.data, Home.isLoading, Home.isError]);
+  }, [Home.data, Home.isLoading]);
 
   useEffect(() => {
     if (AnimeToday.data && !AnimeToday.isLoading) {
       setAnimeToday(AnimeToday.data);
     }
-  }, [AnimeToday.data, AnimeToday.isLoading, AnimeToday.isError]);
+  }, [AnimeToday.data, AnimeToday.isLoading]);
   return {
+    AnimeToday,
     animeToday,
     topAiring,
     topPopular,
