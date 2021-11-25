@@ -146,7 +146,7 @@ export default async function WhatAnimeAPI(
           const ANIME_BY_ID = await SEARCH_ANIME_BY_ID(params[2]);
           return response.status(200).json(ANIME_BY_ID);
         case "image":
-          const url = request.query["url"];
+          const url = request.query["url"];          
           if (typeof url === "string") {
             const ANIME_BY_IMAGE = await SEARCH_ANIME_BY_IMAGE(url);
             return response.status(200).json(ANIME_BY_IMAGE);
