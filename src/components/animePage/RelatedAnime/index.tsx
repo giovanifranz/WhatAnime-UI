@@ -1,7 +1,7 @@
-import { UnorderedList, Text, Stack, Box } from "@chakra-ui/react";
+import { Text, Stack, Box } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
-import { LinkProps } from "./Link";
-const Link = dynamic<LinkProps>(() => import("./Link"));
+import { ListProps } from "./List";
+const List = dynamic<ListProps>(() => import("./List"));
 
 interface RelatedAnimeProps {
   related?: {
@@ -52,53 +52,15 @@ export default function RelatedAnime({ related }: RelatedAnimeProps) {
             ml="20px"
           >
             {related["Side story"] && (
-              <>
-                <Text fontWeight="bold">Side story</Text>
-                <UnorderedList>
-                  {related["Side story"].map(({ name, mal_id }) => {
-                    return (
-                      <>
-                        {name && (
-                          <Link key={mal_id} mal_id={mal_id} name={name} />
-                        )}
-                      </>
-                    );
-                  })}
-                </UnorderedList>
-              </>
+              <List title="Side story" related={related["Side story"]} />
             )}
             {related["Alternative version"] && (
-              <>
-                <Text fontWeight="bold">Alternative version:</Text>
-                <UnorderedList>
-                  {related["Alternative version"].map(({ name, mal_id }) => {
-                    return (
-                      <>
-                        {name && (
-                          <Link key={mal_id} mal_id={mal_id} name={name} />
-                        )}
-                      </>
-                    );
-                  })}
-                </UnorderedList>
-              </>
+              <List
+                title="Alternative version"
+                related={related["Alternative version"]}
+              />
             )}
-            {related.Other && (
-              <>
-                <Text fontWeight="bold">Other:</Text>
-                <UnorderedList>
-                  {related.Other.map(({ name, mal_id }) => {
-                    return (
-                      <>
-                        {name && (
-                          <Link key={mal_id} mal_id={mal_id} name={name} />
-                        )}
-                      </>
-                    );
-                  })}
-                </UnorderedList>
-              </>
-            )}
+            {related.Other && <List title="Other" related={related.Other} />}
           </Stack>
         </>
       )}

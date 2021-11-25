@@ -51,11 +51,11 @@ interface AnimeTodayData {
   similarity?: string;
   aired: {
     prop: {
-      from:{
+      from: {
         year: number;
-      }
-    }
-  }
+      };
+    };
+  };
 }
 
 export default function WhatAnime({ animeToday, home, quote }: WhatAnimeProps) {

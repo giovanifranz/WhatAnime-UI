@@ -1,4 +1,5 @@
 import { Flex, Box, Spinner } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import Aside from "../components/animePage/Aside";
 import Heading from "../components/animePage/Heading";

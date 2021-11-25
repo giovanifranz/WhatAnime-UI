@@ -65,7 +65,9 @@ export default function Search() {
           onChange={handleChange}
         >
           <option value="word">by word</option>
-          <option value="image">by image</option>
+          {
+          //<option value="image">by image</option>
+          }
         </Select>
         {isLoading && <Spinner ml="10px" color="yellow.500"/>}
       </Flex>
