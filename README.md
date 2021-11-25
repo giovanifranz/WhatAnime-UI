@@ -19,10 +19,7 @@ API: https://www.whatanime.org/api/
 /anime/name/naruto/1 - default /title/pág
 
 /anime/id/20 - ID referente a myanimelist 
-
 /api/welcome - ramdom ID + top Airing + top Popular
-
 /api/quote - randon quote anime 
-
 
 /api/image - em construção
