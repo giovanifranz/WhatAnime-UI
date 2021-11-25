@@ -112,11 +112,8 @@ export function SearchProvider({ children }: SearchProviderProps) {
       const ANIME_BY_IMAGE = await queryClient.fetchQuery(
         "anime-by-image",
         async () => {
-          const { data } = await api.get("/anime/image", {
-            params: {
-              url: payload,
-            },
-          });
+          console.log(payload);
+          const { data } = await api.get(`/anime/image?url=${payload}`);
           return await data;
         }
       );
