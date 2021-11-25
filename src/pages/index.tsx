@@ -49,6 +49,13 @@ interface AnimeTodayData {
   episodes: number;
   synopsis: string;
   similarity?: string;
+  aired: {
+    prop: {
+      from:{
+        year: number;
+      }
+    }
+  }
 }
 
 export default function WhatAnime({ animeToday, home, quote }: WhatAnimeProps) {

@@ -16,6 +16,14 @@ interface Value {
   episodes: number;
   synopsis: string;
   similarity?: string;
+  aired?: {
+    prop: {
+      from: {
+        year: number;
+      };
+    };
+  };
+  year?: number;
 }
 
 export default function ResultCard({ value }: ResultCardProps) {
@@ -29,7 +37,7 @@ export default function ResultCard({ value }: ResultCardProps) {
       initialData: value,
     }
   );
-  const animeResult = { ...data } as Value;
+  const animeResult = { ...data, year: value.year } as Value;
   return (
     <Flex
       as="article"
@@ -64,6 +72,21 @@ export default function ResultCard({ value }: ResultCardProps) {
               isTruncated
             >
               {animeResult.title}
+            </Heading>
+            <Heading
+              as="h3"
+              fontStyle="normal"
+              fontWeight="normal"
+              fontSize="20px"
+              lineHeight="24px"
+              color="black"
+              ml="12px"
+            >
+              (
+              {animeResult.year
+                ? animeResult.year
+                : animeResult.aired?.prop?.from?.year}
+              )
             </Heading>
             <Box w="45px" h="45px" ml="12px">
               <Heading

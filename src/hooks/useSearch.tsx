@@ -39,6 +39,7 @@ export interface AnimeResult {
   score: number;
   mal_id: number;
   similarity?: string;
+  year: number;
 }
 
 export interface FetchAnimeProps extends AnimeResult {
@@ -68,7 +69,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
-  
+
   function standardizeAnimeResults(
     data: FetchAnimeProps[],
     similarity?: string
