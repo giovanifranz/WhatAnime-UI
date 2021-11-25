@@ -1,23 +1,30 @@
+//libs
 import { Flex, Box, Stack, HStack } from "@chakra-ui/react";
-import { GetStaticProps } from "next";
 import Head from "next/head";
-import { api } from "../utils/api";
+import dynamic from "next/dynamic";
+//components
 import Search from "../components/home/Search";
-import { QuoteProps } from "../components/home/Quote";
 import Heading from "../components/home/Heading";
 import ResultCard from "../components/home/ResultCard";
 import TopAiring from "../components/home/Ranking/TopAiring";
 import TopPopular from "../components/home/Ranking/TopPopular";
-import { useSearch } from "../hooks/useSearch";
-import { SSG } from "../utils/SSG";
 import BackToTop from "../components/home/BackToTop";
-import { CardsProps } from "../components/home/MiniCards";
-import dynamic from "next/dynamic";
+//utils
+import { api } from "../utils/api";
+import { SSG } from "../utils/SSG";
+//hooks
 import { useQuery } from "react-query";
+import { useSearch } from "../hooks/useSearch";
+//props
+import { QuoteProps } from "../components/home/Quote";
+import { CardsProps } from "../components/home/MiniCards";
+import { GetStaticProps } from "next";
+//dyanmic components
 const MiniCards = dynamic<CardsProps>(
   () => import("../components/home/MiniCards")
 );
 const Quote = dynamic<QuoteProps>(() => import("../components/home/Quote"));
+
 interface HomeData {
   animeTodayID: number;
   topAiring: Array<Top>;
@@ -83,7 +90,7 @@ export default function WhatAnime({ animeToday, home, quote }: WhatAnimeProps) {
   const { animeResults } = useSearch();
   const animeResult = { ...animeResults[0] };
   return (
-    <Box maxW={1110} minW={1050} margin="0 auto 60px">
+    <Box as="main" maxW={1110} minW={1050} margin="0 auto 60px">
       <Head>
         <title>WhatAnime | {animeToday.title}</title>
       </Head>
@@ -98,15 +105,15 @@ export default function WhatAnime({ animeToday, home, quote }: WhatAnimeProps) {
           />
         )}
       </Flex>
-      <Stack as="main" spacing="20px" mt="11px">
-        <Box as="section">
+      <Stack as="section" spacing="20px" mt="11px">
+        <Box as="article">
           <Heading title="Anime of the day" />
           <Flex mt="15px" alignItems="center" justifyContent="space-between">
             <ResultCard value={animeToday} />
             <TopAiring topAiring={home.topAiring} />
           </Flex>
         </Box>
-        <Box as="section">
+        <Box as="article">
           {animeResults.length > 0 && <Heading title="Results" />}
           <Flex mt="15px" alignItems="center" justifyContent="space-between">
             <Flex
@@ -124,7 +131,7 @@ export default function WhatAnime({ animeToday, home, quote }: WhatAnimeProps) {
             <TopPopular topPopular={home.topPopular} />
           </Flex>
         </Box>
-        <Flex as="section" mt="15px" w="790px" justifyContent={"center"}>
+        <Flex as="div" mt="15px" w="790px" justifyContent={"center"}>
           <BackToTop />
         </Flex>
       </Stack>

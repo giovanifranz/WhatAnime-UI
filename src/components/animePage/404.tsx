@@ -1,6 +1,5 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import BackToSearch from "./BackToSearch";
-
 export default function NotFound() {
   return (
     <Flex

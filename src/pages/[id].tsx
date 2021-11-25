@@ -1,15 +1,21 @@
+//libs
 import { Flex, Box, Spinner } from "@chakra-ui/react";
-import { useQuery } from "react-query";
+import dynamic from "next/dynamic";
 import Head from "next/head";
+//components
 import Aside from "../components/animePage/Aside";
 import Heading from "../components/animePage/Heading";
 import Synopsis from "../components/animePage/Synopsis";
-import { RelatedAnimeProps } from "../components/animePage/RelatedAnime";
 import BackToSearch from "../components/animePage/BackToSearch";
+//utils
 import { api } from "../utils/api";
-import { GetStaticProps, GetStaticPaths, GetStaticPropsContext } from "next";
+//hooks
+import { useQuery } from "react-query";
 import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
+//props
+import { RelatedAnimeProps } from "../components/animePage/RelatedAnime";
+import { GetStaticProps, GetStaticPaths, GetStaticPropsContext } from "next";
+//dynamic components
 const NotFound = dynamic(() => import("../components/animePage/404"));
 const RelatedAnime = dynamic<RelatedAnimeProps>(
   () => import("../components/animePage/RelatedAnime")
@@ -94,7 +100,7 @@ export default function AnimePage({ ANIME_DATA, mal_id }: AnimePageProps) {
     const synopsis = data.synopsis.replace("[Written by MAL Rewrite]", "");
     const AnimePage = { ...data, year, synopsis };
     return (
-      <Flex w="1105px" minH={900} mx="auto">
+      <Flex as="main" w="1105px" minH={900} mx="auto">
         <Head>
           <title>WhatAnime | {AnimePage.title}</title>
         </Head>
@@ -114,7 +120,7 @@ export default function AnimePage({ ANIME_DATA, mal_id }: AnimePageProps) {
           studios={AnimePage.studios}
           rating={AnimePage.rating}
         />
-        <Box mt="25px" ml="20px">
+        <Box as="section" mt="25px" ml="20px">
           <Heading
             title={AnimePage.title}
             year={AnimePage.year}
@@ -122,11 +128,11 @@ export default function AnimePage({ ANIME_DATA, mal_id }: AnimePageProps) {
             episodes={AnimePage.episodes}
           />
 
-          <Box w="885px" as="section">
+          <Box w="885px" as="article">
             <Synopsis synopsis={AnimePage.synopsis} />
             {AnimePage.related && <RelatedAnime related={AnimePage.related} />}
           </Box>
-          <Box mt="50px" w="310px" h="50px" mx="auto" mb="50px">
+          <Box as="div" mt="50px" w="310px" h="50px" mx="auto" mb="50px">
             <BackToSearch />
           </Box>
         </Box>

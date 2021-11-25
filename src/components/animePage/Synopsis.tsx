@@ -6,7 +6,7 @@ export interface TextProps {
 
 export default function Text({ synopsis }: TextProps) {
   return (
-    <Box as="article" color="black">
+    <Box as="div" color="black">
       <Heading
         as="h2"
         fontWeight="bold"

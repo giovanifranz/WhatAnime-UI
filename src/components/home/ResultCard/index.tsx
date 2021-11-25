@@ -3,7 +3,7 @@ import { api } from "../../../utils/api";
 import { useQuery } from "react-query";
 import Button from "./Button";
 
-export interface ResultCardProps {
+interface ResultCardProps {
   value: Value;
 }
 
