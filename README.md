@@ -29,6 +29,4 @@ API: https://www.whatanime.org/api/
 /api/quote - randon quote anime 		
 
 ### Image:
-/api/image - em construção		
-
-		
+/api/image - em construção			
