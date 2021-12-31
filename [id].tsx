@@ -3,22 +3,22 @@ import { Flex, Box, Spinner } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 //components
-import Aside from "../components/animePage/Aside";
-import Heading from "../components/animePage/Heading";
-import Synopsis from "../components/animePage/Synopsis";
-import BackToSearch from "../components/animePage/BackToSearch";
+import Aside from "./src/components/animePage/Aside";
+import Heading from "./src/components/animePage/Heading";
+import Synopsis from "./src/components/animePage/Synopsis";
+import BackToSearch from "./src/components/animePage/BackToSearch";
 //utils
-import { api } from "../utils/api";
+import { api } from "./src/utils/api";
 //hooks
 import { useQuery } from "react-query";
 import { useRouter } from "next/router";
 //props
-import { RelatedAnimeProps } from "../components/animePage/RelatedAnime";
+import { RelatedAnimeProps } from "./src/components/animePage/RelatedAnime";
 import { GetStaticProps, GetStaticPaths, GetStaticPropsContext } from "next";
 //dynamic components
-const NotFound = dynamic(() => import("../components/animePage/404"));
+const NotFound = dynamic(() => import("./src/components/animePage/404"));
 const RelatedAnime = dynamic<RelatedAnimeProps>(
-  () => import("../components/animePage/RelatedAnime")
+  () => import("./src/components/animePage/RelatedAnime")
 );
 
 interface AnimePageProps {
