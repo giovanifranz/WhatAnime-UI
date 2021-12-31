@@ -1,6 +1,4 @@
 import { extendTheme } from "@chakra-ui/react";
-import 'typeface-roboto'
-import 'typeface-nova-mono'
 
 export const theme = extendTheme({
   colors: {
