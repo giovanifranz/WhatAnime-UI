@@ -1,27 +1,23 @@
-import { Link, List, Text, OrderedList, Box, Stack } from "@chakra-ui/react";
-import { handlePerfetchAnime } from "../../../utils/handlePerfetchAnime";
-import NextLink from "next/link";
-import Heading from "./Heading";
+import { Box, Link, List, OrderedList, Stack, Text } from '@chakra-ui/react'
+import NextLink from 'next/link'
+
+import { handlePerfetchAnime } from '../../../utils/handlePerfetchAnime'
+
+import Heading from './Heading'
 
 interface RankingProps {
-  topPopular: Array<Top>;
+  topPopular: Array<Top>
 }
 
 interface Top {
-  mal_id: number;
-  title: string;
-  rank: number;
+  mal_id: number
+  title: string
+  rank: number
 }
 
 export default function Popular({ topPopular }: RankingProps) {
   return (
-    <Box
-      w="250px"
-      bgColor="white"
-      border="1px solid black"
-      borderRadius="5px"
-      h="505px"
-    >
+    <Box w="250px" bgColor="white" border="1px solid black" borderRadius="5px" h="505px">
       <Heading title="Most Popular" />
       <OrderedList
         ml="25px"
@@ -37,19 +33,17 @@ export default function Popular({ topPopular }: RankingProps) {
               return (
                 <List key={anime.mal_id}>
                   <NextLink href={`/${anime.mal_id}`}>
-                    <Link
-                      onMouseEnter={() => handlePerfetchAnime(anime.mal_id)}
-                    >
+                    <Link onMouseEnter={() => handlePerfetchAnime(anime.mal_id)}>
                       <Text maxW="100%">
                         {anime.rank}. {anime.title}
                       </Text>
                     </Link>
                   </NextLink>
                 </List>
-              );
+              )
             })}
         </Stack>
       </OrderedList>
     </Box>
-  );
+  )
 }

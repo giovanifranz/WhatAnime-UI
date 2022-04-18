@@ -1,18 +1,13 @@
-import { Box, Heading as ChakraHeading, Text, Flex } from "@chakra-ui/react";
+import { Box, Flex, Heading as ChakraHeading, Text } from '@chakra-ui/react'
 
 export interface HeadingProps {
-  episodes: number;
-  title: string;
-  year: number;
-  score: number;
+  episodes: number
+  title: string
+  year: number
+  score: number
 }
 
-export default function Heading({
-  episodes,
-  title,
-  year,
-  score,
-}: HeadingProps) {
+export default function Heading({ episodes, title, year, score }: HeadingProps) {
   return (
     <Flex w="885px" justifyContent="space-between" as="section">
       <Box>
@@ -29,13 +24,7 @@ export default function Heading({
             {title}
           </ChakraHeading>
 
-          <Text
-            fontSize="1.875rem"
-            fontWeight="normal"
-            lineHeight="1.9rem"
-            color="black"
-            ml="15px"
-          >
+          <Text fontSize="1.875rem" fontWeight="normal" lineHeight="1.9rem" color="black" ml="15px">
             ({year})
           </Text>
         </Flex>
@@ -70,5 +59,5 @@ export default function Heading({
         </Text>
       </Box>
     </Flex>
-  );
+  )
 }

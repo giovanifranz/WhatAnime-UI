@@ -1,36 +1,27 @@
-import { Box, Flex, Link, Heading, Text } from "@chakra-ui/react";
-import Image from "next/image";
-import Nextlink from "next/link";
-import LogoWhatAnime from "../../assets/LogoWhatAnime.png";
-import HighlanderTech from "./HighlanderTech";
-import Paypal from "./Paypal";
-import Links from "./Links";
+import { Box, Flex, Heading, Link, Text } from '@chakra-ui/react'
+import Image from 'next/image'
+import Nextlink from 'next/link'
+
+import LogoWhatAnime from '../../assets/LogoWhatAnime.png'
+
+import HighlanderTech from './HighlanderTech'
+import Links from './Links'
+import Paypal from './Paypal'
+
 export default function Footer() {
   return (
-    <Box
-      as="footer"
-      minWidth={1050}
-      w="100%"
-      h="415px"
-      px="0px"
-      borderTop="1px solid black"
-    >
+    <Box as="footer" minWidth={1050} w="100%" h="415px" px="0px" borderTop="1px solid black">
       <Flex w="1105px" mx="auto">
         <Box w="425px">
           <Nextlink href="/" passHref>
             <Link
               display="flex"
               _hover={{
-                textDecoration: "none",
+                textDecoration: 'none',
               }}
             >
               <Box my="15px">
-                <Image
-                  src={LogoWhatAnime}
-                  width={80}
-                  height={80}
-                  alt="Logo WhatAnime"
-                />
+                <Image src={LogoWhatAnime} width={80} height={80} alt="Logo WhatAnime" />
               </Box>
 
               <Heading
@@ -62,8 +53,8 @@ export default function Footer() {
               w="368px"
               m="24px 20px 0 0"
             >
-              This site is our baby, so please consider donating if you are able
-              so that we can keep working on it!
+              This site is our baby, so please consider donating if you are able so that we can keep working
+              on it!
             </Text>
             <Paypal />
           </Flex>
@@ -79,22 +70,14 @@ export default function Footer() {
             Legal
           </Text>
 
-          <Text
-            fontSize="20px"
-            fontWeight="200"
-            lineHeight="23px"
-            color="white"
-            w="685px"
-            m="25px 25px 0 0"
-          >
-            All anime series names, images, and content are copyrighted content
-            of their respective license holders. I do not own the rights to any
-            of these anime series. Anime information compiled from AniList and
-            MyAnimeList.
+          <Text fontSize="20px" fontWeight="200" lineHeight="23px" color="white" w="685px" m="25px 25px 0 0">
+            All anime series names, images, and content are copyrighted content of their respective license
+            holders. I do not own the rights to any of these anime series. Anime information compiled from
+            AniList and MyAnimeList.
           </Text>
           <HighlanderTech />
         </Box>
       </Flex>
     </Box>
-  );
+  )
 }

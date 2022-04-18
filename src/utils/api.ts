@@ -1,5 +1,5 @@
-import axios from "axios";
+import axios from 'axios'
 
 export const api = axios.create({
-  baseURL: "https://www.whatanime.org/api",
-});
+  baseURL: 'https://www.whatanime.org/api',
+})

@@ -1,16 +1,16 @@
-import { Stack, Link as LinkChakra, Text, HStack } from "@chakra-ui/react";
-import { ReactNode } from "react";
-import { AiFillFacebook, AiOutlineTwitter } from "react-icons/ai";
-import { SiMyanimelist, SiAnilist } from "react-icons/si";
-import NextLink from "next/link";
+import { ReactNode } from 'react'
+import { AiFillFacebook, AiOutlineTwitter } from 'react-icons/ai'
+import { SiAnilist, SiMyanimelist } from 'react-icons/si'
+import { HStack, Link as LinkChakra, Stack, Text } from '@chakra-ui/react'
+import NextLink from 'next/link'
 
 interface HeadingProps {
-  title: string;
+  title: string
 }
 
 interface LinkProps {
-  children: ReactNode;
-  href: string;
+  children: ReactNode
+  href: string
 }
 
 function Link({ children, href }: LinkProps) {
@@ -22,20 +22,20 @@ function Link({ children, href }: LinkProps) {
         color="gray.500"
         p="5px"
         _hover={{
-          bgColor: "yellow.500",
-          color: "gray.800",
+          bgColor: 'yellow.500',
+          color: 'gray.800',
         }}
       >
         {children}
       </LinkChakra>
     </NextLink>
-  );
+  )
 }
 
 function Heading({ title }: HeadingProps) {
   return (
     <Text
-      mt={["10px", "10px", "20px"]}
+      mt={['10px', '10px', '20px']}
       fontFamily="Nova Mono"
       fontSize="20px"
       color="white"
@@ -43,7 +43,7 @@ function Heading({ title }: HeadingProps) {
     >
       {title}
     </Text>
-  );
+  )
 }
 
 export default function Links() {
@@ -68,5 +68,5 @@ export default function Links() {
         </Link>
       </HStack>
     </Stack>
-  );
+  )
 }

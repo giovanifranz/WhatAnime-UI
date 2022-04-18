@@ -1,10 +1,11 @@
-import { Button } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import { Button } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+
 export default function BackToSearch() {
-  const router = useRouter();
+  const router = useRouter()
   return (
     <Button
-      onClick={() => router.push("/")}
+      onClick={() => router.push('/')}
       textAlign="center"
       textTransform="uppercase"
       fontWeight="bold"
@@ -19,12 +20,12 @@ export default function BackToSearch() {
       h="50px"
       transition="0.7s"
       _hover={{
-        border: "5px solid #F5DF4D",
-        bgColor: "gray.100",
-        color: "yellow.500",
+        border: '5px solid #F5DF4D',
+        bgColor: 'gray.100',
+        color: 'yellow.500',
       }}
     >
       Back to Search
     </Button>
-  );
+  )
 }

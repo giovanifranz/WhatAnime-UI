@@ -1,51 +1,46 @@
-import { Text, Flex, Box, Heading, Image } from "@chakra-ui/react";
-import { api } from "../../../utils/api";
-import { useQuery } from "react-query";
-import Button from "./Button";
+import { useQuery } from 'react-query'
+import { Box, Flex, Heading, Image, Text } from '@chakra-ui/react'
+
+import { api } from '../../../utils/api'
+
+import Button from './Button'
 
 interface ResultCardProps {
-  value: Value;
+  value: Value
 }
 
 interface Value {
-  mal_id: number;
-  title: string;
-  image_url: string;
-  score: number;
-  episodes: number;
-  synopsis: string;
-  similarity?: string;
+  mal_id: number
+  title: string
+  image_url: string
+  score: number
+  episodes: number
+  synopsis: string
+  similarity?: string
   aired?: {
     prop: {
       from: {
-        year: number;
-      };
-    };
-  };
-  year?: number;
+        year: number
+      }
+    }
+  }
+  year?: number
 }
 
 export default function ResultCard({ value }: ResultCardProps) {
   const { data } = useQuery<Value>(
-    ["anime-result", value.mal_id],
+    ['anime-result', value.mal_id],
     async () => {
-      const { data } = await api.get(`/anime/id/${value.mal_id}`);
-      return data;
+      const { data } = await api.get(`/anime/id/${value.mal_id}`)
+      return data
     },
     {
       initialData: value,
-    }
-  );
-  const animeResult = { ...data, year: value.year } as Value;
+    },
+  )
+  const animeResult = { ...data, year: value.year } as Value
   return (
-    <Flex
-      as="article"
-      w="790px"
-      h="220px"
-      bgColor="white"
-      border="1px solid black"
-      borderRadius="5px"
-    >
+    <Flex as="article" w="790px" h="220px" bgColor="white" border="1px solid black" borderRadius="5px">
       <Image
         src={animeResult.image_url}
         w="161px"
@@ -81,11 +76,7 @@ export default function ResultCard({ value }: ResultCardProps) {
               color="black"
               ml="12px"
             >
-              (
-              {animeResult.year
-                ? animeResult.year
-                : animeResult.aired?.prop?.from?.year}
-              )
+              ({animeResult.year ? animeResult.year : animeResult.aired?.prop?.from?.year})
             </Heading>
             <Box w="45px" h="45px" ml="12px">
               <Heading
@@ -191,5 +182,5 @@ export default function ResultCard({ value }: ResultCardProps) {
         </Text>
       </Box>
     </Flex>
-  );
+  )
 }

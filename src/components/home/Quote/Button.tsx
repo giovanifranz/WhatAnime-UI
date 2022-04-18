@@ -1,13 +1,14 @@
-import { IconButton } from "@chakra-ui/react";
-import { HiArrowRight } from "react-icons/hi";
-import { handlePerfetchAnime } from "../../../utils/handlePerfetchAnime";
-import { useRouter } from "next/router";
+import { HiArrowRight } from 'react-icons/hi'
+import { IconButton } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+
+import { handlePerfetchAnime } from '../../../utils/handlePerfetchAnime'
 export interface ButtonQuoteProps {
-  id: number;
+  id: number
 }
 
 export default function Button({ id }: ButtonQuoteProps) {
-  const router = useRouter();
+  const router = useRouter()
   return (
     <IconButton
       onMouseEnter={() => handlePerfetchAnime(id)}
@@ -22,9 +23,9 @@ export default function Button({ id }: ButtonQuoteProps) {
       transition="0.5s"
       icon={<HiArrowRight />}
       _hover={{
-        bgColor: "#959A9C",
-        color: "#F5DF4D",
+        bgColor: '#959A9C',
+        color: '#F5DF4D',
       }}
     />
-  );
+  )
 }

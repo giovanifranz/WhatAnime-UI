@@ -1,15 +1,16 @@
-import { Text, Link } from "@chakra-ui/react";
-import { handlePerfetchAnime } from "../../utils/handlePerfetchAnime";
-import NextLink from "next/link";
+import { Link, Text } from '@chakra-ui/react'
+import NextLink from 'next/link'
+
+import { handlePerfetchAnime } from '../../utils/handlePerfetchAnime'
 
 export interface CardsProps {
-  animeResults: Array<Anime>;
+  animeResults: Array<Anime>
 }
 
 interface Anime {
-  mal_id: number;
-  title: string;
-  image_url: string;
+  mal_id: number
+  title: string
+  image_url: string
 }
 
 function Card({ mal_id, image_url, title }: Anime) {
@@ -47,7 +48,7 @@ function Card({ mal_id, image_url, title }: Anime) {
         </Text>
       </Link>
     </NextLink>
-  );
+  )
 }
 
 export default function MiniCards({ animeResults }: CardsProps) {
@@ -65,5 +66,5 @@ export default function MiniCards({ animeResults }: CardsProps) {
             />
           ))}
     </>
-  );
+  )
 }

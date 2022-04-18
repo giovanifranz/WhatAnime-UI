@@ -1,15 +1,16 @@
-import { Link, Button as ChakraButton } from "@chakra-ui/react";
-import { handlePerfetchAnime } from "../../../utils/handlePerfetchAnime";
-import NextLink from "next/link";
+import { Button as ChakraButton, Link } from '@chakra-ui/react'
+import NextLink from 'next/link'
+
+import { handlePerfetchAnime } from '../../../utils/handlePerfetchAnime'
 
 interface ButtonProps {
-  id: number;
+  id: number
 }
 
 export default function Button({ id }: ButtonProps) {
   return (
     <NextLink href={`/${id}`}>
-      <Link _hover={{ textDecoration: "none" }} onMouseEnter={() => handlePerfetchAnime(id)}>
+      <Link _hover={{ textDecoration: 'none' }} onMouseEnter={() => handlePerfetchAnime(id)}>
         <ChakraButton
           textAlign="center"
           textTransform="uppercase"
@@ -26,14 +27,14 @@ export default function Button({ id }: ButtonProps) {
           mt="2px"
           transition="0.2s"
           _hover={{
-            border: "5px solid #F5DF4D",
-            bgColor: "white",
-            color: "yellow.500",
+            border: '5px solid #F5DF4D',
+            bgColor: 'white',
+            color: 'yellow.500',
           }}
         >
           Go to Page
         </ChakraButton>
       </Link>
     </NextLink>
-  );
+  )
 }
