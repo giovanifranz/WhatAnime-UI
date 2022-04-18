@@ -1,60 +1,54 @@
+import { ChangeEvent, useEffect, useState } from 'react'
+import { HiOutlineSearch } from 'react-icons/hi'
+import { MdSmsFailed } from 'react-icons/md'
 import {
-  InputGroup,
-  InputRightElement,
-  Input,
-  IconButton,
-  Select,
   Box,
   Flex,
+  IconButton,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Select,
   Spinner,
-} from "@chakra-ui/react";
-import { useEffect, useState, ChangeEvent } from "react";
-import { HiOutlineSearch } from "react-icons/hi";
-import { MdSmsFailed } from "react-icons/md";
-import { useSearch } from "../../hooks/useSearch";
-import Heading from "./Heading";
+} from '@chakra-ui/react'
+
+import { useSearch } from '../../hooks/useSearch'
+
+import Heading from './Heading'
 enum SELECT {
-  IMAGE = "IMAGE",
-  WORD = "WORD",
+  IMAGE = 'IMAGE',
+  WORD = 'WORD',
 }
 
 export default function Search() {
-  const selectWord = "Enter your search key word";
-  const selectImage = "or enter image URL to search";
+  const selectWord = 'Enter your search key word'
+  const selectImage = 'or enter image URL to search'
   const [searchPage, setSearchPage] = useState({
     placeholder: selectWord,
-    type: "text",
-  });
+    type: 'text',
+  })
 
-  const {
-    setSelect,
-    select,
-    setPayload,
-    payload,
-    handleSubmit,
-    isLoading,
-    error,
-  } = useSearch();
+  const { setSelect, select, setPayload, payload, handleSubmit, isLoading, error } = useSearch()
 
   useEffect(() => {
-    if (select === "WORD") {
-      setSearchPage({ placeholder: selectWord, type: "text" });
+    if (select === 'WORD') {
+      setSearchPage({ placeholder: selectWord, type: 'text' })
     } else {
-      setSearchPage({ placeholder: selectImage, type: "url" });
+      setSearchPage({ placeholder: selectImage, type: 'url' })
     }
-  }, [select]);
+  }, [select])
 
   function handleChange(e: ChangeEvent<HTMLSelectElement>) {
-    if (e.target.value === "word") {
-      setSelect(SELECT.WORD);
+    if (e.target.value === 'word') {
+      setSelect(SELECT.WORD)
     } else {
-      setSelect(SELECT.IMAGE);
+      setSelect(SELECT.IMAGE)
     }
   }
   return (
     <Box w="790px">
       <Flex alignItems="center" color="yellow.500">
-        <Heading title="Search"/>
+        <Heading title="Search" />
         <Select
           w="150px"
           fontWeight="normal"
@@ -66,10 +60,10 @@ export default function Search() {
         >
           <option value="word">by word</option>
           {
-          //<option value="image">by image</option>
+            //<option value="image">by image</option>
           }
         </Select>
-        {isLoading && <Spinner ml="10px" color="yellow.500"/>}
+        {isLoading && <Spinner ml="10px" color="yellow.500" />}
       </Flex>
       <InputGroup bgColor="white">
         <Input
@@ -94,18 +88,18 @@ export default function Search() {
           icon={<HiOutlineSearch />}
           transition="filter 0.2s"
           _hover={{
-            bgColor: "gray.100",
-            filter: "brightness(90%)",
+            bgColor: 'gray.100',
+            filter: 'brightness(90%)',
           }}
           onClick={() => handleSubmit()}
         />
       </InputGroup>
       {error && (
-          <Flex color="red.500" alignItems="center" w="155px" justifyContent="space-between" mt="5px">
-            <MdSmsFailed size="24" />
-            <span>Anime not found.</span>
-          </Flex>
-        )}
+        <Flex color="red.500" alignItems="center" w="155px" justifyContent="space-between" mt="5px">
+          <MdSmsFailed size="24" />
+          <span>Anime not found.</span>
+        </Flex>
+      )}
     </Box>
-  );
+  )
 }

@@ -1,25 +1,19 @@
-import { Heading, Text, Stack, HStack } from "@chakra-ui/react";
-import { ButtonQuoteProps } from "./Button";
-import dynamic from "next/dynamic";
-const Button = dynamic<ButtonQuoteProps>(() => import("./Button"));
+import { Heading, HStack, Stack, Text } from '@chakra-ui/react'
+import dynamic from 'next/dynamic'
+
+import { ButtonQuoteProps } from './Button'
+const Button = dynamic<ButtonQuoteProps>(() => import('./Button'))
 
 export interface QuoteProps {
-  anime: string;
-  character: string;
-  quote: string;
-  id: number;
+  anime: string
+  character: string
+  quote: string
+  id: number
 }
 
 export default function Quote({ anime, character, quote, id }: QuoteProps) {
   return (
-    <Stack
-      as="section"
-      h="120px"
-      w="250px"
-      bgColor="yellow.500"
-      borderRadius="5px"
-      p="10px"
-    >
+    <Stack as="section" h="120px" w="250px" bgColor="yellow.500" borderRadius="5px" p="10px">
       <Text
         fontStyle="italic"
         fontWeight={300}
@@ -45,18 +39,12 @@ export default function Quote({ anime, character, quote, id }: QuoteProps) {
           >
             “{character}”
           </Heading>
-          <Text
-            fontStyle="normal"
-            fontWeight="normal"
-            fontSize="18px"
-            lineHeight="21px"
-            isTruncated
-          >
+          <Text fontStyle="normal" fontWeight="normal" fontSize="18px" lineHeight="21px" isTruncated>
             “{anime}”
           </Text>
         </Stack>
         {id > 0 && <Button id={id} />}
       </HStack>
     </Stack>
-  );
+  )
 }

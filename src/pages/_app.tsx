@@ -1,18 +1,13 @@
-//types
-import type { AppProps } from "next/app";
-//providers
-import { ChakraProvider } from "@chakra-ui/react";
-import { QueryClientProvider } from "react-query";
-import { SearchProvider } from "../hooks/useSearch";
-//theme
-import { theme } from "../styles/theme";
-//utils
-import { queryClient } from "../utils/queryClient";
-//components
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-//devtools
-import { ReactQueryDevtools } from "react-query/devtools";
+import { QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
+import { ChakraProvider } from '@chakra-ui/react'
+import type { AppProps } from 'next/app'
+
+import Footer from '../components/Footer'
+import Header from '../components/Header'
+import { SearchProvider } from '../hooks/useSearch'
+import { theme } from '../styles/theme'
+import { queryClient } from '../utils/queryClient'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -26,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </ChakraProvider>
       <ReactQueryDevtools />
     </QueryClientProvider>
-  );
+  )
 }
 
-export default MyApp;
+export default MyApp

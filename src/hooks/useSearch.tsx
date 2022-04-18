@@ -1,49 +1,43 @@
-import {
-  useContext,
-  useState,
-  createContext,
-  ReactNode,
-  Dispatch,
-  SetStateAction,
-} from "react";
+/* eslint-disable @typescript-eslint/no-empty-function */
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from 'react'
 
-import { queryClient } from "../utils/queryClient";
-import { api } from "../utils/api";
+import { api } from '../utils/api'
+import { queryClient } from '../utils/queryClient'
 
 export enum SELECT {
-  WORD = "WORD",
-  IMAGE = "IMAGE",
+  WORD = 'WORD',
+  IMAGE = 'IMAGE',
 }
 export type SelectContextType = {
-  handleSubmit: () => void;
-  error: boolean;
-  isLoading: boolean;
-  select: SELECT;
-  animeResults: AnimeResult[];
-  setSelect: Dispatch<SetStateAction<SELECT>>;
-  payload: string;
-  setPayload: Dispatch<SetStateAction<string>>;
-  page: number;
-  setPage: Dispatch<SetStateAction<number>>;
-};
+  handleSubmit: () => void
+  error: boolean
+  isLoading: boolean
+  select: SELECT
+  animeResults: AnimeResult[]
+  setSelect: Dispatch<SetStateAction<SELECT>>
+  payload: string
+  setPayload: Dispatch<SetStateAction<string>>
+  page: number
+  setPage: Dispatch<SetStateAction<number>>
+}
 
 export interface SearchProviderProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 export interface AnimeResult {
-  title: string;
-  image_url: string;
-  synopsis: string;
-  episodes: number;
-  score: number;
-  mal_id: number;
-  similarity?: string;
-  year: number;
+  title: string
+  image_url: string
+  synopsis: string
+  episodes: number
+  score: number
+  mal_id: number
+  similarity?: string
+  year: number
 }
 
 export interface FetchAnimeProps extends AnimeResult {
-  start_date: string;
+  start_date: string
 }
 
 const initialContext: SelectContextType = {
@@ -52,77 +46,68 @@ const initialContext: SelectContextType = {
   animeResults: [],
   select: SELECT.WORD,
   setSelect: () => {},
-  payload: "",
+  payload: '',
   setPayload: () => {},
   page: 1,
   setPage: () => {},
   handleSubmit: () => {},
-};
+}
 
-export const SearchContext = createContext<SelectContextType>(initialContext);
-export const useSearch = () => useContext(SearchContext);
+export const SearchContext = createContext<SelectContextType>(initialContext)
+export const useSearch = () => useContext(SearchContext)
 
 export function SearchProvider({ children }: SearchProviderProps) {
-  const [select, setSelect] = useState(SELECT.WORD);
-  const [payload, setPayload] = useState("");
-  const [animeResults, setAnimeResults] = useState<AnimeResult[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [page, setPage] = useState(1);
+  const [select, setSelect] = useState(SELECT.WORD)
+  const [payload, setPayload] = useState('')
+  const [animeResults, setAnimeResults] = useState<AnimeResult[]>([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(false)
+  const [page, setPage] = useState(1)
 
-  function standardizeAnimeResults(
-    data: FetchAnimeProps[],
-    similarity?: string
-  ) {
+  function standardizeAnimeResults(data: FetchAnimeProps[], similarity?: string) {
     const animeResults = data.map((anime: FetchAnimeProps) => {
-      const { start_date } = anime;
-      const year = new Date(start_date).getFullYear();
+      const { start_date } = anime
+      const year = new Date(start_date).getFullYear()
       return {
         ...anime,
         year,
         similarity,
-      } as AnimeResult;
-    });
-    return animeResults;
+      } as AnimeResult
+    })
+    return animeResults
   }
 
   async function handleSubmit() {
-    if (payload.length < 3 || payload.trim() === "") {
-      return;
+    if (payload.length < 3 || payload.trim() === '') {
+      return
     } else if (select === SELECT.WORD) {
-      setIsLoading(true);
-      setError(false);
-      const ANIME_BY_NAME = await queryClient.fetchQuery(
-        ["anime-by-name", page],
-        async () => {
-          const { data } = await api.get(`/anime/name/${payload}/${page}`);
-          return await data;
-        }
-      );
+      setIsLoading(true)
+      setError(false)
+      const ANIME_BY_NAME = await queryClient.fetchQuery(['anime-by-name', page], async () => {
+        const { data } = await api.get(`/anime/name/${payload}/${page}`)
+        return await data
+      })
       if (ANIME_BY_NAME !== undefined) {
-        const animeResults = standardizeAnimeResults(ANIME_BY_NAME);
-        setAnimeResults(animeResults);
+        const animeResults = standardizeAnimeResults(ANIME_BY_NAME)
+        setAnimeResults(animeResults)
       } else {
-        setError(true);
+        setError(true)
       }
-      setIsLoading(false);
+      setIsLoading(false)
     } else if (select === SELECT.IMAGE) {
-      setIsLoading(true);
-      setError(false);
-      const ANIME_BY_IMAGE = await queryClient.fetchQuery(
-        "anime-by-image",
-        async () => {
-          const { data } = await api.get(`/anime/image?url=${payload}`);
-          return await data;
-        }
-      );
+      setIsLoading(true)
+      setError(false)
+      const ANIME_BY_IMAGE = await queryClient.fetchQuery('anime-by-image', async () => {
+        const { data } = await api.get(`/anime/image?url=${payload}`)
+        return await data
+      })
       if (ANIME_BY_IMAGE !== undefined) {
-        const animeResults = standardizeAnimeResults(ANIME_BY_IMAGE);
-        setAnimeResults(animeResults);
+        const animeResults = standardizeAnimeResults(ANIME_BY_IMAGE)
+        setAnimeResults(animeResults)
       } else {
-        setError(true);
+        setError(true)
       }
-      setIsLoading(false);
+      setIsLoading(false)
     }
   }
 
@@ -143,5 +128,5 @@ export function SearchProvider({ children }: SearchProviderProps) {
     >
       {children}
     </SearchContext.Provider>
-  );
+  )
 }

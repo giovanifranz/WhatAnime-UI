@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button } from '@chakra-ui/react'
 
 export default function BackToTop() {
   return (
@@ -14,15 +14,15 @@ export default function BackToTop() {
       lineHeight="1.825rem"
       color="gray.500"
       textTransform="uppercase"
-      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       transition="0.7s"
       _hover={{
-        border: "5px solid #F5DF4D",
-        bgColor: "gray.100",
-        color: "yellow.500",
+        border: '5px solid #F5DF4D',
+        bgColor: 'gray.100',
+        color: 'yellow.500',
       }}
     >
       Back To Top
     </Button>
-  );
+  )
 }

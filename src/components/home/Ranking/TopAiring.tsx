@@ -1,34 +1,23 @@
-import {
-  Link,
-  ListItem,
-  Text,
-  OrderedList,
-  Box,
-  Stack,
-} from "@chakra-ui/react";
-import Heading from "./Heading";
-import { handlePerfetchAnime } from "../../../utils/handlePerfetchAnime";
-import NextLink from "next/link";
+import { Box, Link, ListItem, OrderedList, Stack, Text } from '@chakra-ui/react'
+import NextLink from 'next/link'
+
+import { handlePerfetchAnime } from '../../../utils/handlePerfetchAnime'
+
+import Heading from './Heading'
 
 interface RankingProps {
-  topAiring: Array<Top>;
+  topAiring: Array<Top>
 }
 
 interface Top {
-  mal_id: number;
-  title: string;
-  rank: number;
+  mal_id: number
+  title: string
+  rank: number
 }
 
 export default function Airing({ topAiring }: RankingProps) {
   return (
-    <Box
-      w="250px"
-      h="220.5px"
-      bgColor="white"
-      border="1px solid black"
-      borderRadius="5px"
-    >
+    <Box w="250px" h="220.5px" bgColor="white" border="1px solid black" borderRadius="5px">
       <Heading title="Top Airing" />
       <OrderedList
         ml="40px"
@@ -44,19 +33,17 @@ export default function Airing({ topAiring }: RankingProps) {
               return (
                 <ListItem key={anime.mal_id}>
                   <NextLink href={`/${anime.mal_id}`}>
-                    <Link
-                      onMouseEnter={() => handlePerfetchAnime(anime.mal_id)}
-                    >
+                    <Link onMouseEnter={() => handlePerfetchAnime(anime.mal_id)}>
                       <Text isTruncated maxW="190px">
                         {anime.title}
                       </Text>
                     </Link>
                   </NextLink>
                 </ListItem>
-              );
+              )
             })}
         </Stack>
       </OrderedList>
     </Box>
-  );
+  )
 }

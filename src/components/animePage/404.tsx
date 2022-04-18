@@ -1,15 +1,9 @@
-import { Flex, Heading } from "@chakra-ui/react";
-import BackToSearch from "./BackToSearch";
+import { Flex, Heading } from '@chakra-ui/react'
+
+import BackToSearch from './BackToSearch'
 export default function NotFound() {
   return (
-    <Flex
-      w="1105px"
-      minH={900}
-      mx="auto"
-      alignItems="center"
-      justifyContent="center"
-      direction="column"
-    >
+    <Flex w="1105px" minH={900} mx="auto" alignItems="center" justifyContent="center" direction="column">
       <Heading
         as="h1"
         fontSize="2.25rem"
@@ -23,5 +17,5 @@ export default function NotFound() {
       </Heading>
       <BackToSearch />
     </Flex>
-  );
+  )
 }

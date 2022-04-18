@@ -1,19 +1,13 @@
-import { Box, Heading, Text as TextChakra } from "@chakra-ui/react";
+import { Box, Heading, Text as TextChakra } from '@chakra-ui/react'
 
 export interface TextProps {
-  synopsis: string;
+  synopsis: string
 }
 
 export default function Text({ synopsis }: TextProps) {
   return (
     <Box as="div" color="black">
-      <Heading
-        as="h2"
-        fontWeight="bold"
-        fontSize="22px"
-        lineHeight="26px"
-        mt="30px"
-      >
+      <Heading as="h2" fontWeight="bold" fontSize="22px" lineHeight="26px" mt="30px">
         Synopsis
         <Box bgColor="gray.500" w="210px" h="1px" />
       </Heading>
@@ -29,5 +23,5 @@ export default function Text({ synopsis }: TextProps) {
         {synopsis}
       </TextChakra>
     </Box>
-  );
+  )
 }
