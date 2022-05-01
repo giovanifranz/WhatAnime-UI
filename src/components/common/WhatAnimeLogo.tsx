@@ -1,7 +1,7 @@
 import { Heading, Link } from '@chakra-ui/react'
 import Image from 'next/image'
 
-export function WhatanimeLogo() {
+export function WhatAnimeLogo() {
   return (
     <Link href="/" display="flex" _hover={{ textDecoration: 'none' }} alignItems="center">
       <Image src="/whatAnimeLogo.png" width={80} height={80} alt="WhatAnime" />

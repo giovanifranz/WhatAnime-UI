@@ -4,8 +4,8 @@ import Image from 'next/image'
 
 import { Social } from '.'
 
-const WhatanimeLogo = dynamic<EmptyObject>(() =>
-  import('../common/WhatanimeLogo').then((module) => module.WhatanimeLogo),
+const WhatAnimeLogo = dynamic<EmptyObject>(() =>
+  import('../common/WhatAnimeLogo').then((module) => module.WhatAnimeLogo),
 )
 
 const Paypal = dynamic<EmptyObject>(() => import('./Paypal').then((module) => module.Paypal))
@@ -22,7 +22,7 @@ export function Footer() {
     <Box as="footer" w="full" py="30px" borderTop="1px solid black">
       <Flex w={['95%', '70%']} mx="auto" flexDirection={['column', 'row']}>
         <Box w={['95%', '35%']} mx="auto" mb={['25px', 'none']}>
-          {isWideVersion && <WhatanimeLogo />}
+          {isWideVersion && <WhatAnimeLogo />}
           <Social />
         </Box>
 

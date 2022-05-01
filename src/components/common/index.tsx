@@ -1,1 +1,2 @@
-export * from './WhatanimeLogo'
+export * from './ButtonBackTo'
+export * from './WhatAnimeLogo'
