@@ -20,13 +20,14 @@ export function Footer() {
 
   return (
     <Box as="footer" w="full" py="30px" borderTop="1px solid black">
-      <Flex w={['95%', '70%']} mx="auto" flexDirection={['column', 'row']}>
-        <Box w={['95%', '35%']} mx="auto" mb={['25px', 'none']}>
+      <Flex as="section" w={['95%', '70%']} mx="auto" flexDirection={['column', 'row']}>
+        <Box as="article" w={['95%', '35%']} mx="auto" mb={['25px', 'none']}>
           {isWideVersion && <WhatAnimeLogo />}
           <Social />
         </Box>
 
         <VStack
+          as="article"
           borderLeft={['none', '1px solid black']}
           px="15px"
           alignItems="left"
