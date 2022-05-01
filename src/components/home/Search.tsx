@@ -35,7 +35,7 @@ export function Search() {
     }
   }
   return (
-    <Box w="65%">
+    <Box w={['100%', '65%']}>
       <Flex alignItems="center">
         <Heading title="Search" />
         <Select

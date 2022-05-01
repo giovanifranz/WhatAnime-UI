@@ -1,13 +1,27 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Flex, useBreakpointValue } from '@chakra-ui/react'
+import dynamic from 'next/dynamic'
 
 import { WhatAnimeLogo } from './common'
+import { QuoteProps } from './home'
+
+const Quote = dynamic<QuoteProps>(() => import('components/home/Quote').then((module) => module.Quote))
 
 export function Header() {
+  const isMobileVersion = useBreakpointValue({
+    base: true,
+    md: true,
+    lg: false,
+    xl: false,
+  })
+
   return (
     <Box w="full" as="header">
-      <Box w="70%" mx="auto" py="10px">
-        <WhatAnimeLogo />
-      </Box>
+      <Flex w={['95%', '70%']} mx="auto" py="20px" justifyContent="space-between">
+        <WhatAnimeLogo isMobile={isMobileVersion} />
+        {isMobileVersion && (
+          <Quote isMobile anime="Naruto" character="Sasuke" quote="I'm the best!" id={21} />
+        )}
+      </Flex>
     </Box>
   )
 }

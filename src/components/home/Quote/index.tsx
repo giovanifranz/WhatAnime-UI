@@ -1,52 +1,53 @@
 import { memo } from 'react'
-import { Heading, HStack, Stack, Text } from '@chakra-ui/react'
+import { Stack } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
+
+import { handlePrefetchAnime } from 'utils/http/jikan/jikan-resource'
 
 import { ButtonProps } from './Button'
+import { Content } from './Content'
 
 const Button = dynamic<ButtonProps>(() => import('./Button').then((module) => module.Button))
 
-export interface Props {
+interface Props {
   anime: string
   character: string
   quote: string
   id?: number
+  isMobile?: boolean
 }
 
-export function QuoteComponent({ anime, character, quote, id }: Props) {
+export function QuoteComponent({ anime, character, quote, id, isMobile }: Props) {
+  const router = useRouter()
+
+  const rest = {
+    anime,
+    character,
+    quote,
+  }
+
+  if (isMobile) {
+    return (
+      <Stack
+        as="a"
+        h="120px"
+        onClick={() => id && router.push(`/${id}`)}
+        onMouseEnter={() => id && handlePrefetchAnime(id)}
+        w="200px"
+        bgColor="yellow.500"
+        borderRadius="5px"
+        p="10px"
+        _hover={{ cursor: 'pointer', filter: 'brightness(90%)' }}
+      >
+        <Content {...rest} />
+      </Stack>
+    )
+  }
+
   return (
     <Stack as="section" h="120px" w="250px" bgColor="yellow.500" borderRadius="5px" p="10px">
-      <Text
-        fontStyle="italic"
-        fontWeight={300}
-        fontSize="18px"
-        lineHeight="21px"
-        w="225px"
-        noOfLines={3}
-        color="black"
-      >
-        “{quote}”
-      </Text>
-      <HStack as="div">
-        <Stack h="50px" w="182px" justifyContent="space-between">
-          <Heading
-            as="h4"
-            fontWeight="bold"
-            fontStyle="normal"
-            fontSize="18px"
-            lineHeight="21px"
-            color="black"
-            mt="8px"
-            isTruncated
-          >
-            “{character}”
-          </Heading>
-          <Text fontStyle="normal" fontWeight="normal" fontSize="18px" lineHeight="21px" isTruncated>
-            “{anime}”
-          </Text>
-        </Stack>
-        {id && <Button id={id} />}
-      </HStack>
+      <Content {...rest}>{id && <Button id={id} />}</Content>
     </Stack>
   )
 }
