@@ -35,7 +35,7 @@ export function Footer() {
           width="85%"
         >
           <Flex alignItems="center">
-            <Text fontSize="xl" fontWeight="200" color="white" w={['auto', '35%']}>
+            <Text fontSize="xl" fontWeight="200" color="white" w={['auto', '35%']} mr="25px">
               This site is our baby, so please consider donating if you are able so that we can keep working
               on it!
             </Text>

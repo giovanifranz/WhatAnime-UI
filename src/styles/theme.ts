@@ -17,6 +17,7 @@ export const theme = extendTheme({
   fonts: {
     body: 'Roboto, sans-serif',
     heading: 'Roboto, sans-serif',
+    color: 'black',
   },
   styles: {
     global: {
