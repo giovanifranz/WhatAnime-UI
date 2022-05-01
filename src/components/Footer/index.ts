@@ -1,0 +1,5 @@
+export * from './Footer'
+export * from './Link'
+export * from './Paypal'
+export * from './Social'
+export * from './Text'

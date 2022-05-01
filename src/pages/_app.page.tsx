@@ -3,21 +3,20 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import { ChakraProvider } from '@chakra-ui/react'
 import type { AppProps } from 'next/app'
 
-import Footer from '../components/Footer'
-import Header from '../components/Header'
-import { SearchProvider } from '../hooks/useSearch'
+import '@fontsource/roboto'
+import '@fontsource/nova-mono'
+
+import { Footer, Header } from '../components'
 import { theme } from '../styles/theme'
-import { queryClient } from '../utils/queryClient'
+import { queryClient } from '../utils/common'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <ChakraProvider theme={theme}>
-        <SearchProvider>
-          <Header />
-          <Component {...pageProps} />
-          <Footer />
-        </SearchProvider>
+        <Header />
+        <Component {...pageProps} />
+        <Footer />
       </ChakraProvider>
       <ReactQueryDevtools />
     </QueryClientProvider>
