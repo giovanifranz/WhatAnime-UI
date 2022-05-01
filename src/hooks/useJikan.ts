@@ -8,25 +8,25 @@ import {
   getAnimeTop,
 } from 'utils/http/jikan/jikan-resource'
 
-export function cacheAnimesByTitleOnJikan(animes: IAnime[] | undefined, title: string) {
+export function useAnimesByTitleOnJikan(animes: IAnime[] | undefined, title: string) {
   return useQuery<IAnime[]>(['anime-by-title', title], async () => getAnimesByTitleOnJikan(title), {
     initialData: animes,
   })
 }
 
-export function cacheAnimeByIdOnJikan(anime: IAnime | undefined, id: number) {
+export function useAnimeByIdOnJikan(anime: IAnime | undefined, id: number) {
   return useQuery<IAnime>(['anime-by-id', id], async () => getAnimeByIdOnJikan(id), {
     initialData: anime,
   })
 }
 
-export function cacheAnimeRandom(anime: IAnime | undefined) {
+export function useAnimeRandom(anime: IAnime | undefined) {
   return useQuery<IAnime>('anime-random', async () => getAnimeRandom(), {
     initialData: anime,
   })
 }
 
-export function cacheAnimeTopByPopularity(animes: IAnime[] | undefined) {
+export function useAnimeTopByPopularity(animes: IAnime[] | undefined) {
   return useQuery<IAnime[]>(
     ['anime-top-by-popularity', 'popularity'],
     async () => getAnimeTop('bypopularity'),
@@ -36,7 +36,7 @@ export function cacheAnimeTopByPopularity(animes: IAnime[] | undefined) {
   )
 }
 
-export function cacheAnimeTopByAiring(animes: IAnime[] | undefined) {
+export function useAnimeTopByAiring(animes: IAnime[] | undefined) {
   return useQuery<IAnime[]>(['anime-top-by-airing', 'airing'], async () => getAnimeTop('airing'), {
     initialData: animes,
   })

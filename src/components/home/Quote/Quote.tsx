@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import { Stack } from '@chakra-ui/react'
-import { cacheRandomAnimeQuote } from 'hooks/useQuote'
+import { useRandomAnimeQuote } from 'hooks/useQuote'
 import { useRouter } from 'next/router'
 import { IQuote } from 'types/quote'
 
@@ -16,7 +16,7 @@ interface Props {
 export function QuoteComponent({ quote, isMobile = false }: Props) {
   const router = useRouter()
 
-  const { isError, isLoading, data } = cacheRandomAnimeQuote(quote)
+  const { isError, isLoading, data } = useRandomAnimeQuote(quote)
 
   if (isError || isLoading || !data) {
     return null
