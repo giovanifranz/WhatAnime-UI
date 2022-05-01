@@ -1,14 +1,13 @@
 import axios from 'axios'
 import { IQuote, IResponseQuote } from 'types/quote'
 
-import { formatSlug } from '../../common/mappers'
+import { getAnimesByTitleOnJikan } from '../jikan/jikan-resource'
 
 const animeChan = 'https://animechan.vercel.app/api'
 
 function quoteMapper(response: IResponseQuote): IQuote {
   return {
     title: response.anime,
-    slug: formatSlug(response.anime),
     character: response.character,
     quote: response.quote,
   }
@@ -21,8 +20,14 @@ export async function getAnimesQuoteByTitle(title: string): Promise<Array<IQuote
 }
 
 export async function getRandomAnimeQuote(): Promise<IQuote> {
-  return axios.get(`${animeChan}/random`).then((response) => {
+  const quote = await axios.get<IResponseQuote>(`${animeChan}/random`).then((response) => {
     const { data } = response
     return quoteMapper(data)
   })
+  const animes = await getAnimesByTitleOnJikan(quote.title)
+
+  return {
+    ...quote,
+    id: animes ? animes[0].mal_id : undefined,
+  }
 }

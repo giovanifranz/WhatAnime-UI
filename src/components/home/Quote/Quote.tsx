@@ -1,31 +1,30 @@
 import { memo } from 'react'
 import { Stack } from '@chakra-ui/react'
+import { cacheRandomAnimeQuote } from 'hooks/useQuote'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
+import { IQuote } from 'types/quote'
 
 import { handlePrefetchAnime } from 'utils/http/jikan/jikan-resource'
 
-import { ButtonProps } from './Button'
-import { Content } from './Content'
+import { ButtonProps, Content } from '.'
 
 const Button = dynamic<ButtonProps>(() => import('./Button').then((module) => module.Button))
 
 interface Props {
-  anime: string
-  character: string
-  quote: string
-  id?: number
+  quote?: IQuote
   isMobile?: boolean
 }
 
-export function QuoteComponent({ anime, character, quote, id, isMobile }: Props) {
+export function QuoteComponent({ quote, isMobile = false }: Props) {
   const router = useRouter()
 
-  const rest = {
-    anime,
-    character,
-    quote,
+  const { isError, isLoading, data } = cacheRandomAnimeQuote(quote)
+
+  if (isError || isLoading || !data) {
+    return null
   }
+  const { id } = data
 
   if (isMobile) {
     return (
@@ -40,14 +39,14 @@ export function QuoteComponent({ anime, character, quote, id, isMobile }: Props)
         p="10px"
         _hover={{ cursor: 'pointer', filter: 'brightness(90%)' }}
       >
-        <Content {...rest} />
+        <Content {...data} />
       </Stack>
     )
   }
 
   return (
     <Stack as="section" h="120px" w="250px" bgColor="yellow.500" borderRadius="5px" p="10px">
-      <Content {...rest}>{id && <Button id={id} />}</Content>
+      <Content {...data}>{id && <Button id={id} />}</Content>
     </Stack>
   )
 }

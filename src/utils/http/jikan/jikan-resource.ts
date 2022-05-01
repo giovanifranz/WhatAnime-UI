@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { IAnime, IResponseAnime, TFilter } from 'types/anime'
 
-import { formatSlug, queryClient } from '../../common'
+import { queryClient } from '../../common'
 
 const jikanAPI = 'https://api.jikan.moe/v4'
 
@@ -22,7 +22,6 @@ function animeMapper(response: IResponseAnime): IAnime {
     episodes: response.episodes,
     year: response.year ? response.year : response.aired.prop.from.year,
     aired_string: response.aired.string,
-    slug: formatSlug(response.title),
     synopsis: response.synopsis ? response.synopsis.replace(' [Written by MAL Rewrite]', '') : null,
   }
 }

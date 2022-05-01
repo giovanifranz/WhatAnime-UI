@@ -1,11 +1,35 @@
 import { Box, Flex, useBreakpointValue } from '@chakra-ui/react'
+import { GetStaticProps } from 'next'
 import dynamic from 'next/dynamic'
+import { IAnime } from 'types/anime'
+import { IQuote } from 'types/quote'
 
 import { QuoteProps, Search } from 'components/home'
+import { getAnimeRandom } from 'utils/http/jikan/jikan-resource'
+import { getRandomAnimeQuote } from 'utils/http/quote/quote-resource'
 
 const Quote = dynamic<QuoteProps>(() => import('components/home/Quote').then((module) => module.Quote))
 
-export default function Home() {
+interface Props {
+  quote?: IQuote
+  animeToday?: IAnime
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const quote = await getRandomAnimeQuote()
+  const animeToday = await getAnimeRandom()
+
+  return {
+    props: {
+      quote,
+      animeToday,
+    } as Props,
+    revalidate: 60 * 60 * 24,
+  }
+}
+
+export default function Home({ quote, animeToday }: Props) {
+  console.log(animeToday)
   const isWideVersion = useBreakpointValue({
     base: false,
     md: false,
@@ -17,7 +41,7 @@ export default function Home() {
     <Box w="full">
       <Flex w={['95%', '70%']} mx="auto" my="30px" alignItems="center" justifyContent="space-between">
         <Search />
-        {isWideVersion && <Quote anime="Naruto" character="Sasuke" quote="I'm the best!" id={1} />}
+        {isWideVersion && <Quote quote={quote} />}
       </Flex>
     </Box>
   )

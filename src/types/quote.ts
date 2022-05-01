@@ -6,7 +6,7 @@ export interface IResponseQuote {
 
 export interface IQuote {
   title: string
-  slug: string
   character: string
   quote: string
+  id?: number
 }

@@ -30,7 +30,6 @@ export interface IResponseAnime {
 
 export interface IAnime {
   mal_id: number
-  slug: string
   title: string
   title_english: string
   title_japanese: string

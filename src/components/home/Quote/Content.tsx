@@ -2,13 +2,13 @@ import { memo, ReactNode } from 'react'
 import { Heading, HStack, Stack, Text } from '@chakra-ui/react'
 
 interface Props {
-  anime: string
+  title: string
   character: string
   quote: string
   children?: ReactNode
 }
 
-function ContentComponent({ children, anime, character, quote }: Props) {
+function ContentComponent({ children, title, character, quote }: Props) {
   return (
     <>
       <Text
@@ -37,7 +37,7 @@ function ContentComponent({ children, anime, character, quote }: Props) {
             “{character}”
           </Heading>
           <Text fontStyle="normal" fontWeight="normal" fontSize="18px" lineHeight="21px" isTruncated>
-            “{anime}”
+            “{title}”
           </Text>
         </Stack>
         {children}
