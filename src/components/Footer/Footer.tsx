@@ -1,9 +1,14 @@
 import { Box, Flex, Link, Text, useBreakpointValue, VStack } from '@chakra-ui/react'
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
 
-import { WhatanimeLogo } from '../common'
+import { Social } from '.'
 
-import { Paypal, Social } from '.'
+const WhatanimeLogo = dynamic<EmptyObject>(() =>
+  import('../common/WhatanimeLogo').then((module) => module.WhatanimeLogo),
+)
+
+const Paypal = dynamic<EmptyObject>(() => import('./Paypal').then((module) => module.Paypal))
 
 export function Footer() {
   const isWideVersion = useBreakpointValue({

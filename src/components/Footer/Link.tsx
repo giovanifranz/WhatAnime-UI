@@ -1,4 +1,4 @@
-import { ElementType } from 'react'
+import { ElementType, memo } from 'react'
 import { Button, ButtonProps, Icon } from '@chakra-ui/react'
 
 interface Props extends ButtonProps {
@@ -6,7 +6,7 @@ interface Props extends ButtonProps {
   href: string
 }
 
-function Link({ icon, href, ...rest }: Props) {
+function LinkComponent({ icon, href, ...rest }: Props) {
   return (
     <Button
       as="a"
@@ -26,6 +26,8 @@ function Link({ icon, href, ...rest }: Props) {
     </Button>
   )
 }
+
+const Link = memo(LinkComponent, (prevProps, nextProps) => Object.is(prevProps, nextProps))
 
 export { Link }
 export type { Props as LinkProps }
