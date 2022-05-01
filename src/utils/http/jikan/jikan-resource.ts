@@ -27,46 +27,34 @@ function animeMapper(response: IResponseAnime): IAnime {
   }
 }
 
-export async function getAnimesByTitleOnJikan(title: string): Promise<IAnime[] | Error> {
-  return axios
-    .get(`${jikanAPI}/anime?q=${title}&order_by=score&&sort=desc`)
-    .then(({ data: results }) => {
-      const { data } = results
-      return data.slice(0, 6).map((response: IResponseAnime) => animeMapper(response))
-    })
-    .catch((error: Error) => error)
+export async function getAnimesByTitleOnJikan(title: string): Promise<IAnime[]> {
+  return axios.get(`${jikanAPI}/anime?q=${title}&order_by=score&&sort=desc`).then(({ data: results }) => {
+    const { data } = results
+    return data.slice(0, 6).map((response: IResponseAnime) => animeMapper(response))
+  })
 }
 
-export async function getAnimeByIdOnJikan(id: number): Promise<IAnime | Error> {
-  return axios
-    .get(`${jikanAPI}/anime/${id}`)
-    .then(({ data }) => {
-      const { data: response } = data
-      return animeMapper(response)
-    })
-    .catch((error: Error) => error)
+export async function getAnimeByIdOnJikan(id: number): Promise<IAnime> {
+  return axios.get(`${jikanAPI}/anime/${id}`).then(({ data }) => {
+    const { data: response } = data
+    return animeMapper(response)
+  })
 }
 
-export async function getAnimeRandom(): Promise<IAnime | Error> {
-  return axios
-    .get(`${jikanAPI}/random/anime`)
-    .then(({ data }) => {
-      const { data: response } = data
-      return animeMapper(response as IResponseAnime)
-    })
-    .catch((error: Error) => error)
+export async function getAnimeRandom(): Promise<IAnime> {
+  return axios.get(`${jikanAPI}/random/anime`).then(({ data }) => {
+    const { data: response } = data
+    return animeMapper(response as IResponseAnime)
+  })
 }
 
-export async function getAnimeTop(filter: TFilter): Promise<IAnime[] | Error> {
+export async function getAnimeTop(filter: TFilter): Promise<IAnime[]> {
   const qtd = filter === 'airing' ? 5 : 10
 
-  return axios
-    .get(`${jikanAPI}/top/anime/?filter=${filter}`)
-    .then(({ data }) => {
-      const { data: results } = data
-      return results.data.slice(0, qtd).map((response: IResponseAnime) => animeMapper(response))
-    })
-    .catch((error: Error) => error)
+  return axios.get(`${jikanAPI}/top/anime/?filter=${filter}`).then(({ data }) => {
+    const { data: results } = data
+    return results.data.slice(0, qtd).map((response: IResponseAnime) => animeMapper(response))
+  })
 }
 
 export async function handlePrefetchAnime(id: number) {

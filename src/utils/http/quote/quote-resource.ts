@@ -14,19 +14,15 @@ function quoteMapper(response: IResponseQuote): IQuote {
   }
 }
 
-export async function getAnimesQuoteByTitle(title: string): Promise<Array<IQuote> | Error> {
+export async function getAnimesQuoteByTitle(title: string): Promise<Array<IQuote>> {
   return axios
     .get(`${animeChan}/quotes/anime?title=${title}`)
     .then(({ data }) => data.map((quote: IResponseQuote) => quoteMapper(quote)))
-    .catch((error: Error) => error)
 }
 
-export async function getRandomAnimeQuote(): Promise<IQuote | Error> {
-  return axios
-    .get(`${animeChan}/random`)
-    .then((response) => {
-      const { data } = response
-      return quoteMapper(data)
-    })
-    .catch((error: Error) => error)
+export async function getRandomAnimeQuote(): Promise<IQuote> {
+  return axios.get(`${animeChan}/random`).then((response) => {
+    const { data } = response
+    return quoteMapper(data)
+  })
 }
