@@ -1,15 +1,12 @@
 import { memo } from 'react'
 import { Stack } from '@chakra-ui/react'
 import { cacheRandomAnimeQuote } from 'hooks/useQuote'
-import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { IQuote } from 'types/quote'
 
 import { handlePrefetchAnime } from 'utils/http/jikan/jikan-resource'
 
-import { ButtonProps, Content } from '.'
-
-const Button = dynamic<ButtonProps>(() => import('./Button').then((module) => module.Button))
+import { Content } from '.'
 
 interface Props {
   quote?: IQuote
@@ -30,23 +27,23 @@ export function QuoteComponent({ quote, isMobile = false }: Props) {
     return (
       <Stack
         as="a"
-        h="120px"
         onClick={() => id && router.push(`/${id}`)}
         onMouseEnter={() => id && handlePrefetchAnime(id)}
         w="200px"
+        maxH="175px"
         bgColor="yellow.500"
         borderRadius="5px"
         p="10px"
         _hover={{ cursor: 'pointer', filter: 'brightness(90%)' }}
       >
-        <Content {...data} />
+        <Content {...data} id={id} />
       </Stack>
     )
   }
 
   return (
-    <Stack as="section" h="120px" w="250px" bgColor="yellow.500" borderRadius="5px" p="10px">
-      <Content {...data}>{id && <Button id={id} />}</Content>
+    <Stack as="section" maxH="165px" w="250px" bgColor="yellow.500" borderRadius="5px" p="10px">
+      <Content {...data} id={id} />
     </Stack>
   )
 }

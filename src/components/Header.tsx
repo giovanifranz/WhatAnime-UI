@@ -18,9 +18,7 @@ export function Header() {
     <Box w="full" as="header">
       <Flex w={['95%', '70%']} mx="auto" py="20px" justifyContent="space-between">
         <WhatAnimeLogo isMobile={isMobileVersion} />
-        {isMobileVersion && (
-          <Quote isMobile anime="Naruto" character="Sasuke" quote="I'm the best!" id={21} />
-        )}
+        {isMobileVersion && <Quote isMobile />}
       </Flex>
     </Box>
   )
