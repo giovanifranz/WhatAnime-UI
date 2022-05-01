@@ -1,18 +1,19 @@
+import { memo } from 'react'
 import { Heading, HStack, Stack, Text } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 
-import { ButtonQuoteProps } from './Button'
+import { ButtonProps } from './Button'
 
-const Button = dynamic<ButtonQuoteProps>(() => import('./Button'))
+const Button = dynamic<ButtonProps>(() => import('./Button').then((module) => module.Button))
 
-export interface QuoteProps {
+export interface Props {
   anime: string
   character: string
   quote: string
-  id: number
+  id?: number
 }
 
-export function Quote({ anime, character, quote, id }: QuoteProps) {
+export function QuoteComponent({ anime, character, quote, id }: Props) {
   return (
     <Stack as="section" h="120px" w="250px" bgColor="yellow.500" borderRadius="5px" p="10px">
       <Text
@@ -44,8 +45,13 @@ export function Quote({ anime, character, quote, id }: QuoteProps) {
             “{anime}”
           </Text>
         </Stack>
-        {id > 0 && <Button id={id} />}
+        {id && <Button id={id} />}
       </HStack>
     </Stack>
   )
 }
+
+const Quote = memo(QuoteComponent, (prevProps, nextProps) => Object.is(prevProps, nextProps))
+
+export { Quote }
+export type { Props as QuoteProps }
