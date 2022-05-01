@@ -1,8 +1,7 @@
 import { memo } from 'react'
 import { Button } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-
-import { theme } from '../../styles/theme'
+import { theme } from 'styles/theme'
 
 const yellow = theme.colors.yellow[500]
 

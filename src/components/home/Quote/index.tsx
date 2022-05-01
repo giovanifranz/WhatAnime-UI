@@ -2,6 +2,7 @@ import { Heading, HStack, Stack, Text } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 
 import { ButtonQuoteProps } from './Button'
+
 const Button = dynamic<ButtonQuoteProps>(() => import('./Button'))
 
 export interface QuoteProps {
@@ -11,7 +12,7 @@ export interface QuoteProps {
   id: number
 }
 
-export default function Quote({ anime, character, quote, id }: QuoteProps) {
+export function Quote({ anime, character, quote, id }: QuoteProps) {
   return (
     <Stack as="section" h="120px" w="250px" bgColor="yellow.500" borderRadius="5px" p="10px">
       <Text

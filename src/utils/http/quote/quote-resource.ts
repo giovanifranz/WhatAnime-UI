@@ -1,6 +1,6 @@
 import axios from 'axios'
+import { IQuote, IResponseQuote } from 'types/quote'
 
-import { IQuote, IResponseQuote } from '../../../@types/quote'
 import { formatSlug } from '../../common/mappers'
 
 const animeChan = 'https://animechan.vercel.app/api'

@@ -1,6 +1,6 @@
 import axios from 'axios'
+import { IAnime, IResponseAnime, TFilter } from 'types/anime'
 
-import { IAnime, IResponseAnime, TFilter } from '../../../@types/anime'
 import { formatSlug, queryClient } from '../../common'
 
 const jikanAPI = 'https://api.jikan.moe/v4'
