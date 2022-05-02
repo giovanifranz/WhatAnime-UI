@@ -8,7 +8,7 @@ interface Props {
   id: number
 }
 
-const yellow = theme.color.yellow[500]
+const yellow = theme.colors.yellow[500]
 
 export function ButtonComponent({ id }: Props) {
   return (

@@ -23,6 +23,7 @@ export function useAnimeByIdOnJikan(anime: IAnime | undefined, id: number) {
 export function useAnimeRandom(anime: IAnime | undefined) {
   return useQuery<IAnime>('anime-random', async () => getAnimeRandom(), {
     initialData: anime,
+    staleTime: 1000 * 60 * 60 * 60 * 24,
   })
 }
 

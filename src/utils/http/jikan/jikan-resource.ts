@@ -8,7 +8,7 @@ const jikanAPI = 'https://api.jikan.moe/v4'
 function animeMapper(response: IResponseAnime): IAnime {
   return {
     id: response.mal_id,
-    title: response.title.toLowerCase(),
+    title: response.title,
     titleEnglish: response.title_english,
     titleJapanese: response.title_japanese,
     score: response.score,
