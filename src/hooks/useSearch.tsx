@@ -19,7 +19,9 @@ interface SelectContextType {
   payload: string
   setPayload: Dispatch<SetStateAction<string>>
   handleSubmit: () => void
-  animes: IAnime[] | undefined
+  animes?: IAnime[]
+  error?: Error
+  isLoading: boolean
 }
 
 interface SelectProviderProps {
@@ -33,6 +35,8 @@ const initialState: SelectContextType = {
   setPayload: () => null,
   handleSubmit: () => null,
   animes: undefined,
+  error: undefined,
+  isLoading: false,
 }
 
 const SelectContext = createContext<SelectContextType>(initialState)
@@ -42,22 +46,28 @@ function SelectProvider({ children }: SelectProviderProps) {
   const [select, setSelect] = useState<TSelect>('word')
   const [payload, setPayload] = useState<string>('')
   const [animes, setAnimes] = useState<IAnime[] | undefined>()
+  const [error, setError] = useState<Error>()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleSubmit = useCallback(async () => {
     if (select === 'word') {
       if (payload.length < 3 || payload.trim() === '') {
         return
       }
-      const data = await queryClient.fetchQuery(['anime-by-title', formatSlug(payload)], async () =>
-        getAnimesByTitleOnJikan(payload),
-      )
-      setAnimes(data)
+
+      setIsLoading(true)
+      await queryClient.fetchQuery(['anime-by-title', formatSlug(payload)], async () => {
+        getAnimesByTitleOnJikan(payload)
+          .then((response) => setAnimes(response))
+          .catch((err: Error) => setError(err))
+      })
+      setIsLoading(false)
     }
   }, [payload, select])
 
   const value = useMemo(
-    () => ({ select, setSelect, payload, setPayload, handleSubmit, animes }),
-    [select, setSelect, payload, setPayload, handleSubmit, animes],
+    () => ({ select, setSelect, payload, setPayload, handleSubmit, animes, error, isLoading }),
+    [select, setSelect, payload, setPayload],
   )
 
   return <SelectContext.Provider value={value}>{children}</SelectContext.Provider>

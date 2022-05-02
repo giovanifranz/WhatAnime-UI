@@ -12,7 +12,6 @@ import {
   Select,
   Spinner,
 } from '@chakra-ui/react'
-import { useAnimesByTitleOnJikan } from 'hooks/useJikan'
 import { useSelect } from 'hooks/useSearch'
 
 import { Title } from '.'
@@ -23,9 +22,7 @@ const placeholder = {
 }
 
 export function Search() {
-  const { select, setSelect, handleSubmit, payload, setPayload, animes } = useSelect()
-
-  const { isError, isLoading } = useAnimesByTitleOnJikan(animes, payload)
+  const { select, setSelect, handleSubmit, payload, setPayload, error, isLoading } = useSelect()
 
   function handleChange(event: ChangeEvent<HTMLSelectElement>) {
     if (event.target.value === 'word') {
@@ -74,10 +71,10 @@ export function Search() {
           onClick={() => handleSubmit()}
         />
       </InputGroup>
-      {isError && (
+      {error && (
         <Flex color="red.500" alignItems="center" w="155px" justifyContent="space-between" mt="5px">
           <Icon as={MdSmsFailed} fontSize="24px" />
-          <span>Anime not found.</span>
+          <span>{error.message}</span>
         </Flex>
       )}
     </Box>
