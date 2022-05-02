@@ -1,5 +1,4 @@
 import { Box, Flex, Stack, useBreakpointValue } from '@chakra-ui/react'
-import { useSelect } from 'hooks/useSearch'
 import { GetStaticProps } from 'next'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
@@ -15,7 +14,6 @@ interface Props {
   quote?: IQuote
   animeToday?: IAnime
   airing?: IAnime[]
-  popular?: IAnime[]
 }
 
 export const getStaticProps: GetStaticProps = async () => ({
@@ -23,21 +21,18 @@ export const getStaticProps: GetStaticProps = async () => ({
     quote: await getRandomAnimeQuote(),
     animeToday: await getAnimeRandom(),
     airing: await getAnimeTop('airing'),
-    popular: await getAnimeTop('bypopularity'),
   } as Props,
   revalidate: 60 * 60 * 60 * 24,
 })
 
-export default function Home({ quote, animeToday, airing, popular }: Props) {
+export default function Home({ quote, animeToday, airing }: Props) {
   const isWideVersion = useBreakpointValue({
     base: false,
     md: false,
     lg: false,
     xl: true,
   })
-  const { animes } = useSelect()
 
-  console.log(animes)
   return (
     <>
       <Head>
