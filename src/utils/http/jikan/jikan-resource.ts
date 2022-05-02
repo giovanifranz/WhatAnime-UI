@@ -11,15 +11,15 @@ function animeMapper(response: IResponseAnime): IAnime {
     title: response.title,
     titleEnglish: response.title_english,
     titleJapanese: response.title_japanese,
-    score: response.score,
+    score: response.score || null,
     type: response.type,
     source: response.source,
     imageUrl: response.images.jpg.image_url,
     status: response.status,
     duration: response.duration,
-    premiered: response.premiered,
+    premiered: response.premiered || null,
     rating: response.rating,
-    episodes: response.episodes,
+    episodes: response.episodes || null,
     year: response.year ? response.year : response.aired.prop.from.year,
     airedString: response.aired.string,
     synopsis: response.synopsis ? response.synopsis.replace(' [Written by MAL Rewrite]', '') : null,
@@ -41,19 +41,15 @@ export async function getAnimeByIdOnJikan(id: number): Promise<IAnime> {
 }
 
 export async function getAnimeRandom(): Promise<IAnime> {
-  return axios.get(`${jikanAPI}/random/anime`).then(({ data }) => {
-    const { data: response } = data
-    return animeMapper(response as IResponseAnime)
-  })
+  const id = Math.floor(Math.random() * 120 + 1)
+  return getAnimeByIdOnJikan(id).then((anime) => anime)
 }
 
-export async function getAnimeTop(filter: TFilter): Promise<IAnime[]> {
+export async function getAnimeTop(filter: TFilter) {
   const qtd = filter === 'airing' ? 5 : 10
-
-  return axios.get(`${jikanAPI}/top/anime/?filter=${filter}`).then(({ data }) => {
-    const { data: results } = data
-    return results.data.slice(0, qtd).map((response: IResponseAnime) => animeMapper(response))
-  })
+  return axios
+    .get(`${jikanAPI}/top/anime?filter=${filter}`)
+    .then(({ data }) => data.data.slice(0, qtd).map((response: IResponseAnime) => animeMapper(response)))
 }
 
 export async function handlePrefetchAnime(id: number) {

@@ -1,11 +1,11 @@
-import { Box, Flex, useBreakpointValue } from '@chakra-ui/react'
+import { Box, Flex, Stack, useBreakpointValue } from '@chakra-ui/react'
 import { GetStaticProps } from 'next'
 import dynamic from 'next/dynamic'
 import { IAnime } from 'types/anime'
 import { IQuote } from 'types/quote'
 
-import { QuoteProps, Result, Search } from 'components/home'
-import { getAnimeRandom } from 'utils/http/jikan/jikan-resource'
+import { Heading, QuoteProps, Ranking, Result, Search } from 'components/home'
+import { getAnimeRandom, getAnimeTop } from 'utils/http/jikan/jikan-resource'
 import { getRandomAnimeQuote } from 'utils/http/quote/quote-resource'
 
 const Quote = dynamic<QuoteProps>(() => import('components/home/Quote').then((module) => module.Quote))
@@ -13,22 +13,22 @@ const Quote = dynamic<QuoteProps>(() => import('components/home/Quote').then((mo
 interface Props {
   quote?: IQuote
   animeToday?: IAnime
+  airing?: IAnime[]
+  popular?: IAnime[]
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const quote = await getRandomAnimeQuote()
-  const animeToday = await getAnimeRandom()
+export const getStaticProps: GetStaticProps = async () => ({
+  props: {
+    quote: await getRandomAnimeQuote(),
+    animeToday: await getAnimeRandom(),
+    airing: await getAnimeTop('airing'),
+    popular: await getAnimeTop('bypopularity'),
+  } as Props,
+  revalidate: 60 * 60 * 60 * 24,
+})
 
-  return {
-    props: {
-      quote,
-      animeToday,
-    } as Props,
-    revalidate: 60 * 60 * 60 * 24,
-  }
-}
-
-export default function Home({ quote, animeToday }: Props) {
+export default function Home({ quote, animeToday, airing, popular }: Props) {
+  console.log(popular)
   const isWideVersion = useBreakpointValue({
     base: false,
     md: false,
@@ -37,14 +37,18 @@ export default function Home({ quote, animeToday }: Props) {
   })
 
   return (
-    <Box w="full">
-      <Flex w={['95%', '70%']} mx="auto" my="30px" alignItems="center" justifyContent="space-between">
+    <Stack w="full" spacing="30px" alignItems="center" py="30px">
+      <Flex w={['95%', '70%']} mx="auto" alignItems="center" justifyContent="space-between">
         <Search />
         {isWideVersion && <Quote quote={quote} />}
       </Flex>
-      <Flex w={['95%', '70%']} mx="auto" my="30px" alignItems="center" justifyContent="space-between">
-        <Result isAnimeToday anime={animeToday} />
-      </Flex>
-    </Box>
+      <Box w={['95%', '70%']} mx="auto">
+        <Heading title="anime of the day" />
+        <Flex alignItems="center" justifyContent="space-between">
+          <Result isAnimeToday anime={animeToday} />
+          <Ranking type="airing" value={airing} />
+        </Flex>
+      </Box>
+    </Stack>
   )
 }

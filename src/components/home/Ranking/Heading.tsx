@@ -11,9 +11,7 @@ export default function HeadingRanking({ title }: HeadingRankingProps) {
         textAlign="center"
         color="gray.500"
         fontWeight="bold"
-        fontSize="26px"
-        fontStyle="normal"
-        lineHeight="30px"
+        fontSize="2xl"
         textTransform="uppercase"
         mt="8px"
       >

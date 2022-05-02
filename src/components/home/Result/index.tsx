@@ -4,8 +4,6 @@ import { useAnimeByIdOnJikan, useAnimeRandom } from 'hooks/useJikan'
 import dynamic from 'next/dynamic'
 import { IAnime } from 'types/anime'
 
-import { Heading } from '../Heading'
-
 import { Button } from './Button'
 import { StatisticsProps } from './Statistics'
 import { SynopsisProps } from './Synopsis'
@@ -36,7 +34,6 @@ export function Result({ anime, isAnimeToday }: Props) {
 
   return (
     <Box w={['100%', '65%']}>
-      <Heading title="anime of the day" />
       <Flex
         w="100%"
         as="article"

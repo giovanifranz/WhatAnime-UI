@@ -23,7 +23,7 @@ export interface IResponseAnime {
     }
     string: string
   }
-  premiered: string
+  premiered?: string
   rating: string
   episodes: number | null
 }
@@ -33,7 +33,7 @@ export interface IAnime {
   title: string
   titleEnglish: string
   titleJapanese: string
-  year: number | null
+  year?: number | null
   score: number | null
   type: string
   source: string
@@ -42,7 +42,7 @@ export interface IAnime {
   status: string
   duration: string
   airedString: string
-  premiered: string
+  premiered: string | null
   rating: string
   episodes: number | null
   similarity?: string
