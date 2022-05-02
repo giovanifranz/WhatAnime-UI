@@ -2,7 +2,8 @@ import { AiFillFacebook, AiOutlineTwitter } from 'react-icons/ai'
 import { SiAnilist, SiMyanimelist } from 'react-icons/si'
 import { HStack, Stack, useBreakpointValue } from '@chakra-ui/react'
 
-import { Link, Text } from '.'
+import { Link } from './Link'
+import { Text } from './Text'
 
 function Share() {
   return (

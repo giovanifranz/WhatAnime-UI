@@ -7,21 +7,21 @@ const jikanAPI = 'https://api.jikan.moe/v4'
 
 function animeMapper(response: IResponseAnime): IAnime {
   return {
-    mal_id: response.mal_id,
+    id: response.mal_id,
     title: response.title.toLowerCase(),
-    title_english: response.title_english,
-    title_japanese: response.title_japanese,
+    titleEnglish: response.title_english,
+    titleJapanese: response.title_japanese,
     score: response.score,
     type: response.type,
     source: response.source,
-    image_url: response.images.jpg.image_url,
+    imageUrl: response.images.jpg.image_url,
     status: response.status,
     duration: response.duration,
     premiered: response.premiered,
     rating: response.rating,
     episodes: response.episodes,
     year: response.year ? response.year : response.aired.prop.from.year,
-    aired_string: response.aired.string,
+    airedString: response.aired.string,
     synopsis: response.synopsis ? response.synopsis.replace(' [Written by MAL Rewrite]', '') : null,
   }
 }

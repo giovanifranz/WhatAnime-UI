@@ -2,7 +2,7 @@ import { memo } from 'react'
 import { Box, Flex, Heading, Text } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 
-import { ButtonProps } from '.'
+import { ButtonProps } from './Button'
 
 interface Props {
   title: string

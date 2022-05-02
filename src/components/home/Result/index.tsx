@@ -1,48 +1,35 @@
-import { useQuery } from 'react-query'
+import { useCallback } from 'react'
 import { Box, Flex, Heading, Image, Text } from '@chakra-ui/react'
+import { useAnimeByIdOnJikan, useAnimeRandom } from 'hooks/useJikan'
+import { IAnime } from 'types/anime'
 
-import { api } from '../../../utils/api'
+import { Button } from '.'
 
-import Button from './Button'
-
-interface ResultCardProps {
-  value: Value
+interface Props {
+  anime?: IAnime
+  isAnimeToday?: boolean
 }
 
-interface Value {
-  mal_id: number
-  title: string
-  image_url: string
-  score: number
-  episodes: number
-  synopsis: string
-  similarity?: string
-  aired?: {
-    prop: {
-      from: {
-        year: number
-      }
+export function Result({ anime, isAnimeToday }: Props) {
+  const useAnime = useCallback(() => {
+    if (isAnimeToday || !anime) {
+      return useAnimeRandom(anime)
     }
-  }
-  year?: number
-}
+    return useAnimeByIdOnJikan(anime, anime.id)
+  }, [anime, isAnimeToday])
 
-export default function ResultCard({ value }: ResultCardProps) {
-  const { data } = useQuery<Value>(
-    ['anime-result', value.mal_id],
-    async () => {
-      const { data } = await api.get(`/anime/id/${value.mal_id}`)
-      return data
-    },
-    {
-      initialData: value,
-    },
-  )
-  const animeResult = { ...data, year: value.year } as Value
+  const { isLoading, isError, data } = useAnime()
+
+  if (isLoading || isError || !data) {
+    return null
+  }
+
+  const { title, imageUrl, year, score, similarity, id, episodes, synopsis } = data
+
   return (
     <Flex as="article" w="790px" h="220px" bgColor="white" border="1px solid black" borderRadius="5px">
       <Image
-        src={animeResult.image_url}
+        src={imageUrl}
         w="161px"
         h="220.1px"
         border="1px solid black"
@@ -65,7 +52,7 @@ export default function ResultCard({ value }: ResultCardProps) {
               maxW="225px"
               isTruncated
             >
-              {animeResult.title}
+              {title}
             </Heading>
             <Heading
               as="h3"
@@ -76,7 +63,7 @@ export default function ResultCard({ value }: ResultCardProps) {
               color="black"
               ml="12px"
             >
-              ({animeResult.year ? animeResult.year : animeResult.aired?.prop?.from?.year})
+              {year && `(${year})`}
             </Heading>
             <Box w="45px" h="45px" ml="12px">
               <Heading
@@ -105,10 +92,10 @@ export default function ResultCard({ value }: ResultCardProps) {
                 lineHeight="1.5rem"
                 color="black"
               >
-                {animeResult.score}
+                {score}
               </Text>
             </Box>
-            {animeResult.similarity ? (
+            {similarity ? (
               <Box w="45px" h="45px" ml="12px">
                 <Heading
                   as="h4"
@@ -138,12 +125,12 @@ export default function ResultCard({ value }: ResultCardProps) {
                   lineHeight="1.5rem"
                   color="black"
                 >
-                  {animeResult.similarity}
+                  {similarity}
                 </Text>
               </Box>
             ) : null}
           </Flex>
-          <Button id={animeResult.mal_id} />
+          <Button id={id} />
         </Flex>
         <Text
           fontStyle="normal"
@@ -153,7 +140,7 @@ export default function ResultCard({ value }: ResultCardProps) {
           color="black"
           mt="-15px"
         >
-          Episodes: {animeResult.episodes}
+          Episodes: {episodes}
         </Text>
         <Heading
           as="h4"
@@ -178,7 +165,7 @@ export default function ResultCard({ value }: ResultCardProps) {
           mt="5px"
           noOfLines={5}
         >
-          {animeResult.synopsis}
+          {synopsis}
         </Text>
       </Box>
     </Flex>

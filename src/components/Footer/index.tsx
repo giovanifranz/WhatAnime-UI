@@ -2,7 +2,7 @@ import { Box, Flex, Link, Text, useBreakpointValue, VStack } from '@chakra-ui/re
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 
-import { Social } from '.'
+import { Social } from './Social'
 
 const WhatAnimeLogo = dynamic<EmptyObject>(() =>
   import('../common/WhatAnimeLogo').then((module) => module.WhatAnimeLogo),

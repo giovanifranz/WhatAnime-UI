@@ -29,26 +29,27 @@ export interface IResponseAnime {
 }
 
 export interface IAnime {
-  mal_id: number
+  id: number
   title: string
-  title_english: string
-  title_japanese: string
+  titleEnglish: string
+  titleJapanese: string
   year: number | null
   score: number | null
   type: string
   source: string
-  image_url: string
+  imageUrl: string
   synopsis: string | null
   status: string
   duration: string
-  aired_string: string
+  airedString: string
   premiered: string
   rating: string
   episodes: number | null
+  similarity?: string
 }
 
 export interface ITop {
-  mal_id: number
+  id: number
   title: string
   rank: number
 }

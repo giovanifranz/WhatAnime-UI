@@ -6,7 +6,7 @@ import { IQuote } from 'types/quote'
 
 import { handlePrefetchAnime } from 'utils/http/jikan/jikan-resource'
 
-import { Content } from '.'
+import { Content } from './Content'
 
 interface Props {
   quote?: IQuote
