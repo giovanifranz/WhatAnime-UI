@@ -13,7 +13,7 @@ import {
   Spinner,
 } from '@chakra-ui/react'
 
-import { Heading } from '.'
+import { Title } from '.'
 
 type TSelect = 'word' | 'image'
 
@@ -37,7 +37,7 @@ export function Search() {
   return (
     <Box w={['100%', '65%']}>
       <Flex alignItems="center">
-        <Heading title="Search" />
+        <Title text="Search" />
         <Select
           w="150px"
           fontWeight="normal"

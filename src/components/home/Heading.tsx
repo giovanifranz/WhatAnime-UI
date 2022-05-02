@@ -1,12 +1,12 @@
-import { Heading as HeadingChakra } from '@chakra-ui/react'
+import { Heading } from '@chakra-ui/react'
 
 interface Props {
-  title: string
+  text: string
 }
-export function Heading({ title }: Props) {
+export function Title({ text }: Props) {
   return (
-    <HeadingChakra as="h1" fontSize="3xl" textTransform="uppercase" fontWeight="normal">
-      {title}
-    </HeadingChakra>
+    <Heading as="h1" fontSize="3xl" textTransform="uppercase" fontWeight="normal">
+      {text}
+    </Heading>
   )
 }

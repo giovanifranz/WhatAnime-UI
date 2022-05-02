@@ -1,11 +1,10 @@
-import { memo } from 'react'
 import { Box, Text } from '@chakra-ui/react'
 
 interface Props {
   value: number | string
 }
 
-function StatisticsComponent({ value }: Props) {
+function Statistics({ value }: Props) {
   return (
     <Box minW="60px" textAlign="center">
       <Text
@@ -25,8 +24,6 @@ function StatisticsComponent({ value }: Props) {
     </Box>
   )
 }
-
-const Statistics = memo(StatisticsComponent, (prevProps, nextProps) => Object.is(prevProps, nextProps))
 
 export { Statistics }
 export type { Props as StatisticsProps }

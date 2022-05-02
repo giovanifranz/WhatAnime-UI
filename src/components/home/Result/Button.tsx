@@ -1,4 +1,3 @@
-import { memo } from 'react'
 import { Button as ChakraButton, Link } from '@chakra-ui/react'
 import { theme } from 'styles/theme'
 
@@ -10,7 +9,7 @@ interface Props {
 
 const yellow = theme.colors.yellow[500]
 
-export function ButtonComponent({ id }: Props) {
+function Button({ id }: Props) {
   return (
     <Link href={`/${id}`} _hover={{ textDecoration: 'none' }} onMouseEnter={() => handlePrefetchAnime(id)}>
       <ChakraButton
@@ -35,8 +34,6 @@ export function ButtonComponent({ id }: Props) {
     </Link>
   )
 }
-
-const Button = memo(ButtonComponent, (prevProps, nextProps) => Object.is(prevProps, nextProps))
 
 export { Button }
 export type { Props as ButtonProps }

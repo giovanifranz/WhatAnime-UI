@@ -1,5 +1,5 @@
-import { useCallback } from 'react'
-import { Box, Flex, Heading as ChakraHeading, HStack, Image, Text, VStack } from '@chakra-ui/react'
+import { memo, useCallback } from 'react'
+import { Box, Flex, Heading, HStack, Image, Text, VStack } from '@chakra-ui/react'
 import { useAnimeByIdOnJikan, useAnimeRandom } from 'hooks/useJikan'
 import dynamic from 'next/dynamic'
 import { IAnime } from 'types/anime'
@@ -16,7 +16,7 @@ interface Props {
   isAnimeToday?: boolean
 }
 
-export function Result({ anime, isAnimeToday }: Props) {
+function ResultComponent({ anime, isAnimeToday }: Props) {
   const useAnime = useCallback(() => {
     if (isAnimeToday || !anime) {
       return useAnimeRandom(anime)
@@ -40,7 +40,7 @@ export function Result({ anime, isAnimeToday }: Props) {
         bgColor="white"
         border="1px solid black"
         borderRadius="5px"
-        h="220px"
+        h="250px"
         position="relative"
       >
         <Image
@@ -58,9 +58,9 @@ export function Result({ anime, isAnimeToday }: Props) {
             <HStack spacing="20px" w="100%">
               <VStack w="60%" spacing="5px" alignItems="left">
                 <HStack spacing="20px">
-                  <ChakraHeading as="h2" fontWeight="bold" fontSize="xl" isTruncated>
+                  <Heading as="h2" fontWeight="bold" fontSize="xl" isTruncated>
                     {title}
-                  </ChakraHeading>
+                  </Heading>
                   <Text as="span" fontSize="xl">
                     {year && `(${year})`}
                   </Text>
@@ -78,3 +78,8 @@ export function Result({ anime, isAnimeToday }: Props) {
     </Box>
   )
 }
+
+const Result = memo(ResultComponent, (prevProps, nextProps) => Object.is(prevProps, nextProps))
+
+export { Result }
+export type { Props as ResultProps }

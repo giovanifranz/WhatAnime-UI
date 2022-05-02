@@ -1,4 +1,3 @@
-import { memo } from 'react'
 import { HiArrowRight } from 'react-icons/hi'
 import { IconButton } from '@chakra-ui/react'
 import Link from 'next/link'
@@ -12,7 +11,7 @@ export interface Props {
 
 const { colors } = theme
 
-function ButtonComponent({ id }: Props) {
+function Button({ id }: Props) {
   return (
     <Link href={`/${id}`} passHref>
       <IconButton
@@ -34,8 +33,6 @@ function ButtonComponent({ id }: Props) {
     </Link>
   )
 }
-
-const Button = memo(ButtonComponent, (prevProps, nextProps) => Object.is(prevProps, nextProps))
 
 export { Button }
 export type { Props as ButtonProps }

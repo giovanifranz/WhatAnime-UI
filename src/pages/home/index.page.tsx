@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 import { IAnime } from 'types/anime'
 import { IQuote } from 'types/quote'
 
-import { Heading, QuoteProps, Ranking, Result, Search } from 'components/home'
+import { QuoteProps, Ranking, Result, Search, Title } from 'components/home'
 import { getAnimeRandom, getAnimeTop } from 'utils/http/jikan/jikan-resource'
 import { getRandomAnimeQuote } from 'utils/http/quote/quote-resource'
 
@@ -29,6 +29,7 @@ export const getStaticProps: GetStaticProps = async () => ({
 
 export default function Home({ quote, animeToday, airing, popular }: Props) {
   console.log(popular)
+
   const isWideVersion = useBreakpointValue({
     base: false,
     md: false,
@@ -43,7 +44,7 @@ export default function Home({ quote, animeToday, airing, popular }: Props) {
         {isWideVersion && <Quote quote={quote} />}
       </Flex>
       <Box w={['95%', '70%']} mx="auto">
-        <Heading title="anime of the day" />
+        <Title text="anime of the day" />
         <Flex alignItems="center" justifyContent="space-between">
           <Result isAnimeToday anime={animeToday} />
           <Ranking type="airing" value={airing} />

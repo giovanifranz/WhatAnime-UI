@@ -1,11 +1,10 @@
-import { memo } from 'react'
 import { Heading, Text } from '@chakra-ui/react'
 
 interface Props {
   synopsis: string
 }
 
-function SynopsisComponent({ synopsis }: Props) {
+function Synopsis({ synopsis }: Props) {
   return (
     <>
       <Heading as="h3" fontWeight="bold" mt="25px" fontSize="lg">
@@ -17,8 +16,6 @@ function SynopsisComponent({ synopsis }: Props) {
     </>
   )
 }
-
-const Synopsis = memo(SynopsisComponent, (prevProps, nextProps) => Object.is(prevProps, nextProps))
 
 export { Synopsis }
 export type { Props as SynopsisProps }

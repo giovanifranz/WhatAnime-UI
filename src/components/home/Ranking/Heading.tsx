@@ -1,22 +1,24 @@
-import { Box, Heading } from '@chakra-ui/react'
+import { Box, Heading as HeadingChakra } from '@chakra-ui/react'
 
-interface HeadingRankingProps {
+interface Props {
   title: string
 }
 
-export default function HeadingRanking({ title }: HeadingRankingProps) {
+function Heading({ title }: Props) {
   return (
-    <Box bgColor="yellow.500" w="250px" h="50px" ml="-1px" mt="-1px" border="1px solid black">
-      <Heading
+    <Box bgColor="yellow.500" w="100%" h="50px" borderBottom="1px solid black" position="absolute" py="10px">
+      <HeadingChakra
         textAlign="center"
         color="gray.500"
         fontWeight="bold"
         fontSize="2xl"
         textTransform="uppercase"
-        mt="8px"
       >
         {title}
-      </Heading>
+      </HeadingChakra>
     </Box>
   )
 }
+
+export { Heading }
+export type { Props as HeadingProps }

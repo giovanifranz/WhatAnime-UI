@@ -1,4 +1,3 @@
-import { memo } from 'react'
 import { Box, Flex, Heading, Text } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 
@@ -13,7 +12,7 @@ interface Props {
 
 const Button = dynamic<ButtonProps>(() => import('./Button').then((module) => module.Button))
 
-function ContentComponent({ title, character, quote, id }: Props) {
+function Content({ title, character, quote, id }: Props) {
   return (
     <Box position="relative">
       <Text w="100%" fontStyle="italic" fontWeight={300} fontSize="lg" noOfLines={3}>
@@ -35,8 +34,6 @@ function ContentComponent({ title, character, quote, id }: Props) {
     </Box>
   )
 }
-
-const Content = memo(ContentComponent, (prevProps, nextProps) => Object.is(prevProps, nextProps))
 
 export { Content }
 export type { Props as ContentProps }
