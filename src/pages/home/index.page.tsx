@@ -1,8 +1,9 @@
 import { Box, Flex, Stack, useBreakpointValue } from '@chakra-ui/react'
+import { useSelect } from 'hooks/useSearch'
 import { GetStaticProps } from 'next'
 import dynamic from 'next/dynamic'
-import { IAnime } from 'types/anime'
-import { IQuote } from 'types/quote'
+import Head from 'next/head'
+import { IAnime, IQuote } from 'types'
 
 import { QuoteProps, Ranking, Result, Search, Title } from 'components/home'
 import { getAnimeRandom, getAnimeTop } from 'utils/http/jikan/jikan-resource'
@@ -28,28 +29,33 @@ export const getStaticProps: GetStaticProps = async () => ({
 })
 
 export default function Home({ quote, animeToday, airing, popular }: Props) {
-  console.log(popular)
-
   const isWideVersion = useBreakpointValue({
     base: false,
     md: false,
     lg: false,
     xl: true,
   })
+  const { animes } = useSelect()
 
+  console.log(animes)
   return (
-    <Stack w="full" spacing="30px" alignItems="center" py="30px">
-      <Flex w={['95%', '70%']} mx="auto" alignItems="center" justifyContent="space-between">
-        <Search />
-        {isWideVersion && <Quote quote={quote} />}
-      </Flex>
-      <Box w={['95%', '70%']} mx="auto">
-        <Title text="anime of the day" />
-        <Flex alignItems="center" justifyContent="space-between">
-          <Result isAnimeToday anime={animeToday} />
-          <Ranking type="airing" value={airing} />
+    <>
+      <Head>
+        <title>{animeToday ? `WhatAnime | ${animeToday.title}` : 'WhatAnime'}</title>
+      </Head>
+      <Stack w="full" spacing="30px" alignItems="center" py="30px">
+        <Flex w={['95%', '70%']} mx="auto" alignItems="center" justifyContent="space-between">
+          <Search />
+          {isWideVersion && <Quote quote={quote} />}
         </Flex>
-      </Box>
-    </Stack>
+        <Box w={['95%', '70%']} mx="auto">
+          <Title text="anime of the day" />
+          <Flex alignItems="center" justifyContent="space-between">
+            <Result isAnimeToday anime={animeToday} />
+            <Ranking type="airing" value={airing} />
+          </Flex>
+        </Box>
+      </Stack>
+    </>
   )
 }

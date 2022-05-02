@@ -1,6 +1,7 @@
 import { useQuery } from 'react-query'
 import { IAnime } from 'types/anime'
 
+import { formatSlug } from 'utils/common'
 import {
   getAnimeByIdOnJikan,
   getAnimeRandom,
@@ -9,9 +10,13 @@ import {
 } from 'utils/http/jikan/jikan-resource'
 
 export function useAnimesByTitleOnJikan(animes: IAnime[] | undefined, title: string) {
-  return useQuery<IAnime[]>(['anime-by-title', title], async () => getAnimesByTitleOnJikan(title), {
-    initialData: animes,
-  })
+  return useQuery<IAnime[]>(
+    ['anime-by-title', formatSlug(title)],
+    async () => getAnimesByTitleOnJikan(title),
+    {
+      initialData: animes,
+    },
+  )
 }
 
 export function useAnimeByIdOnJikan(anime: IAnime | undefined, id: number) {
