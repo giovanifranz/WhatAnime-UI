@@ -1,7 +1,6 @@
 import {
   createContext,
   Dispatch,
-  MouseEvent,
   ReactNode,
   SetStateAction,
   useCallback,
@@ -18,7 +17,7 @@ interface SelectContextType {
   setSelect: Dispatch<SetStateAction<TSelect>>
   payload: string
   setPayload: Dispatch<SetStateAction<string>>
-  handleSubmit: (event: MouseEvent) => void
+  handleSubmit: () => void
   animes?: IAnime[]
   error?: Error
   isLoading: boolean
@@ -49,23 +48,18 @@ function SelectProvider({ children }: SelectProviderProps) {
   const [error, setError] = useState<Error>()
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const handleSubmit = useCallback(
-    async (event: MouseEvent) => {
-      event.preventDefault()
-
-      if (select === 'word') {
-        if (payload.length < 3 || payload.trim() === '') {
-          return
-        }
-        setIsLoading(true)
-        getAnimesByTitleOnJikan(payload)
-          .then((response) => setAnimes(response))
-          .catch((err: Error) => setError(err))
-          .finally(() => setIsLoading(false))
+  const handleSubmit = useCallback(async () => {
+    if (select === 'word') {
+      if (payload.length < 3 || payload.trim() === '') {
+        return
       }
-    },
-    [payload, select],
-  )
+      setIsLoading(true)
+      getAnimesByTitleOnJikan(payload)
+        .then((response) => setAnimes(response))
+        .catch((err: Error) => setError(err))
+        .finally(() => setIsLoading(false))
+    }
+  }, [payload, select])
 
   const context: SelectContextType = useMemo(
     (): SelectContextType => ({

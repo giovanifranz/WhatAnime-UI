@@ -27,6 +27,6 @@ export async function getRandomAnimeQuote(): Promise<IQuote> {
 
   return {
     ...quote,
-    id: animes ? animes[0].id : undefined,
+    id: animes[0].id ? animes[0].id : undefined,
   }
 }

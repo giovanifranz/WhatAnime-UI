@@ -1,15 +1,15 @@
 import { memo } from 'react'
-import { Button } from '@chakra-ui/react'
+import { Button, ButtonProps } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { theme } from 'styles/theme'
 
 const yellow = theme.colors.yellow[500]
 
-interface Props {
+interface Props extends ButtonProps {
   to: 'top' | 'search'
 }
 
-export function ButtonBackToComponent({ to = 'top' }: Props) {
+export function ButtonBackToComponent({ to = 'top', ...rest }: Props) {
   const router = useRouter()
 
   const text = {
@@ -19,7 +19,7 @@ export function ButtonBackToComponent({ to = 'top' }: Props) {
 
   function handleClick() {
     if (to === 'search') router.push('/')
-    else window.scrollTo({ top: 0, behavior: 'smooth' })
+    else globalThis.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   return (
@@ -40,6 +40,7 @@ export function ButtonBackToComponent({ to = 'top' }: Props) {
         bgColor: 'gray.100',
         color: 'yellow.500',
       }}
+      {...rest}
     >
       {text[to]}
     </Button>

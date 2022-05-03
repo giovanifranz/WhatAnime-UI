@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, MouseEvent, startTransition } from 'react'
 import { HiOutlineSearch } from 'react-icons/hi'
 import { MdSmsFailed } from 'react-icons/md'
 import {
@@ -30,6 +30,11 @@ export function Search() {
     } else {
       setSelect('image')
     }
+  }
+
+  function handleClick(event: MouseEvent) {
+    event.preventDefault()
+    startTransition(() => handleSubmit())
   }
 
   return (
@@ -68,7 +73,7 @@ export function Search() {
           _hover={{
             filter: 'brightness(90%)',
           }}
-          onClick={(event) => handleSubmit(event)}
+          onClick={(event: MouseEvent) => handleClick(event)}
         />
       </InputGroup>
       {error && (

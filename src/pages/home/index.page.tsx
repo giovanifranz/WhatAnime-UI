@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { IAnime, IQuote } from 'types'
 
+import { ButtonBackToComponent } from 'components'
 import { QuoteProps, Ranking, Result, Search, Title } from 'components/home'
 import { getAnimeRandom, getAnimeTop } from 'utils/http/jikan/jikan-resource'
 import { getRandomAnimeQuote } from 'utils/http/quote/quote-resource'
@@ -50,6 +51,9 @@ export default function Home({ quote, animeToday, airing }: Props) {
             <Ranking type="airing" value={airing} />
           </Flex>
         </Box>
+        <Flex alignItems="center">
+          <ButtonBackToComponent to="top" mx="auto" />
+        </Flex>
       </Stack>
     </>
   )
