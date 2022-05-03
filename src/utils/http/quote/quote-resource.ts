@@ -14,16 +14,15 @@ function quoteMapper(response: IResponseQuote): IQuote {
 }
 
 export async function getAnimesQuoteByTitle(title: string): Promise<Array<IQuote>> {
-  return axios
+  const data: IResponseQuote[] = await axios
     .get(`${animeChan}/quotes/anime?title=${title}`)
-    .then(({ data }) => data.map((quote: IResponseQuote) => quoteMapper(quote)))
+    .then((response) => response.data)
+  return data.map((quote: IResponseQuote) => quoteMapper(quote))
 }
 
 export async function getRandomAnimeQuote(): Promise<IQuote> {
-  const quote = await axios.get<IResponseQuote>(`${animeChan}/random`).then((response) => {
-    const { data } = response
-    return quoteMapper(data)
-  })
+  const data = await axios.get<IResponseQuote>(`${animeChan}/random`).then((response) => response.data)
+  const quote = quoteMapper(data)
   const animes = await getAnimesByTitleOnJikan(quote.title)
 
   return {

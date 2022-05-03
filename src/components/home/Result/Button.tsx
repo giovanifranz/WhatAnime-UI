@@ -1,7 +1,7 @@
 import { Button as ChakraButton, Link } from '@chakra-ui/react'
 import { theme } from 'styles/theme'
 
-import { handlePrefetchAnime } from 'utils/http/jikan/jikan-resource'
+import { handlePrefetchAnime } from 'utils/common/queryClient'
 
 interface Props {
   id: number

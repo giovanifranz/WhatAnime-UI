@@ -1,8 +1,6 @@
 import axios from 'axios'
 import { IAnime, IResponseAnime, TFilter } from 'types/anime'
 
-import { queryClient } from '../../common'
-
 const jikanAPI = 'https://api.jikan.moe/v4'
 
 function animeMapper(response: IResponseAnime): IAnime {
@@ -27,17 +25,18 @@ function animeMapper(response: IResponseAnime): IAnime {
 }
 
 export async function getAnimesByTitleOnJikan(title: string): Promise<IAnime[]> {
-  return axios.get(`${jikanAPI}/anime?q=${title}&order_by=score&&sort=desc`).then(({ data: results }) => {
-    const { data } = results
-    return data.slice(0, 6).map((response: IResponseAnime) => animeMapper(response))
-  })
+  const animes: IResponseAnime[] = await axios
+    .get(`${jikanAPI}/anime?q=${title}&order_by=score&&sort=desc`)
+    .then(({ data: results }) => results.data)
+  return animes.slice(0, 6).map((response: IResponseAnime) => animeMapper(response))
 }
 
 export async function getAnimeByIdOnJikan(id: number): Promise<IAnime> {
-  return axios.get(`${jikanAPI}/anime/${id}`).then(({ data }) => {
+  const anime: IResponseAnime = await axios.get(`${jikanAPI}/anime/${id}`).then(({ data }) => {
     const { data: response } = data
-    return animeMapper(response)
+    return response
   })
+  return animeMapper(anime)
 }
 
 export async function getAnimeRandom(): Promise<IAnime> {
@@ -47,13 +46,8 @@ export async function getAnimeRandom(): Promise<IAnime> {
 
 export async function getAnimeTop(filter: TFilter) {
   const qtd = filter === 'airing' ? 5 : 10
-  return axios
+  const animes: IResponseAnime[] = await axios
     .get(`${jikanAPI}/top/anime?filter=${filter}`)
-    .then(({ data }) => data.data.slice(0, qtd).map((response: IResponseAnime) => animeMapper(response)))
-}
-
-export async function handlePrefetchAnime(id: number) {
-  await queryClient.prefetchQuery(['anime-page', id], () => getAnimeByIdOnJikan(id), {
-    staleTime: 1000 * 60,
-  })
+    .then(({ data: results }) => results.data)
+  return animes.slice(0, qtd).map((response: IResponseAnime) => animeMapper(response))
 }

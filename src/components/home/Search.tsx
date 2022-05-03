@@ -68,7 +68,7 @@ export function Search() {
           _hover={{
             filter: 'brightness(90%)',
           }}
-          onClick={() => handleSubmit()}
+          onClick={(event) => handleSubmit(event)}
         />
       </InputGroup>
       {error && (

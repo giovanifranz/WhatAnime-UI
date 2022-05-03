@@ -3,7 +3,7 @@ import { Box, Flex, Link, ListItem, OrderedList, Stack, Text } from '@chakra-ui/
 import { useAnimeTopByAiring, useAnimeTopByPopularity } from 'hooks/useJikan'
 import { IAnime, TFilter } from 'types/anime'
 
-import { handlePrefetchAnime } from 'utils/http/jikan/jikan-resource'
+import { handlePrefetchAnime } from 'utils/common/queryClient'
 
 import { Heading } from './Heading'
 

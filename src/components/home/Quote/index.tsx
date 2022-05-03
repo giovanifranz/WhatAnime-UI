@@ -4,7 +4,7 @@ import { useRandomAnimeQuote } from 'hooks/useQuote'
 import { useRouter } from 'next/router'
 import { IQuote } from 'types/quote'
 
-import { handlePrefetchAnime } from 'utils/http/jikan/jikan-resource'
+import { handlePrefetchAnime } from 'utils/common/queryClient'
 
 import { Content } from './Content'
 

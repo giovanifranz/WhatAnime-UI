@@ -1,6 +1,7 @@
 import {
   createContext,
   Dispatch,
+  MouseEvent,
   ReactNode,
   SetStateAction,
   useCallback,
@@ -10,7 +11,6 @@ import {
 } from 'react'
 import { IAnime } from 'types/anime'
 
-import { formatSlug, queryClient } from 'utils/common'
 import { getAnimesByTitleOnJikan } from 'utils/http/jikan/jikan-resource'
 
 interface SelectContextType {
@@ -18,7 +18,7 @@ interface SelectContextType {
   setSelect: Dispatch<SetStateAction<TSelect>>
   payload: string
   setPayload: Dispatch<SetStateAction<string>>
-  handleSubmit: () => void
+  handleSubmit: (event: MouseEvent) => void
   animes?: IAnime[]
   error?: Error
   isLoading: boolean
@@ -49,28 +49,39 @@ function SelectProvider({ children }: SelectProviderProps) {
   const [error, setError] = useState<Error>()
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const handleSubmit = useCallback(async () => {
-    if (select === 'word') {
-      if (payload.length < 3 || payload.trim() === '') {
-        return
-      }
+  const handleSubmit = useCallback(
+    async (event: MouseEvent) => {
+      event.preventDefault()
 
-      setIsLoading(true)
-      await queryClient.fetchQuery(['anime-by-title', formatSlug(payload)], async () => {
+      if (select === 'word') {
+        if (payload.length < 3 || payload.trim() === '') {
+          return
+        }
+        setIsLoading(true)
         getAnimesByTitleOnJikan(payload)
           .then((response) => setAnimes(response))
           .catch((err: Error) => setError(err))
-      })
-      setIsLoading(false)
-    }
-  }, [payload, select])
-
-  const value = useMemo(
-    () => ({ select, setSelect, payload, setPayload, handleSubmit, animes, error, isLoading }),
-    [select, setSelect, payload, setPayload],
+          .finally(() => setIsLoading(false))
+      }
+    },
+    [payload, select],
   )
 
-  return <SelectContext.Provider value={value}>{children}</SelectContext.Provider>
+  const context: SelectContextType = useMemo(
+    (): SelectContextType => ({
+      select,
+      setSelect,
+      payload,
+      setPayload,
+      handleSubmit,
+      animes,
+      error,
+      isLoading,
+    }),
+    [select, setSelect, payload, setPayload, handleSubmit, animes, error, isLoading],
+  )
+
+  return <SelectContext.Provider value={context}>{children}</SelectContext.Provider>
 }
 
 export { SelectContext, SelectProvider, useSelect }

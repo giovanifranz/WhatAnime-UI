@@ -3,7 +3,7 @@ import { IconButton } from '@chakra-ui/react'
 import Link from 'next/link'
 import { theme } from 'styles/theme'
 
-import { handlePrefetchAnime } from 'utils/http/jikan/jikan-resource'
+import { handlePrefetchAnime } from 'utils/common/queryClient'
 
 export interface Props {
   id: number
