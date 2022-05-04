@@ -16,7 +16,7 @@ export function Footer() {
     <footer className="w-full text-zinc-100 bg-zinc-400 border-t-2 border-solid border-black py-5 ">
       <section className="flex flex-col w-11/12 max-w-6xl items-center justify-between mx-auto xl:w-9/12 xl:flex-row">
         <div className="mx-auto flex flex-row xl:flex-col justify-center items-center gap-5xl xl:mx-0 xl:h-72 xl:items-start">
-          {width >= 768 && <Logo />}
+          {width >= 1024 && <Logo />}
           <Social />
         </div>
         <article className="flex flex-col px-4 items-start gap-6 xl:w-4/6 xl:border-l xl:border-solid xl:border-black">

@@ -1,17 +1,6 @@
 import { ChangeEvent, MouseEvent, startTransition } from 'react'
 import { HiOutlineSearch } from 'react-icons/hi'
 import { MdSmsFailed } from 'react-icons/md'
-import {
-  Box,
-  Flex,
-  Icon,
-  IconButton,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Select,
-  Spinner,
-} from '@chakra-ui/react'
 import { useSelect } from 'hooks/useSearch'
 
 import { Title } from '.'
@@ -22,7 +11,7 @@ const placeholder = {
 }
 
 export function Search() {
-  const { select, setSelect, handleSubmit, payload, setPayload, error, isLoading } = useSelect()
+  const { select, setSelect, handleSubmit, setPayload, error, isLoading } = useSelect()
 
   function handleChange(event: ChangeEvent<HTMLSelectElement>) {
     if (event.target.value === 'word') {
@@ -38,50 +27,35 @@ export function Search() {
   }
 
   return (
-    <Box w={['100%', '65%']}>
-      <Flex alignItems="center">
+    <section className="w-full lg:w-2/3">
+      <div className="flex items-center">
         <Title text="Search" />
-        <Select
-          w="150px"
-          fontWeight="normal"
-          fontSize="lg"
-          textTransform="uppercase"
-          onChange={(event) => handleChange(event)}
-        >
+        <select className="w-40 text-lg uppercase bg-transparent" onChange={(event) => handleChange(event)}>
           <option value="word">by word</option>
           <option value="image">by image</option>
-        </Select>
-        {isLoading && <Spinner ml="10px" color="yellow.500" />}
-      </Flex>
-      <InputGroup as="form" bgColor="white">
-        <Input
-          fontSize="xl"
-          isTruncated
+        </select>
+        {isLoading && <p>loading...</p>}
+      </div>
+      <form className="flex w-full">
+        <input
+          className="font-xl line-clamp-1 p-2 h-12 w-full rounded-l border border-r-0 border-zinc-400 border-solid bg-white"
           placeholder={placeholder[select]}
-          pr="70px"
           onChange={(event) => setPayload(event.target.value)}
-          isRequired
         />
-        <InputRightElement
-          border=" 1px solid rgba(0, 0, 0, 0.3)"
-          as={IconButton}
-          icon={<HiOutlineSearch />}
+        <button
           type="submit"
-          fontSize="25px"
-          transition="filter 0.2s"
-          isDisabled={payload.length <= 3}
-          _hover={{
-            filter: 'brightness(90%)',
-          }}
+          className="border border-black border-solid transition-opacity hover:opacity-60 right-0 w-12 h-12 p-1 rounded-r"
           onClick={(event: MouseEvent) => handleClick(event)}
-        />
-      </InputGroup>
+        >
+          <HiOutlineSearch size="40px" />
+        </button>
+      </form>
       {error && (
-        <Flex color="red.500" alignItems="center" w="155px" justifyContent="space-between" mt="5px">
-          <Icon as={MdSmsFailed} fontSize="24px" />
+        <div className="flex items-left w-full gap-2 mt-2 text-red">
+          <MdSmsFailed size="24px" />
           <span>{error.message}</span>
-        </Flex>
+        </div>
       )}
-    </Box>
+    </section>
   )
 }

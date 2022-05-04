@@ -1,16 +1,14 @@
-import { Flex, Heading } from '@chakra-ui/react'
-
 import { ButtonBackTo } from 'components'
 
 export default function NotFound() {
   return (
-    <Flex w="80%" h="50vh" mx="auto" alignItems="center" justifyContent="center" direction="column">
-      <Heading as="h1" fontSize="3xl" fontWeight="bold" textAlign="center" color="black" mb="25px">
+    <section className="w-9/12 max-h-screen mx-auto items-center justify-center flex-col">
+      <h1 className="text-3xl font-bold text-center mb-6">
         Page not found:
         <br />
         404
-      </Heading>
+      </h1>
       <ButtonBackTo to="search" />
-    </Flex>
+    </section>
   )
 }

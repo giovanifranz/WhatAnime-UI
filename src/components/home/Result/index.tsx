@@ -1,15 +1,14 @@
 import { memo, useCallback } from 'react'
 import { useAnimeByIdOnJikan, useAnimeRandom } from 'hooks/useJikan'
+import { useWindowsSize } from 'hooks/useWindowsSize'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { IAnime } from 'types/anime'
 
 import { Button } from './Button'
 import { StatisticsProps } from './Statistics'
-import { SynopsisProps } from './Synopsis'
 
 const Statistics = dynamic<StatisticsProps>(() => import('./Statistics').then((module) => module.Statistics))
-const Synopsis = dynamic<SynopsisProps>(() => import('./Synopsis').then((module) => module.Synopsis))
 
 interface Props {
   anime?: IAnime
@@ -32,9 +31,37 @@ function ResultComponent({ anime, isAnimeToday }: Props) {
 
   const { title, imageUrl, year, score, similarity, id, episodes, synopsis } = data
 
+  const { width } = useWindowsSize()
+
   return (
-    <section className="w-full h-64 bg-zinc-300">
-      <Image src={imageUrl} width="165px" height="256px" />
+    <section className="w-full h-64 lg:w-2/3 border border-solid border-black bg-white flex justify-between relative">
+      {width >= 768 && (
+        <div className="w-52 border-r border-solid border-black relative">
+          <Image src={imageUrl} layout="fill" alt={title} />
+        </div>
+      )}
+      <article className="w-full bg-white p-2">
+        <div className="flex justify-between">
+          <div className="flex gap-1 w-60">
+            <div>
+              <h2 className="font-bold text-xl line-clamp-1">{title}</h2>
+              {episodes && <p className="text-sm">Episodes: {episodes}</p>}
+            </div>
+            <span className="text-xl">{width > 768 && year && `(${year})`}</span>
+          </div>
+          <div className="flex gap-3 flex-col-reverse md:flex-row">
+            {width < 768 && similarity && <Statistics value={similarity} />}
+            {score && <Statistics value={score} />}
+            <Button id={id} />
+          </div>
+        </div>
+        {synopsis && (
+          <div className="absolute bottom-2 ">
+            <h3 className="font-bold text-lg">Synopsis</h3>
+            <p className="w-full text-lg line-clamp-4">{synopsis}</p>
+          </div>
+        )}
+      </article>
     </section>
   )
 }
@@ -43,44 +70,3 @@ const Result = memo(ResultComponent, (prevProps, nextProps) => Object.is(prevPro
 
 export { Result }
 export type { Props as ResultProps }
-
-/* <Flex
-        w="100%"
-        as="article"
-        bgColor="white"
-        border="1px solid black"
-        borderRadius="5px"
-        h="250px"
-        position="relative"
-      >
-        <Image
-
-
-          display="inherit"
-          borderRight="1px solid black"
-          borderLeftRadius="5px"
-          bgSize="cover"
-          alt="Anime Banner"
-        />
-        <Box w="100%" p="10px">
-          <Flex w="100%" alignItems="center" justifyContent="space-between">
-            <HStack spacing="20px" w="100%">
-              <VStack w="60%" spacing="5px" alignItems="left">
-                <HStack spacing="20px">
-                  <Heading as="h2" fontWeight="bold" fontSize="xl" isTruncated>
-                    {title}
-                  </Heading>
-                  <Text as="span" fontSize="xl">
-                    {year && `(${year})`}
-                  </Text>
-                </HStack>
-                {episodes && <Text fontSize="sm">Episodes: {episodes}</Text>}
-              </VStack>
-              {score && <Statistics value={score} />}
-              {similarity && <Statistics value={similarity} />}
-            </HStack>
-            <Button id={id} />
-          </Flex>
-          {synopsis && <Synopsis synopsis={synopsis} />}
-        </Box>
-      </Flex> */
