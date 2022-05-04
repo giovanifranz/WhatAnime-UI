@@ -1,15 +1,11 @@
 import { memo } from 'react'
-import { Button, ButtonProps } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { theme } from 'styles/theme'
 
-const yellow = theme.colors.yellow[500]
-
-interface Props extends ButtonProps {
+interface Props {
   to: 'top' | 'search'
 }
 
-export function ButtonBackToComponent({ to = 'top', ...rest }: Props) {
+export function ButtonBackToComponent({ to = 'top' }: Props) {
   const router = useRouter()
 
   const text = {
@@ -23,27 +19,13 @@ export function ButtonBackToComponent({ to = 'top', ...rest }: Props) {
   }
 
   return (
-    <Button
+    <button
+      type="button"
+      className="text-center text-zinc-400 text-base uppercase font-bold border-slate-100 border-solid bg-yellow-300 rounded-xl py-3 px-11 transition-colors hover:text-yellow-300 hover:border-yellow-300 hover:bg-white border-4"
       onClick={() => handleClick()}
-      textAlign="center"
-      textTransform="uppercase"
-      fontWeight="bold"
-      fontSize="3xl"
-      color="gray.500"
-      bgColor="yellow.500"
-      borderRadius="10px"
-      py="10px"
-      px="45px"
-      transition="0.3s"
-      _hover={{
-        border: `5px solid ${yellow}`,
-        bgColor: 'gray.100',
-        color: 'yellow.500',
-      }}
-      {...rest}
     >
       {text[to]}
-    </Button>
+    </button>
   )
 }
 

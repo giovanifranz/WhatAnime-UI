@@ -1,29 +1,18 @@
-import { ElementType, memo } from 'react'
-import { Button, ButtonProps, Icon } from '@chakra-ui/react'
+import { memo, ReactNode } from 'react'
+import NextLink from 'next/link'
 
-interface Props extends ButtonProps {
-  icon: ElementType
+interface Props {
+  children: ReactNode
   href: string
 }
 
-function LinkComponent({ icon, href, ...rest }: Props) {
+function LinkComponent({ children, href }: Props) {
   return (
-    <Button
-      as="a"
-      h="55px"
-      w="55px"
-      href={href}
-      borderRadius="8px"
-      bgColor="gray.100"
-      color="gray.500"
-      _hover={{
-        bgColor: 'yellow.500',
-        color: 'gray.800',
-      }}
-      {...rest}
-    >
-      <Icon as={icon} fontSize="40px" />
-    </Button>
+    <NextLink href={href} passHref>
+      <a className="h-14 w-14 flex p-1 rounded-lg bg-slate-100 text-zinc-400 hover:bg-yellow-300 hover:text-zinc-700 transition">
+        {children}
+      </a>
+    </NextLink>
   )
 }
 

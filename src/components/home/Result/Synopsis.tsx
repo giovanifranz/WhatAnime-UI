@@ -1,5 +1,3 @@
-import { Heading, Text } from '@chakra-ui/react'
-
 interface Props {
   synopsis: string
 }
@@ -7,12 +5,8 @@ interface Props {
 function Synopsis({ synopsis }: Props) {
   return (
     <>
-      <Heading as="h3" fontWeight="bold" mt="25px" fontSize="lg">
-        Synopsis
-      </Heading>
-      <Text fontSize="md" w="80%" noOfLines={4} h="95px">
-        {synopsis}
-      </Text>
+      <h3 className="font-bold text-lg">Synopsis</h3>
+      <p className="w-full text-lg line-clamp-4">{synopsis}</p>
     </>
   )
 }

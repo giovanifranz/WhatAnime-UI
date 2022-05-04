@@ -1,7 +1,7 @@
 import { memo, useCallback } from 'react'
-import { Box, Flex, Heading, HStack, Image, Text, VStack } from '@chakra-ui/react'
 import { useAnimeByIdOnJikan, useAnimeRandom } from 'hooks/useJikan'
 import dynamic from 'next/dynamic'
+import Image from 'next/image'
 import { IAnime } from 'types/anime'
 
 import { Button } from './Button'
@@ -33,8 +33,18 @@ function ResultComponent({ anime, isAnimeToday }: Props) {
   const { title, imageUrl, year, score, similarity, id, episodes, synopsis } = data
 
   return (
-    <Box w={['100%', '65%']}>
-      <Flex
+    <section className="w-full h-64 bg-zinc-300">
+      <Image src={imageUrl} width="165px" height="256px" />
+    </section>
+  )
+}
+
+const Result = memo(ResultComponent, (prevProps, nextProps) => Object.is(prevProps, nextProps))
+
+export { Result }
+export type { Props as ResultProps }
+
+/* <Flex
         w="100%"
         as="article"
         bgColor="white"
@@ -44,9 +54,8 @@ function ResultComponent({ anime, isAnimeToday }: Props) {
         position="relative"
       >
         <Image
-          src={imageUrl}
-          w="165px"
-          h="100%"
+
+
           display="inherit"
           borderRight="1px solid black"
           borderLeftRadius="5px"
@@ -74,12 +83,4 @@ function ResultComponent({ anime, isAnimeToday }: Props) {
           </Flex>
           {synopsis && <Synopsis synopsis={synopsis} />}
         </Box>
-      </Flex>
-    </Box>
-  )
-}
-
-const Result = memo(ResultComponent, (prevProps, nextProps) => Object.is(prevProps, nextProps))
-
-export { Result }
-export type { Props as ResultProps }
+      </Flex> */

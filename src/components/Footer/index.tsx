@@ -1,64 +1,48 @@
-import { Box, Flex, Link, Text, useBreakpointValue, VStack } from '@chakra-ui/react'
+import { useWindowsSize } from 'hooks/useWindowsSize'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { Social } from './Social'
 
-const WhatAnimeLogo = dynamic<EmptyObject>(() =>
-  import('../common/WhatAnimeLogo').then((module) => module.WhatAnimeLogo),
-)
+const Logo = dynamic<EmptyObject>(() => import('../common/Logo').then((module) => module.Logo))
 
 const Paypal = dynamic<EmptyObject>(() => import('./Paypal').then((module) => module.Paypal))
 
 export function Footer() {
-  const isWideVersion = useBreakpointValue({
-    base: false,
-    md: false,
-    lg: false,
-    xl: true,
-  })
+  const { width } = useWindowsSize()
 
   return (
-    <Box as="footer" w="full" py="30px" borderTop="1px solid black">
-      <Flex as="section" w={['95%', '70%']} mx="auto" flexDirection={['column', 'row']}>
-        <Box as="article" w={['95%', '35%']} mx="auto" mb={['25px', 'none']}>
-          {isWideVersion && <WhatAnimeLogo />}
+    <footer className="w-full text-zinc-100 bg-zinc-400 border-t-2 border-solid border-black py-5 ">
+      <section className="flex flex-col w-11/12 max-w-6xl items-center justify-between mx-auto xl:w-9/12 xl:flex-row">
+        <div className="mx-auto flex flex-row xl:flex-col justify-center items-center gap-5xl xl:mx-0 xl:h-72 xl:items-start">
+          {width >= 768 && <Logo />}
           <Social />
-        </Box>
-
-        <VStack
-          as="article"
-          borderLeft={['none', '1px solid black']}
-          px="15px"
-          alignItems="left"
-          spacing="25px"
-          width="85%"
-        >
-          <Flex alignItems="center">
-            <Text fontSize="xl" fontWeight="200" color="white" w={['auto', '35%']} mr="25px">
+        </div>
+        <article className="flex flex-col px-4 items-start gap-6 xl:w-4/6 xl:border-l xl:border-solid xl:border-black">
+          <div className="flex items-center gap-4">
+            <p className="font-extralight text-xl xl:w-1/3">
               This site is our baby, so please consider donating if you are able so that we can keep working
               on it!
-            </Text>
-            {isWideVersion && <Paypal />}
-          </Flex>
-          <Text fontSize="2xl" color="white" textTransform="uppercase">
-            Legal
-          </Text>
-          <Text fontSize="xl" fontWeight="200" color="white" w={['100%', '65%']}>
+            </p>
+            {width >= 1280 && <Paypal />}
+          </div>
+          <p className="text-2xl uppercase">Legal</p>
+          <p className="font-extralight text-xl w-full xl:w-2/3">
             All anime series names, images, and content are copyrighted content of their respective license
             holders. I do not own the rights to any of these anime series. Anime information compiled from
             AniList and MyAnimeList.
-          </Text>
-          <Box>
-            <Text fontFamily="Nova Mono" fontSize="2xl" mb="-10px" color="white" textTransform="uppercase">
-              Designed By
-            </Text>
-            <Link href="https://www.highlandertech.com.br/" mt="-20px" ml="-5px">
-              <Image src="/highlanderLogo.png" alt="HighlanderTech" width={260} height={65} />
+          </p>
+          <div>
+            <p className="font-mono text-2xl -mb-2 uppercase w-full xl:w-2/3">Designed By</p>
+            <Link href="https://www.highlandertech.com.br/">
+              <a className="mt-3 -ml-1">
+                <Image src="/highlanderLogo.png" alt="HighlanderTech" width={260} height={65} />
+              </a>
             </Link>
-          </Box>
-        </VStack>
-      </Flex>
-    </Box>
+          </div>
+        </article>
+      </section>
+    </footer>
   )
 }

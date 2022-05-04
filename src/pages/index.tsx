@@ -1,4 +1,4 @@
-import { Box, Flex, Stack, useBreakpointValue } from '@chakra-ui/react'
+import { useWindowsSize } from 'hooks/useWindowsSize'
 import { GetStaticProps } from 'next'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
@@ -27,34 +27,17 @@ export const getStaticProps: GetStaticProps = async () => ({
 })
 
 export default function Home({ quote, animeToday, airing }: Props) {
-  const isWideVersion = useBreakpointValue({
-    base: false,
-    md: false,
-    lg: false,
-    xl: true,
-  })
+  const { width } = useWindowsSize()
 
   return (
     <>
       <Head>
         <title>{animeToday ? `WhatAnime | ${animeToday.title}` : 'WhatAnime'}</title>
       </Head>
-      <Stack w="full" spacing="30px" alignItems="center" py="30px">
-        <Flex w={['95%', '70%']} mx="auto" alignItems="center" justifyContent="space-between">
-          <Search />
-          {isWideVersion && <Quote quote={quote} />}
-        </Flex>
-        <Box w={['95%', '70%']} mx="auto">
-          <Title text="anime of the day" />
-          <Flex alignItems="center" justifyContent="space-between">
-            <Result isAnimeToday anime={animeToday} />
-            <Ranking type="airing" value={airing} />
-          </Flex>
-        </Box>
-        <Flex alignItems="center">
-          <ButtonBackToComponent to="top" mx="auto" />
-        </Flex>
-      </Stack>
+      <div className="bg-zinc-100 flex gap-14 mx-auto w-11/12 xl:w-9/12 max-w-6xl ">
+        <Result anime={animeToday} />
+        {width > 768 && <Ranking type="airing" value={airing} />}
+      </div>
     </>
   )
 }

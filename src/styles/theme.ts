@@ -14,22 +14,4 @@ export const theme = extendTheme({
       '500': '#f2594E',
     },
   },
-  fonts: {
-    body: 'Roboto, sans-serif',
-    heading: 'Roboto, sans-serif',
-    color: 'black',
-  },
-  styles: {
-    global: {
-      body: {
-        bgColor: 'gray.100',
-      },
-      header: {
-        bgColor: 'gray.500',
-      },
-      footer: {
-        bgColor: 'gray.500',
-      },
-    },
-  },
 })

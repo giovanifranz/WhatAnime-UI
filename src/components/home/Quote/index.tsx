@@ -1,21 +1,14 @@
 import { memo } from 'react'
-import { Stack } from '@chakra-ui/react'
 import { useRandomAnimeQuote } from 'hooks/useQuote'
-import { useRouter } from 'next/router'
 import { IQuote } from 'types/quote'
 
-import { handlePrefetchAnime } from 'utils/common/queryClient'
-
-import { Content } from './Content'
+import { Button } from './Button'
 
 interface Props {
   quote?: IQuote
-  isMobile?: boolean
 }
 
-export function QuoteComponent({ quote, isMobile = false }: Props) {
-  const router = useRouter()
-
+export function QuoteComponent({ quote }: Props) {
   const { isError, isLoading, data } = useRandomAnimeQuote(quote)
 
   if (isError || isLoading || !data) {
@@ -23,28 +16,17 @@ export function QuoteComponent({ quote, isMobile = false }: Props) {
   }
   const { id } = data
 
-  if (isMobile) {
-    return (
-      <Stack
-        as="a"
-        onClick={() => id && router.push(`/${id}`)}
-        onMouseEnter={() => id && handlePrefetchAnime(id)}
-        w="200px"
-        maxH="175px"
-        bgColor="yellow.500"
-        borderRadius="5px"
-        p="10px"
-        _hover={{ cursor: 'pointer', filter: 'brightness(90%)' }}
-      >
-        <Content {...data} id={id} />
-      </Stack>
-    )
-  }
-
   return (
-    <Stack as="section" maxH="165px" w="250px" bgColor="yellow.500" borderRadius="5px" p="10px">
-      <Content {...data} id={id} />
-    </Stack>
+    <section className="h-40 w-48 md:w-60 lg:w-64 bg-yellow-300 rounded p-2 relative">
+      <p className="w-full font-light italic text-lg line-clamp-3 ">“{data.quote}”</p>
+      <div className="flex justify-between items-center bottom-1 absolute w-full pr-2">
+        <div className="flex flex-col h-12 w-3/4 justify-between">
+          <h4 className="text-lg font-bold line-clamp-1">“{data.character}”</h4>
+          <p className="line-clamp-1 text-lg">“{data.title}”</p>
+        </div>
+        {id && <Button id={id} />}
+      </div>
+    </section>
   )
 }
 

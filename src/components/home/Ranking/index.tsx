@@ -1,6 +1,6 @@
 import { memo, useCallback } from 'react'
-import { Box, Flex, Link, ListItem, OrderedList, Stack, Text } from '@chakra-ui/react'
 import { useAnimeTopByAiring, useAnimeTopByPopularity } from 'hooks/useJikan'
+import Link from 'next/link'
 import { IAnime, TFilter } from 'types/anime'
 
 import { handlePrefetchAnime } from 'utils/common/queryClient'
@@ -27,39 +27,22 @@ function RankingComponent({ value, type }: Props) {
   }
 
   return (
-    <Box
-      w="250px"
-      h={type === 'airing' ? '250px' : '500px'}
-      bgColor="white"
-      border="1px solid black"
-      borderRadius="5px"
-      position="relative"
-    >
+    <section className="bg-white w-64 border rounded border-black border-solid relative">
       <Heading title={type === 'airing' ? 'Top Airing' : 'Most Popular'} />
-      <Flex
-        alignItems="center"
-        justifyContent="center"
-        direction="column"
-        w="95%"
-        mt="50px"
-        p="10px"
-        mx="auto"
-      >
-        <OrderedList fontSize="lg">
-          <Stack spacing="10px">
-            {data.map(({ id, title }) => (
-              <ListItem key={id}>
-                <Link href={`/${id}`} onMouseEnter={() => handlePrefetchAnime(id)}>
-                  <Text isTruncated maxW="190px">
-                    {title}
-                  </Text>
-                </Link>
-              </ListItem>
-            ))}
-          </Stack>
-        </OrderedList>
-      </Flex>
-    </Box>
+      <article className="w-11/12 mx-auto p-2 items-center justify-center flex-col mt-12 px-4">
+        <ol className="flex flex-col text-lg gap-3 list-decimal items-left">
+          {data.map(({ id, title }) => (
+            <li key={id}>
+              <Link href={`/${id}`} passHref>
+                <a className="line-clamp-1 hover:underline" onMouseEnter={() => handlePrefetchAnime(id)}>
+                  {title}
+                </a>
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </article>
+    </section>
   )
 }
 

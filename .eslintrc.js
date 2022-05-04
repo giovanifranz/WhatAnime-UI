@@ -79,6 +79,8 @@ module.exports = {
     'no-nested-ternary': 'off',
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': ['error'],
-    'jsx-a11y/anchor-is-valid': 'warn',
+    'jsx-a11y/anchor-is-valid': 'off',
+    'jsx-a11y/anchor-has-content': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
   },
 }
