@@ -3,6 +3,8 @@ import { HiOutlineSearch } from 'react-icons/hi'
 import { MdSmsFailed } from 'react-icons/md'
 import { useSelect } from 'hooks/useSearch'
 
+import { Loading } from 'components/common'
+
 import { Title } from '.'
 
 const placeholder = {
@@ -34,7 +36,7 @@ export function Search() {
           <option value="word">by word</option>
           <option value="image">by image</option>
         </select>
-        {isLoading && <p>loading...</p>}
+        {isLoading && <Loading />}
       </div>
       <form className="flex w-full">
         <input

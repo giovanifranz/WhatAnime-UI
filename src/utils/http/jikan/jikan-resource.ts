@@ -15,7 +15,6 @@ function animeMapper(response: IResponseAnime): IAnime {
     imageUrl: response.images.jpg.image_url,
     status: response.status,
     duration: response.duration,
-    premiered: response.premiered || null,
     rating: response.rating,
     episodes: response.episodes || null,
     year: response.year ? response.year : response.aired.prop.from.year,
