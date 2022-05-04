@@ -15,7 +15,7 @@ export function Footer() {
   return (
     <footer className="w-full text-zinc-100 bg-zinc-400 border-t-2 border-solid border-black py-5 ">
       <section className="flex flex-col w-11/12 max-w-6xl items-center justify-between mx-auto xl:w-9/12 xl:flex-row">
-        <div className="mx-auto flex flex-row xl:flex-col justify-center items-center gap-5xl xl:mx-0 xl:h-72 xl:items-start">
+        <div className="mx-auto flex flex-row xl:flex-col justify-center items-center xl:gap-5xl xl:mx-0 xl:h-72 xl:items-start xl:-mt-32">
           {width >= 1024 && <Logo />}
           <Social />
         </div>
@@ -36,8 +36,10 @@ export function Footer() {
           <div>
             <p className="font-mono text-2xl -mb-2 uppercase w-full xl:w-2/3">Designed By</p>
             <Link href="https://www.highlandertech.com.br/">
-              <a className="mt-3 -ml-1">
-                <Image src="/highlanderLogo.png" alt="HighlanderTech" width={260} height={65} />
+              <a>
+                <div className=" relative w-64 h-16">
+                  <Image src="/highlanderLogo.png" alt="HighlanderTech" layout="fill" />
+                </div>
               </a>
             </Link>
           </div>
