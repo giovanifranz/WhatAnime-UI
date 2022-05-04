@@ -53,6 +53,7 @@ function SelectProvider({ children }: SelectProviderProps) {
       if (payload.length < 3 || payload.trim() === '') {
         return
       }
+      setError(undefined)
       setIsLoading(true)
       getAnimesByTitleOnJikan(payload)
         .then((response) => setAnimes(response))

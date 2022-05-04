@@ -1,22 +1,12 @@
-import { Box, Heading as HeadingChakra } from '@chakra-ui/react'
-
 interface Props {
   title: string
 }
 
 function Heading({ title }: Props) {
   return (
-    <Box bgColor="yellow.500" w="100%" h="50px" borderBottom="1px solid black" position="absolute" py="10px">
-      <HeadingChakra
-        textAlign="center"
-        color="gray.500"
-        fontWeight="bold"
-        fontSize="2xl"
-        textTransform="uppercase"
-      >
-        {title}
-      </HeadingChakra>
-    </Box>
+    <div className="bg-yellow-300 w-full border-b border-solid border-black absolute rounded-t py-2">
+      <h2 className="text-2xl text-zinc-400 font-bold text-center uppercase">{title}</h2>
+    </div>
   )
 }
 

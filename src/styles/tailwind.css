@@ -1,0 +1,12 @@
+html {
+  scroll-behavior: smooth;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+body {
+  @apply font-base overflow-x-hidden;
+}
