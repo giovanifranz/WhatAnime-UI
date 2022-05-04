@@ -21,7 +21,7 @@ export function ButtonBackToComponent({ to = 'top' }: Props) {
   return (
     <button
       type="button"
-      className="text-center text-zinc-400 text-base uppercase font-bold border-slate-100 border-solid bg-yellow-300 rounded-xl py-3 px-11 transition-colors hover:text-yellow-300 hover:border-yellow-300 hover:bg-white border-4"
+      className="text-center text-zinc-400 text-base uppercase font-bold border-transparent border-solid bg-yellow-300 rounded-xl py-3 px-11 transition-colors hover:text-yellow-300 hover:border-yellow-300 hover:bg-white border-4"
       onClick={() => handleClick()}
     >
       {text[to]}
