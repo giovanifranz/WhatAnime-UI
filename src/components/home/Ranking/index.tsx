@@ -30,7 +30,7 @@ function RankingComponent({ value, type }: Props) {
     <section className="bg-white w-64 border rounded border-black border-solid relative">
       <Heading title={type === 'airing' ? 'Top Airing' : 'Most Popular'} />
       <article className="w-11/12 mx-auto p-2 items-center justify-center flex-col mt-12 px-4">
-        <ol className="flex flex-col text-lg gap-3 list-decimal items-left">
+        <ol className="flex flex-col text-lg gap-3 list-decimal items-left ml-3">
           {data.map(({ id, title }) => (
             <li key={id}>
               <Link href={`/${id}`} passHref>

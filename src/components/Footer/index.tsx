@@ -37,7 +37,7 @@ export function Footer() {
             <p className="font-mono text-2xl -mb-2 uppercase w-full xl:w-2/3">Designed By</p>
             <Link href="https://www.highlandertech.com.br/">
               <a>
-                <div className=" relative w-64 h-16">
+                <div className=" relative w-64 h-16 -ml-1">
                   <Image src="/highlanderLogo.png" alt="HighlanderTech" layout="fill" />
                 </div>
               </a>

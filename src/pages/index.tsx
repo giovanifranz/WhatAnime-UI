@@ -37,13 +37,13 @@ export default function Home({ quote, animeToday, airing }: Props) {
       <main className="flex flex-col gap-5 py-5 bg-zinc-200">
         <div className="flex gap-14 mx-auto w-11/12 xl:w-9/12 max-w-6xl justify-between">
           <Search />
-          {width > 768 && <Quote quote={quote} />}
+          {width >= 1024 && <Quote quote={quote} />}
         </div>
         <div className="mx-auto w-11/12 xl:w-9/12 max-w-6xl">
           <Title text="Anime of the day" />
           <div className="flex gap-14  justify-between">
             <Result anime={animeToday} />
-            {width > 768 && <Ranking type="airing" value={airing} />}
+            {width >= 1024 && <Ranking type="airing" value={airing} />}
           </div>
         </div>
         <div className="lg:max-w-6xl lg:w-11/12 mx-auto lg:pr-96 flex flex-col items-center">

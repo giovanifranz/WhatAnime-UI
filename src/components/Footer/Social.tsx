@@ -10,7 +10,9 @@ export function Social() {
 
   return (
     <div className="flex flex-col mb-6">
-      <Text title="Connect" />
+      <div className=" mb-3">
+        <Text title="Connect" />
+      </div>
       <div className="flex gap-3 md:flex-col">
         <div className="flex gap-4">
           <Link href="https://anilist.co">

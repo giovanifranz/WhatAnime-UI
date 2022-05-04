@@ -34,13 +34,13 @@ function ResultComponent({ anime, isAnimeToday }: Props) {
   const { width } = useWindowsSize()
 
   return (
-    <section className="w-full h-64 lg:w-2/3 border border-solid border-black bg-white flex justify-between relative">
+    <section className="w-full h-64 lg:w-2/3 border border-solid border-black bg-white flex justify-between relative rounded">
       {width >= 768 && (
-        <div className="w-52 border-r border-solid border-black relative">
+        <div className="w-52 border-r border-solid border-black relative rounded-l">
           <Image src={imageUrl} layout="fill" alt={title} />
         </div>
       )}
-      <article className="w-full bg-white p-2">
+      <article className="w-full bg-white p-2 rounded md:rounded-r">
         <div className="flex justify-between">
           <div className="flex gap-1 w-60">
             <div>
@@ -58,7 +58,7 @@ function ResultComponent({ anime, isAnimeToday }: Props) {
         {synopsis && (
           <div className="absolute bottom-2 ">
             <h3 className="font-bold text-lg">Synopsis</h3>
-            <p className="w-full text-lg line-clamp-4">{synopsis}</p>
+            <p className="w-11/12 text-lg line-clamp-4">{synopsis}</p>
           </div>
         )}
       </article>
