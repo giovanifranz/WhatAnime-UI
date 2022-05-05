@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query'
-import { IAnime, TFilter } from 'types/anime'
+import { IAnime } from 'types/anime'
 
 import { formatSlug } from 'utils/common'
 import { getAnimeByIdOnJikan, getAnimeRandom, getAnimesByTitleOnJikan, getAnimeTop } from 'utils/http/jikan'

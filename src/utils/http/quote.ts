@@ -1,19 +1,13 @@
 import axios from 'axios'
 import { IQuote, IResponseQuote } from 'types/quote'
 
-import { getAnimesByTitleOnJikan } from '.'
+import { quoteMapper } from 'utils/common'
+
+import { getAnimesByTitleOnJikan } from './jikan'
 
 const animeChan = axios.create({
   baseURL: process.env.NEXT_PUBLIC_ANIMECHAN_API_URL,
 })
-
-function quoteMapper(response: IResponseQuote): IQuote {
-  return {
-    title: response.anime,
-    character: response.character,
-    quote: response.quote,
-  }
-}
 
 export async function getAnimesQuoteByTitle(title: string): Promise<Array<IQuote>> {
   const data: IResponseQuote[] = await animeChan

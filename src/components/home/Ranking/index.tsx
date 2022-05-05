@@ -1,7 +1,6 @@
 import { memo } from 'react'
 import { useAnimeTop } from 'hooks/useJikan'
 import Link from 'next/link'
-import { TFilter } from 'types'
 
 import { handlePrefetchAnime } from 'utils/common/queryClient'
 

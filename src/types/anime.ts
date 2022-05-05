@@ -1,5 +1,3 @@
-export type TFilter = 'airing' | 'bypopularity'
-
 export interface IResponseAnime {
   mal_id: number
   title: string
