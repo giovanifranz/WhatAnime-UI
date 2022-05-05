@@ -1,10 +1,8 @@
 import axios from 'axios'
 import { IAnime, IResponseAnime, TFilter } from 'types/anime'
 
-import { isDevEnvironment } from 'utils'
-
 const jikanAPI = axios.create({
-  baseURL: isDevEnvironment() ? 'http://localhost:3000/api/' : process.env.NEXT_PUBLIC_JIKAN_API_URL,
+  baseURL: process.env.NEXT_PUBLIC_JIKAN_API_URL,
 })
 
 function animeMapper(response: IResponseAnime): IAnime {

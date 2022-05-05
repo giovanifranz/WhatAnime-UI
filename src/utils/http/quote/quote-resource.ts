@@ -1,12 +1,10 @@
 import axios from 'axios'
 import { IQuote, IResponseQuote } from 'types/quote'
 
-import { isDevEnvironment } from 'utils'
-
 import { getAnimesByTitleOnJikan } from '../jikan/jikan-resource'
 
 const animeChan = axios.create({
-  baseURL: isDevEnvironment() ? 'http://localhost:3000/api/' : process.env.NEXT_PUBLIC_ANIMECHAN_API_URL,
+  baseURL: process.env.NEXT_PUBLIC_ANIMECHAN_API_URL,
 })
 
 function quoteMapper(response: IResponseQuote): IQuote {
