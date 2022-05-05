@@ -1,9 +1,13 @@
 import axios from 'axios'
 import { IQuote, IResponseQuote } from 'types/quote'
 
+import { isDevEnvironment } from 'utils'
+
 import { getAnimesByTitleOnJikan } from '../jikan/jikan-resource'
 
-const animeChan = 'https://animechan.vercel.app/api'
+const animeChan = axios.create({
+  baseURL: isDevEnvironment() ? 'http://localhost:3000/api/' : process.env.NEXT_PUBLIC_ANIMECHAN_API_URL,
+})
 
 function quoteMapper(response: IResponseQuote): IQuote {
   return {
@@ -14,17 +18,17 @@ function quoteMapper(response: IResponseQuote): IQuote {
 }
 
 export async function getAnimesQuoteByTitle(title: string): Promise<Array<IQuote>> {
-  const data: IResponseQuote[] = await axios
-    .get(`${animeChan}/quotes/anime?title=${title}`)
+  const data: IResponseQuote[] = await animeChan
+    .get(`quotes/anime?title=${title}`)
     .then((response) => response.data)
   return data.map((quote: IResponseQuote) => quoteMapper(quote))
 }
 
 export async function getRandomAnimeQuote(): Promise<IQuote> {
-  const data = await axios.get<IResponseQuote>(`${animeChan}/random`).then((response) => response.data)
+  const data = await animeChan.get<IResponseQuote>('random').then((response) => response.data)
   const quote = quoteMapper(data)
-  const animes = await getAnimesByTitleOnJikan(quote.title)
 
+  const animes = await getAnimesByTitleOnJikan(quote.title)
   return {
     ...quote,
     id: animes[0].id ? animes[0].id : undefined,

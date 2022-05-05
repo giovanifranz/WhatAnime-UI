@@ -8,6 +8,7 @@ import {
   useMemo,
   useState,
 } from 'react'
+import { QueryClient } from 'react-query'
 import { IAnime } from 'types/anime'
 
 import { getAnimesByTitleOnJikan } from 'utils/http/jikan/jikan-resource'
@@ -53,12 +54,16 @@ function SelectProvider({ children }: SelectProviderProps) {
       if (payload.length < 3 || payload.trim() === '') {
         return
       }
+
       setError(undefined)
       setIsLoading(true)
-      getAnimesByTitleOnJikan(payload)
-        .then((response) => setAnimes(response))
-        .catch((err: Error) => setError(err))
-        .finally(() => setIsLoading(false))
+
+      new QueryClient().prefetchQuery('anime-by-title', async () =>
+        getAnimesByTitleOnJikan(payload)
+          .then((response) => setAnimes(response))
+          .catch((err: Error) => setError(err))
+          .finally(() => setIsLoading(false)),
+      )
     }
   }, [payload, select])
 

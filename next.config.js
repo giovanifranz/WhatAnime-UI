@@ -6,6 +6,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
+  swcMinify: true,
   images: {
     domains: ['cdn.myanimelist.net'],
   },

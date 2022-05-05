@@ -3,6 +3,8 @@ import { HiOutlineSearch } from 'react-icons/hi'
 import { MdSmsFailed } from 'react-icons/md'
 import { useSelect } from 'hooks/useSearch'
 
+import { Loading } from 'components/common'
+
 import { Title } from '.'
 
 const placeholder = {
@@ -13,7 +15,7 @@ const placeholder = {
 export function Search() {
   const { select, setSelect, handleSubmit, setPayload, error, isLoading } = useSelect()
 
-  function handleChange(event: ChangeEvent<HTMLSelectElement>) {
+  function handleChangeSelect(event: ChangeEvent<HTMLSelectElement>) {
     if (event.target.value === 'word') {
       setSelect('word')
     } else {
@@ -30,11 +32,14 @@ export function Search() {
     <section className="w-full lg:w-2/3">
       <div className="flex items-center">
         <Title text="Search" />
-        <select className="w-40 text-lg uppercase bg-transparent" onChange={(event) => handleChange(event)}>
+        <select
+          className="w-40 text-lg uppercase bg-transparent"
+          onChange={(event) => handleChangeSelect(event)}
+        >
           <option value="word">by word</option>
           <option value="image">by image</option>
         </select>
-        {isLoading && <p>loading...</p>}
+        {isLoading && <Loading />}
       </div>
       <form className="flex w-full">
         <input
