@@ -1,6 +1,10 @@
 import axios from 'axios'
 import { IAnime, IResponseAnime, TFilter } from 'types/anime'
 
+import { isDevEnvironment } from 'utils'
+
+const IS_DEV = isDevEnvironment()
+
 const jikanAPI = 'https://api.jikan.moe/v4'
 
 function animeMapper(response: IResponseAnime): IAnime {
@@ -24,14 +28,16 @@ function animeMapper(response: IResponseAnime): IAnime {
 }
 
 export async function getAnimesByTitleOnJikan(title: string): Promise<IAnime[]> {
+  const param = IS_DEV ? 'naruto' : title
   const animes: IResponseAnime[] = await axios
-    .get(`${jikanAPI}/anime?q=${title}&order_by=score&&sort=desc`)
+    .get(`${jikanAPI}/anime?q=${param}&order_by=score&&sort=desc`)
     .then(({ data: results }) => results.data)
   return animes.slice(0, 6).map((response: IResponseAnime) => animeMapper(response))
 }
 
 export async function getAnimeByIdOnJikan(id: number): Promise<IAnime> {
-  const anime: IResponseAnime = await axios.get(`${jikanAPI}/anime/${id}`).then(({ data }) => {
+  const param = IS_DEV ? '21' : id
+  const anime: IResponseAnime = await axios.get(`${param}/anime/${id}`).then(({ data }) => {
     const { data: response } = data
     return response
   })
@@ -44,9 +50,11 @@ export async function getAnimeRandom(): Promise<IAnime> {
 }
 
 export async function getAnimeTop(filter: TFilter) {
-  const qtd = filter === 'airing' ? 5 : 10
+  const query = IS_DEV ? 'airing' : filter
+  const qtd = query === 'airing' ? 5 : 10
+
   const animes: IResponseAnime[] = await axios
-    .get(`${jikanAPI}/top/anime?filter=${filter}`)
+    .get(`${jikanAPI}/top/anime?filter=${query}`)
     .then(({ data: results }) => results.data)
   return animes.slice(0, qtd).map((response: IResponseAnime) => animeMapper(response))
 }
