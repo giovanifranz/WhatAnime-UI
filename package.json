@@ -13,6 +13,9 @@
     "start": "next start",
     "lint": "eslint src --max-warnings=0",
     "clean": "rm -rf .next",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -30,6 +33,9 @@
   "devDependencies": {
     "@next/bundle-analyzer": "^12.1.6",
     "@tailwindcss/line-clamp": "^0.4.0",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
+    "@types/jest": "^27.5.0",
     "@types/node": "17.0.31",
     "@types/react": "18.0.8",
     "@typescript-eslint/eslint-plugin": "^5.22.0",
@@ -47,6 +53,7 @@
     "eslint-plugin-react-hooks": "^4.5.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "husky": "7.0.4",
+    "jest": "^28.0.3",
     "lint-staged": "^12.4.1",
     "miragejs": "^0.1.43",
     "postcss": "^8.4.13",
@@ -58,7 +65,8 @@
   },
   "lint-staged": {
     "*.{ts,js}": [
-      "npm run lint"
+      "npm run lint",
+      "npm run test"
     ]
   }
 }
