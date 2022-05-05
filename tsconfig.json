@@ -17,5 +17,5 @@
     "incremental": true
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/mocks/index.js", "src/mocks/index.js"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }
