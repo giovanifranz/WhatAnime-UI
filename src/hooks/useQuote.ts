@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query'
 import { IQuote } from 'types/quote'
 
-import { getAnimesQuoteByTitle, getRandomAnimeQuote } from 'utils/http/quote/quote-resource'
+import { getAnimesQuoteByTitle, getRandomAnimeQuote } from 'utils/http/quote'
 
 export function useRandomAnimeQuote() {
   return useQuery<IQuote>('quote', async () => getRandomAnimeQuote(), {

@@ -1,12 +1,12 @@
 import { lazy, Suspense } from 'react'
-import { useWindowsSize } from 'hooks/useWindowsSize'
+import { useWindowSize } from 'hooks/useWindowSize'
 
 import { Loading, Logo } from './common'
 
 const Quote = lazy(() => import('components/home/Quote'))
 
 export function Header() {
-  const { width } = useWindowsSize()
+  const { width } = useWindowSize()
 
   return (
     <header className="bg-zinc-400">

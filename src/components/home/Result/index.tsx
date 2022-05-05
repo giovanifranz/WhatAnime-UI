@@ -1,6 +1,6 @@
 import { memo, useCallback } from 'react'
 import { useAnimeByIdOnJikan, useAnimeRandom } from 'hooks/useJikan'
-import { useWindowsSize } from 'hooks/useWindowsSize'
+import { useWindowSize } from 'hooks/useWindowSize'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { IAnime } from 'types/anime'
@@ -16,7 +16,7 @@ interface Props {
 }
 
 function ResultComponent({ anime, isRandom }: Props) {
-  const { width } = useWindowsSize()
+  const { width } = useWindowSize()
   const useAnime = useCallback(() => {
     if (isRandom || !anime) {
       return useAnimeRandom()

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { IQuote, IResponseQuote } from 'types/quote'
 
-import { getAnimesByTitleOnJikan } from '../jikan/jikan-resource'
+import { getAnimesByTitleOnJikan } from '.'
 
 const animeChan = axios.create({
   baseURL: process.env.NEXT_PUBLIC_ANIMECHAN_API_URL,

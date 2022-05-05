@@ -1,9 +1,9 @@
-import { useWindowsSize } from 'hooks/useWindowsSize'
+import { useWindowSize } from 'hooks/useWindowSize'
 import Image from 'next/image'
 import Link from 'next/link'
 
 export function Logo() {
-  const { width } = useWindowsSize()
+  const { width } = useWindowSize()
 
   return (
     <Link href="/" passHref>

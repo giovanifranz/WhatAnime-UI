@@ -1,12 +1,12 @@
 import { AiFillFacebook, AiOutlineTwitter } from 'react-icons/ai'
 import { SiAnilist, SiMyanimelist } from 'react-icons/si'
-import { useWindowsSize } from 'hooks/useWindowsSize'
+import { useWindowSize } from 'hooks/useWindowSize'
 
 import { Link } from './Link'
 import { Text } from './Text'
 
 export function Social() {
-  const { width } = useWindowsSize()
+  const { width } = useWindowSize()
 
   return (
     <div className="flex flex-col mb-6">

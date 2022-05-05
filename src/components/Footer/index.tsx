@@ -1,4 +1,4 @@
-import { useWindowsSize } from 'hooks/useWindowsSize'
+import { useWindowSize } from 'hooks/useWindowSize'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,7 +10,7 @@ const Logo = dynamic<EmptyObject>(() => import('../common/Logo').then((module) =
 const Paypal = dynamic<EmptyObject>(() => import('./Paypal').then((module) => module.Paypal))
 
 export function Footer() {
-  const { width } = useWindowsSize()
+  const { width } = useWindowSize()
 
   return (
     <footer className="w-full text-zinc-100 bg-zinc-400 border-t-2 border-solid border-black py-5 ">

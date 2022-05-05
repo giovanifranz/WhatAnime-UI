@@ -2,12 +2,7 @@ import { useQuery } from 'react-query'
 import { IAnime, TFilter } from 'types/anime'
 
 import { formatSlug } from 'utils/common'
-import {
-  getAnimeByIdOnJikan,
-  getAnimeRandom,
-  getAnimesByTitleOnJikan,
-  getAnimeTop,
-} from 'utils/http/jikan/jikan-resource'
+import { getAnimeByIdOnJikan, getAnimeRandom, getAnimesByTitleOnJikan, getAnimeTop } from 'utils/http/jikan'
 
 export function useAnimesByTitleOnJikan(title: string) {
   return useQuery<IAnime[]>(['anime-by-title', formatSlug(title)], async () => getAnimesByTitleOnJikan(title))

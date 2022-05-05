@@ -1,14 +1,13 @@
 import { lazy, Suspense } from 'react'
 import { dehydrate, QueryClient } from 'react-query'
-import { useAnimeRandom } from 'hooks/useJikan'
-import { useWindowsSize } from 'hooks/useWindowsSize'
+import { useAnimeRandom, useWindowSize } from 'hooks'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 
 import { ButtonBackToComponent, Loading } from 'components'
 import { Search, Title } from 'components/home'
-import { getAnimeRandom, getAnimeTop } from 'utils/http/jikan/jikan-resource'
-import { getRandomAnimeQuote } from 'utils/http/quote/quote-resource'
+import { getAnimeRandom, getAnimeTop } from 'utils/http/jikan'
+import { getRandomAnimeQuote } from 'utils/http/quote'
 
 const Quote = lazy(() => import('components/home/Quote'))
 const Result = lazy(() => import('components/home/Result'))
@@ -31,7 +30,7 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 export default function Home() {
-  const { width } = useWindowsSize()
+  const { width } = useWindowSize()
 
   const { data: animeRandom } = useAnimeRandom()
 

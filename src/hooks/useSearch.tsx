@@ -11,7 +11,7 @@ import {
 import { QueryClient } from 'react-query'
 import { IAnime } from 'types/anime'
 
-import { getAnimesByTitleOnJikan } from 'utils/http/jikan/jikan-resource'
+import { getAnimesByTitleOnJikan } from 'utils/http/jikan'
 
 interface SelectContextType {
   select: TSelect

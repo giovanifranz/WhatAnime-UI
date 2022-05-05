@@ -1,6 +1,6 @@
 import { QueryClient } from 'react-query'
 
-import { getAnimeByIdOnJikan } from 'utils/http/jikan/jikan-resource'
+import { getAnimeByIdOnJikan } from 'utils/http/jikan'
 
 const queryClient = new QueryClient()
 
