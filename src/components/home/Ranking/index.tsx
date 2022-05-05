@@ -1,26 +1,18 @@
-import { memo, useCallback } from 'react'
-import { useAnimeTopByAiring, useAnimeTopByPopularity } from 'hooks/useJikan'
+import { memo } from 'react'
+import { useAnimeTop } from 'hooks/useJikan'
 import Link from 'next/link'
-import { IAnime, TFilter } from 'types/anime'
+import { TFilter } from 'types'
 
 import { handlePrefetchAnime } from 'utils/common/queryClient'
 
 import { Heading } from './Heading'
 
 interface Props {
-  value?: IAnime[]
   type: TFilter
 }
 
-function RankingComponent({ value, type }: Props) {
-  const useRanking = useCallback(() => {
-    if (type === 'bypopularity') {
-      return useAnimeTopByPopularity(value)
-    }
-    return useAnimeTopByAiring(value)
-  }, [type, value])
-
-  const { isLoading, isError, data } = useRanking()
+function RankingComponent({ type }: Props) {
+  const { isLoading, isError, data } = useAnimeTop(type)
 
   if (isLoading || isError || !data) {
     return null
@@ -48,5 +40,5 @@ function RankingComponent({ value, type }: Props) {
 
 const Ranking = memo(RankingComponent, (prevProps, nextProps) => Object.is(prevProps, nextProps))
 
-export { Ranking }
+export default Ranking
 export type { Props as RankingProps }

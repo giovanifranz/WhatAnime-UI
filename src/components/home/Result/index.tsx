@@ -12,16 +12,17 @@ const Statistics = dynamic<StatisticsProps>(() => import('./Statistics').then((m
 
 interface Props {
   anime?: IAnime
-  isAnimeToday?: boolean
+  isRandom?: boolean
 }
 
-function ResultComponent({ anime, isAnimeToday }: Props) {
+function ResultComponent({ anime, isRandom }: Props) {
+  const { width } = useWindowsSize()
   const useAnime = useCallback(() => {
-    if (isAnimeToday || !anime) {
-      return useAnimeRandom(anime)
+    if (isRandom || !anime) {
+      return useAnimeRandom()
     }
     return useAnimeByIdOnJikan(anime, anime.id)
-  }, [anime, isAnimeToday])
+  }, [anime, isRandom])
 
   const { isLoading, isError, data } = useAnime()
 
@@ -30,8 +31,6 @@ function ResultComponent({ anime, isAnimeToday }: Props) {
   }
 
   const { title, imageUrl, year, score, similarity, id, episodes, synopsis } = data
-
-  const { width } = useWindowsSize()
 
   return (
     <section className="w-full h-64 lg:w-2/3 border border-solid border-black bg-white flex justify-between relative rounded">
@@ -68,5 +67,5 @@ function ResultComponent({ anime, isAnimeToday }: Props) {
 
 const Result = memo(ResultComponent, (prevProps, nextProps) => Object.is(prevProps, nextProps))
 
-export { Result }
+export default Result
 export type { Props as ResultProps }

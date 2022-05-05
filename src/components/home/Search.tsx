@@ -15,7 +15,7 @@ const placeholder = {
 export function Search() {
   const { select, setSelect, handleSubmit, setPayload, error, isLoading } = useSelect()
 
-  function handleChange(event: ChangeEvent<HTMLSelectElement>) {
+  function handleChangeSelect(event: ChangeEvent<HTMLSelectElement>) {
     if (event.target.value === 'word') {
       setSelect('word')
     } else {
@@ -32,7 +32,10 @@ export function Search() {
     <section className="w-full lg:w-2/3">
       <div className="flex items-center">
         <Title text="Search" />
-        <select className="w-40 text-lg uppercase bg-transparent" onChange={(event) => handleChange(event)}>
+        <select
+          className="w-40 text-lg uppercase bg-transparent"
+          onChange={(event) => handleChangeSelect(event)}
+        >
           <option value="word">by word</option>
           <option value="image">by image</option>
         </select>

@@ -1,49 +1,57 @@
+import { lazy, Suspense } from 'react'
+import { dehydrate, QueryClient } from 'react-query'
+import { useAnimeRandom } from 'hooks/useJikan'
 import { useWindowsSize } from 'hooks/useWindowsSize'
 import { GetStaticProps } from 'next'
-import dynamic from 'next/dynamic'
 import Head from 'next/head'
-import { IAnime, IQuote } from 'types'
 
-import { ButtonBackToComponent } from 'components'
-import { QuoteProps, Ranking, Result, Search, Title } from 'components/home'
+import { ButtonBackToComponent, Loading } from 'components'
+import { Search, Title } from 'components/home'
 import { getAnimeRandom, getAnimeTop } from 'utils/http/jikan/jikan-resource'
 import { getRandomAnimeQuote } from 'utils/http/quote/quote-resource'
 
-const Quote = dynamic<QuoteProps>(() => import('components/home/Quote').then((module) => module.Quote))
+const Quote = lazy(() => import('components/home/Quote'))
+const Result = lazy(() => import('components/home/Result'))
+const Ranking = lazy(() => import('components/home/Ranking'))
 
-interface Props {
-  quote?: IQuote
-  animeToday?: IAnime
-  airing?: IAnime[]
+export const getStaticProps: GetStaticProps = async () => {
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery('quote', async () => getRandomAnimeQuote())
+  await queryClient.prefetchQuery('anime-random', async () => getAnimeRandom())
+  await queryClient.prefetchQuery('airing', async () => getAnimeTop('airing'))
+  await queryClient.prefetchQuery('bypopularity', async () => getAnimeTop('bypopularity'))
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+    revalidate: 60 * 60 * 60 * 24,
+  }
 }
 
-export const getStaticProps: GetStaticProps = async () => ({
-  props: {
-    quote: await getRandomAnimeQuote(),
-    animeToday: await getAnimeRandom(),
-    airing: await getAnimeTop('airing'),
-  } as Props,
-  revalidate: 60 * 60 * 60 * 24,
-})
-
-export default function Home({ quote, animeToday, airing }: Props) {
+export default function Home() {
   const { width } = useWindowsSize()
+
+  const { data: animeRandom } = useAnimeRandom()
 
   return (
     <>
       <Head>
-        <title>{animeToday ? `WhatAnime | ${animeToday.title}` : 'WhatAnime'}</title>
+        <title>{animeRandom ? `WhatAnime | ${animeRandom.title}` : 'WhatAnime'}</title>
       </Head>
       <main className="flex flex-col gap-5 py-5 bg-zinc-200">
         <div className="flex gap-14 mx-auto w-11/12 xl:w-9/12 max-w-6xl justify-between">
           <Search />
-          {width >= 1024 && <Quote quote={quote} />}
+          <Suspense fallback={<Loading />}>{width >= 1024 && <Quote />}</Suspense>
         </div>
         <div className="mx-auto w-11/12 xl:w-9/12 max-w-6xl">
           <Title text="Anime of the day" />
           <div className="flex gap-14  justify-between">
-            <Result anime={animeToday} />
-            {width >= 1024 && <Ranking type="airing" value={airing} />}
+            <Suspense fallback={<Loading />}>
+              <Result anime={animeRandom} isRandom />
+            </Suspense>
+            <Suspense fallback={<Loading />}>{width >= 1024 && <Ranking type="airing" />}</Suspense>
           </div>
         </div>
         <div className="lg:max-w-6xl lg:w-11/12 mx-auto lg:pr-96 flex flex-col items-center">

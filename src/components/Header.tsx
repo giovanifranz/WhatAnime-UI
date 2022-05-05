@@ -1,10 +1,9 @@
+import { lazy, Suspense } from 'react'
 import { useWindowsSize } from 'hooks/useWindowsSize'
-import dynamic from 'next/dynamic'
 
-import { Logo } from './common'
-import { QuoteProps } from './home'
+import { Loading, Logo } from './common'
 
-const Quote = dynamic<QuoteProps>(() => import('components/home/Quote').then((module) => module.Quote))
+const Quote = lazy(() => import('components/home/Quote'))
 
 export function Header() {
   const { width } = useWindowsSize()
@@ -14,7 +13,7 @@ export function Header() {
       <section className="w-full border-b-2 border-solid border-black">
         <div className="flex max-w-6xl w-11/12 md:w-5/6 xl:w-9/12 mx-auto items-center py-5 justify-between">
           <Logo />
-          {width < 768 && <Quote />}
+          <Suspense fallback={<Loading />}>{width < 768 && <Quote />}</Suspense>
         </div>
       </section>
     </header>

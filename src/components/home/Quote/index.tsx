@@ -1,15 +1,10 @@
 import { memo } from 'react'
 import { useRandomAnimeQuote } from 'hooks/useQuote'
-import { IQuote } from 'types/quote'
 
 import { Button } from './Button'
 
-interface Props {
-  quote?: IQuote
-}
-
-export function QuoteComponent({ quote }: Props) {
-  const { isError, isLoading, data } = useRandomAnimeQuote(quote)
+export function QuoteComponent() {
+  const { isError, isLoading, data } = useRandomAnimeQuote()
 
   if (isError || isLoading || !data) {
     return null
@@ -31,6 +26,4 @@ export function QuoteComponent({ quote }: Props) {
 }
 
 const Quote = memo(QuoteComponent, (prevProps, nextProps) => Object.is(prevProps, nextProps))
-
-export { Quote }
-export type { Props as QuoteProps }
+export default Quote
