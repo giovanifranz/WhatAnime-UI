@@ -34,7 +34,7 @@ export function Search() {
         <Title text="Search" />
         <select className="text-lg uppercase bg-transparent" onChange={(event) => handleChangeSelect(event)}>
           <option value="word">by word</option>
-          <option value="image">by image</option>
+          {/* <option value="image">by image</option> */}
         </select>
         {isLoading && <Loading />}
       </div>
