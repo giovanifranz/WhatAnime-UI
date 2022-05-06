@@ -47,7 +47,7 @@ export default function Home({ id }: Props) {
           <title>WhatAnime | {randomResult.title}</title>
         </Head>
       )}
-      <main className="flex flex-col py-5 gap-5">
+      <main className="flex flex-col py-5 mb-5 gap-5">
         <div className="flex justify-between w-11/12 max-w-6xl mx-auto gap-14 xl:w-9/12">
           <Search />
           <Suspense fallback={<Loading />}>{width >= 1024 && <Quote />}</Suspense>

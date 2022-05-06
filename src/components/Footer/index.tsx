@@ -13,7 +13,7 @@ export function Footer() {
   const { width } = useWindowSize()
 
   return (
-    <footer className="w-full py-5 mt-10 border-t-2 border-black border-solid text-zinc-100">
+    <footer className="w-full py-5 border-t-2 border-black border-solid text-zinc-100">
       <section className="flex flex-col items-center justify-between w-11/12 max-w-6xl mx-auto xl:w-9/12 xl:flex-row">
         <div className="flex flex-row items-center justify-center mx-auto xl:flex-col xl:gap-5xl xl:mx-0 xl:h-72 xl:items-start xl:-mt-32">
           {width >= 1024 && <Logo />}

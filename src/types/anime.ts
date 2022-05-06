@@ -1,8 +1,8 @@
 export interface IResponseAnime {
   mal_id: number
   title: string
-  title_english: string
-  title_japanese: string
+  title_english?: string
+  title_japanese?: string
   year: number | null
   score: number | null
   type: string
@@ -11,6 +11,10 @@ export interface IResponseAnime {
     jpg: { image_url: string }
     webp: { image_url: string }
   }
+  studios?: {
+    name?: string
+  }[]
+  season?: string
   synopsis: string
   status: string
   duration: string
@@ -29,10 +33,12 @@ export interface IResponseAnime {
 export interface IAnime {
   id: number
   title: string
-  titleEnglish: string
-  titleJapanese: string
+  titleEnglish?: string
+  titleJapanese?: string
   year?: number | null
   score: number | null
+  studio?: string
+  season?: string
   type: string
   source: string
   imageUrl: string

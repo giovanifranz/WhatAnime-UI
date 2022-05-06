@@ -1,6 +1,9 @@
-import { useEffect, useState } from 'react'
+import { lazy, useEffect, useState } from 'react'
 import { useAnimeByIdOnJikan } from 'hooks'
 import { useRouter } from 'next/router'
+
+const Head = lazy(() => import('next/head'))
+const Aside = lazy(() => import('components/anime/Aside'))
 
 export default function AnimePage() {
   const router = useRouter()
@@ -27,7 +30,18 @@ export default function AnimePage() {
 
   if (isError) router.push('/404')
 
-  console.log(data)
-
-  return null
+  return (
+    <>
+      {data && (
+        <Head>
+          <title>WhatAnime | {data.title}</title>
+        </Head>
+      )}
+      <main className="flex flex-col">
+        <div className="flex justify-between w-11/12 max-w-6xl mx-auto gap-14 xl:w-9/12">
+          <Aside anime={data} />
+        </div>
+      </main>
+    </>
+  )
 }
