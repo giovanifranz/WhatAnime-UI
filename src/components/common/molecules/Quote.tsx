@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import { useRandomAnimeQuote } from 'hooks/useQuote'
 
-import { Button } from './Button'
+import { ButtonQuote } from '../atoms/ButtonQuote'
 
 export function QuoteComponent() {
   const { isError, isLoading, data } = useRandomAnimeQuote()
@@ -19,7 +19,7 @@ export function QuoteComponent() {
           <h4 className="text-lg font-bold line-clamp-1">“{data.character}”</h4>
           <p className="text-lg line-clamp-1">“{data.title}”</p>
         </div>
-        {id && <Button id={id} />}
+        {id && <ButtonQuote id={id} />}
       </div>
     </section>
   )

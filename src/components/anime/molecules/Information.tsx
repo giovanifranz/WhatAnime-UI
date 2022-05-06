@@ -1,6 +1,6 @@
 import { memo } from 'react'
 
-import { Text } from './Text'
+import { Text } from '../atoms'
 
 interface Props {
   airedString: string

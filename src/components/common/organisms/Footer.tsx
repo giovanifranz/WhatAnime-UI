@@ -3,11 +3,10 @@ import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { Social } from './Social'
+import { Social } from '../molecules'
 
-const Logo = dynamic<EmptyObject>(() => import('../common/Logo').then((module) => module.Logo))
-
-const Paypal = dynamic<EmptyObject>(() => import('./Paypal').then((module) => module.Paypal))
+const Logo = dynamic<EmptyObject>(() => import('../atoms/Logo').then((module) => module.Logo))
+const Paypal = dynamic(() => import('../atoms/Paypal'))
 
 export function Footer() {
   const { width } = useWindowSize()

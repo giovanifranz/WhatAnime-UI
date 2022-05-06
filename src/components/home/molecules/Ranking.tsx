@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import { handlePrefetchAnime } from 'utils/common/queryClient'
 
-import { Heading } from './Heading'
+import { Heading } from '../atoms'
 
 interface Props {
   type: TFilter

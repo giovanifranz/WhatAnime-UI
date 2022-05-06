@@ -2,8 +2,7 @@ import { AiFillFacebook, AiOutlineTwitter } from 'react-icons/ai'
 import { SiAnilist, SiMyanimelist } from 'react-icons/si'
 import { useWindowSize } from 'react-use'
 
-import { Link } from './Link'
-import { Text } from './Text'
+import { Link, Text } from '../atoms'
 
 export function Social() {
   const { width } = useWindowSize()

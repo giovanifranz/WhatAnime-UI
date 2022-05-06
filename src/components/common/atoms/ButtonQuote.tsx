@@ -7,7 +7,7 @@ export interface Props {
   id: number
 }
 
-function Button({ id }: Props) {
+function ButtonQuote({ id }: Props) {
   return (
     <button
       className="justify-center m-2 h-9 bg-slate-100 rounded-md transition-colors hover:bg-zinc-400"
@@ -22,5 +22,5 @@ function Button({ id }: Props) {
   )
 }
 
-export { Button }
-export type { Props as ButtonProps }
+export { ButtonQuote }
+export type { Props as ButtonQuoteProps }

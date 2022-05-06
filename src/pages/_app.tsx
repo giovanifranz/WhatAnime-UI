@@ -11,7 +11,7 @@ import { isDevEnvironment } from 'utils'
 
 import '@fontsource/nova-mono'
 
-import { Footer, Header } from '../components'
+import { Footer, Header } from '../components/common/organisms'
 
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/700.css'

@@ -3,9 +3,9 @@ import { HiOutlineSearch } from 'react-icons/hi'
 import { MdSmsFailed } from 'react-icons/md'
 import { useSelect } from 'hooks/useSearch'
 
-import { Loading } from 'components/common'
+import { Loading } from 'components/common/atoms'
 
-import { Title } from '.'
+import { Title } from '../atoms/Title'
 
 const placeholder = {
   word: 'Enter your search key word',

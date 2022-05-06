@@ -2,8 +2,8 @@ import { memo } from 'react'
 import Image from 'next/image'
 import { IAnime } from 'types'
 
-import { AlternativeTitles } from './AlternativesTitles'
-import Information from './Information'
+import { AlternativeTitles } from '../molecules'
+import Information from '../molecules/Information'
 
 interface Props {
   anime: IAnime

@@ -1,9 +1,9 @@
 import { lazy, Suspense } from 'react'
 import { useWindowSize } from 'react-use'
 
-import { Loading, Logo } from './common'
+import { Loading, Logo } from '../atoms'
 
-const Quote = lazy(() => import('components/common/Quote'))
+const Quote = lazy(() => import('../molecules/Quote'))
 
 export function Header() {
   const { width } = useWindowSize()

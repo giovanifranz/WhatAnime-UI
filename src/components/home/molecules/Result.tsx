@@ -5,10 +5,11 @@ import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { IAnime } from 'types/anime'
 
-import { Button } from './Button'
-import { StatisticsProps } from './Statistics'
+import { Button, StatisticsProps } from '../atoms'
 
-const Statistics = dynamic<StatisticsProps>(() => import('./Statistics').then((module) => module.Statistics))
+const Statistics = dynamic<StatisticsProps>(() =>
+  import('../atoms/Statistics').then((module) => module.Statistics),
+)
 
 interface Props {
   anime: IAnime

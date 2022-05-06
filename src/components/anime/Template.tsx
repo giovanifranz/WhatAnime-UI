@@ -1,31 +1,24 @@
 import { lazy, memo } from 'react'
-import { useWindowSize } from 'react-use'
 import { IAnime } from 'types'
 
-import { ButtonBackTo } from 'components'
+import { ButtonBackTo } from 'components/common/atoms/ButtonBackTo'
 
-import { Heading } from './Heading'
-import { Synopsis } from './Synopsis'
+import { Heading, Synopsis } from './atoms'
 
-const Image = lazy(() => import('next/image'))
-const Head = lazy(() => import('next/head'))
-const Aside = lazy(() => import('./Aside'))
-const Information = lazy(() => import('./Information'))
+const Image = lazy(() => import('./atoms/Image'))
+const Head = lazy(() => import('../common/atoms/Head'))
+const Aside = lazy(() => import('./organisms/Aside'))
+const Information = lazy(() => import('./molecules/Information'))
 
 interface Props {
   anime: IAnime
+  width: number
 }
 
-export function TemplateComponent({ anime }: Props) {
-  const { width } = useWindowSize()
-
+export function TemplateComponent({ anime, width }: Props) {
   return (
     <>
-      {anime && (
-        <Head>
-          <title>WhatAnime | {anime.title}</title>
-        </Head>
-      )}
+      {anime && <Head title={anime.title} />}
       <main className="flex flex-col">
         <div className="flex justify-between w-11/12 max-w-6xl mx-auto gap-14 xl:w-9/12">
           {width > 1024 && <Aside anime={anime} />}
@@ -33,17 +26,9 @@ export function TemplateComponent({ anime }: Props) {
             <div className="flex flex-col gap-3">
               {width < 768 && (
                 <div className="w-full max-w-md mx-auto">
-                  <Image
-                    src={anime.imageUrl}
-                    alt={anime.title}
-                    height={310}
-                    width={225}
-                    layout="responsive"
-                    className="mb-11"
-                  />
+                  <Image {...anime} />
                 </div>
               )}
-
               <Heading {...anime} />
               {width < 1024 && <Information {...anime} />}
               <Synopsis text={anime.synopsis} />
@@ -55,5 +40,5 @@ export function TemplateComponent({ anime }: Props) {
     </>
   )
 }
-const Template = memo(TemplateComponent, (prevProps, nextProps) => Object.is(prevProps, nextProps))
-export default Template
+const AnimeTemplate = memo(TemplateComponent, (prevProps, nextProps) => Object.is(prevProps, nextProps))
+export { AnimeTemplate }
