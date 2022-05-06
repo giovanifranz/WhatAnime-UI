@@ -1,5 +1,5 @@
 import { lazy, memo, Suspense } from 'react'
-import { useSelect } from 'hooks'
+import { useAnimeByIdOnJikan, useSelect } from 'hooks'
 import { IAnime } from 'types'
 
 import { ButtonBackToComponent, Loading } from 'components/common/atoms'
@@ -7,6 +7,7 @@ import Head from 'components/common/atoms/Head'
 
 import { Title } from './atoms/Title'
 import { Search } from './organisms/Search'
+import { useWindowSize } from 'react-use'
 
 const Quote = lazy(() => import('components/common/molecules/Quote'))
 const Result = lazy(() => import('./molecules/Result'))
@@ -14,12 +15,13 @@ const Ranking = lazy(() => import('./molecules/Ranking'))
 const Card = lazy(() => import('./molecules/Card'))
 
 interface Props {
-  randomResult?: IAnime
-  width: number
+  id: number
 }
 
-function Template({ randomResult, width }: Props) {
+function Template({ id }: Props) {
   const { results } = useSelect()
+  const { width } = useWindowSize()
+  const { data: randomResult } = useAnimeByIdOnJikan(id)
 
   return (
     <>

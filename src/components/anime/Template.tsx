@@ -4,6 +4,7 @@ import { IAnime } from 'types'
 import { ButtonBackTo } from 'components/common/atoms/ButtonBackTo'
 
 import { Heading, Synopsis } from './atoms'
+import { useWindowSize } from 'react-use'
 
 const Image = lazy(() => import('./atoms/Image'))
 const Head = lazy(() => import('../common/atoms/Head'))
@@ -12,10 +13,10 @@ const Information = lazy(() => import('./molecules/Information'))
 
 interface Props {
   anime: IAnime
-  width: number
 }
 
-export function TemplateComponent({ anime, width }: Props) {
+export function TemplateComponent({ anime }: Props) {
+  const { width } = useWindowSize()
   return (
     <>
       {anime && <Head title={anime.title} />}

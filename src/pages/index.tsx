@@ -1,6 +1,5 @@
 import { dehydrate, QueryClient } from 'react-query'
-import { useWindowSize } from 'react-use'
-import { useAnimeByIdOnJikan } from 'hooks'
+
 import { GetStaticProps } from 'next'
 
 import { HomeTemplate } from 'components/home/Template'
@@ -28,8 +27,5 @@ interface Props {
 }
 
 export default function Home({ id }: Props) {
-  const { data: randomResult } = useAnimeByIdOnJikan(id)
-  const { width } = useWindowSize()
-
-  return <HomeTemplate randomResult={randomResult} width={width} />
+  return <HomeTemplate id={id} />
 }
