@@ -1,12 +1,12 @@
 import { lazy, Suspense } from 'react'
 import { dehydrate, QueryClient } from 'react-query'
 import { useWindowSize } from 'react-use'
-import { useAnimeRandom, useSelect } from 'hooks'
+import { useAnimeByIdOnJikan, useSelect } from 'hooks'
 import { GetStaticProps } from 'next'
 
 import { ButtonBackToComponent, Loading } from 'components'
 import { Search, Title } from 'components/home'
-import { getAnimeRandom, getAnimeTop } from 'utils/http/jikan'
+import { getAnimeTop } from 'utils/http/jikan'
 import { getRandomAnimeQuote } from 'utils/http/quote'
 
 const Head = lazy(() => import('next/head'))
@@ -19,22 +19,26 @@ export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient()
 
   await queryClient.prefetchQuery('quote', async () => getRandomAnimeQuote())
-  await queryClient.prefetchQuery(['anime-result', 'random'], async () => getAnimeRandom())
   await queryClient.prefetchQuery('airing', async () => getAnimeTop('airing'))
   await queryClient.prefetchQuery('bypopularity', async () => getAnimeTop('bypopularity'))
 
   return {
     props: {
+      id: Math.floor(Math.random() * 120 + 1),
       dehydratedState: dehydrate(queryClient),
     },
     revalidate: 60 * 60 * 60 * 24,
   }
 }
 
-export default function Home() {
+interface Props {
+  id: number
+}
+
+export default function Home({ id }: Props) {
   const { width } = useWindowSize()
   const { results } = useSelect()
-  const { data: randomResult } = useAnimeRandom()
+  const { data: randomResult } = useAnimeByIdOnJikan(id)
 
   return (
     <>
@@ -65,8 +69,8 @@ export default function Home() {
                 <>
                   <Result anime={results[0]} />
                   <div className="flex flex-wrap justify-between w-full gap-5">
-                    {results.slice(1, 5).map(({ id, title, imageUrl }) => (
-                      <Card key={id} id={id} imageUrl={imageUrl} title={title} />
+                    {results.slice(1, 5).map(({ id: resultId, title, imageUrl }) => (
+                      <Card key={resultId} id={resultId} imageUrl={imageUrl} title={title} />
                     ))}
                   </div>
                 </>
