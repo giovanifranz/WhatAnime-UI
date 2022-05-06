@@ -42,7 +42,7 @@ export interface IAnime {
   type: string
   source: string
   imageUrl: string
-  synopsis: string | null
+  synopsis: string
   status: string
   duration: string
   airedString: string

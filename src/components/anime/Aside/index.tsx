@@ -26,7 +26,7 @@ export function AsideComponent({ anime }: Props) {
     status,
   } = anime
   return (
-    <aside className="block w-56 h-screen py-8 text-black border-x bg-neutral-400 ">
+    <aside className="block w-1/5 h-screen py-8 text-black border-x bg-neutral-400 ">
       <Image src={imageUrl} alt={title} layout="responsive" width={224} height={320} />
 
       <section className="my-10 ml-2">
