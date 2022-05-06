@@ -25,7 +25,10 @@ function RankingComponent({ type }: Props) {
           {data.map(({ id, title }) => (
             <li key={id}>
               <Link href={`/${id}`} passHref>
-                <a className="line-clamp-1 hover:underline" onMouseEnter={() => handlePrefetchAnime(id)}>
+                <a
+                  className="line-clamp-1 transition hover:underline"
+                  onMouseEnter={() => handlePrefetchAnime(id)}
+                >
                   {title}
                 </a>
               </Link>

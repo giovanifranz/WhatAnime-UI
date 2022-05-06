@@ -42,7 +42,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
           <Footer />
         </SelectProvider>
-        <ReactQueryDevtools />
+        {isDevEnvironment() && <ReactQueryDevtools />}
       </Hydrate>
     </QueryClientProvider>
   )

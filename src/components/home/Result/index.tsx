@@ -26,7 +26,7 @@ function ResultComponent({ anime }: Props) {
   const { title, imageUrl, year, score, similarity, id, episodes, synopsis } = data
 
   return (
-    <section className="relative flex justify-between w-full h-64 bg-white border border-black border-solid rounded lg:w-2/3">
+    <section className="relative flex justify-between w-full h-64 bg-white border border-black border-solid rounded">
       {width >= 768 && (
         <div className="relative border-r border-black border-solid rounded-l w-52">
           <Image src={imageUrl} layout="fill" alt={title} />

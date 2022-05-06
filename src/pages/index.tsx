@@ -6,6 +6,7 @@ import { GetStaticProps } from 'next'
 
 import { ButtonBackToComponent, Loading } from 'components'
 import { Search, Title } from 'components/home'
+import Card from 'components/home/Cards'
 import { getAnimeRandom, getAnimeTop } from 'utils/http/jikan'
 import { getRandomAnimeQuote } from 'utils/http/quote'
 
@@ -50,16 +51,29 @@ export default function Home() {
         <div className="w-11/12 max-w-6xl mx-auto xl:w-9/12">
           <Title text="Anime of the day" />
           <div className="flex justify-between gap-14">
-            <Suspense fallback={<div className="flex w-full h-64  lg:w-2/3" />}>
-              {randomResult && <Result anime={randomResult} />}
-            </Suspense>
+            <div className="w-full lg:w-2/3">
+              <Suspense fallback={<Loading />}>{randomResult && <Result anime={randomResult} />}</Suspense>
+            </div>
             <Suspense fallback={<Loading />}>{width >= 1024 && <Ranking type="airing" />}</Suspense>
           </div>
         </div>
         <div className="w-11/12 max-w-6xl mx-auto xl:w-9/12">
           {results && <Title text="Results" />}
           <div className="flex justify-between gap-14">
-            {results ? <Result anime={results[0]} /> : <div className="flex w-full h-64  lg:w-2/3" />}
+            <div className="flex flex-col w-full lg:w-2/3 gap-5">
+              {results ? (
+                <>
+                  <Result anime={results[0]} />
+                  <div className="flex flex-wrap justify-between w-full gap-5">
+                    {results.slice(1, 5).map(({ id, title, imageUrl }) => (
+                      <Card key={id} id={id} imageUrl={imageUrl} title={title} />
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <div className="w-full lg:w-2/3" />
+              )}
+            </div>
             <Suspense fallback={<Loading />}>{width >= 1024 && <Ranking type="bypopularity" />}</Suspense>
           </div>
         </div>
