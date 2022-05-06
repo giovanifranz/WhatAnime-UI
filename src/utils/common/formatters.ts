@@ -27,7 +27,7 @@ export function animeFormatter(response: IResponseAnime): IAnime {
     season: response.season,
     type: response.type,
     source: response.source,
-    studio: response.studios && response.studios[0].name,
+    studio: response.studios && response.studios[0] && response.studios[0].name,
     imageUrl: response.images.webp.image_url || response.images.jpg.image_url,
     status: response.status,
     duration: response.duration,
@@ -35,6 +35,6 @@ export function animeFormatter(response: IResponseAnime): IAnime {
     episodes: response.episodes || null,
     year: response.year ? response.year : response.aired.prop.from.year,
     airedString: response.aired.string,
-    synopsis: response.synopsis ? response.synopsis.replace(' [Written by MAL Rewrite]', '') : null,
+    synopsis: response.synopsis.replace(' [Written by MAL Rewrite]', ''),
   }
 }

@@ -21,7 +21,7 @@ function RankingComponent({ type, isPopular = false }: Props) {
   return (
     <section
       className={`relative w-64 bg-white border border-black border-solid rounded ${
-        isPopular && 'h-[500px]'
+        isPopular ? 'h-[500px]' : 'h-64'
       }`}
     >
       <Heading title={type === 'airing' ? 'Top Airing' : 'Most Popular'} />
