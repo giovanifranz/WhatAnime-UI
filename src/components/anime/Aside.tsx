@@ -1,10 +1,9 @@
-import { lazy, memo } from 'react'
+import { memo } from 'react'
 import Image from 'next/image'
 import { IAnime } from 'types'
 
 import { AlternativeTitles } from './AlternativesTitles'
-
-const Information = lazy(() => import('./Information'))
+import Information from './Information'
 
 interface Props {
   anime: IAnime
