@@ -12,7 +12,7 @@ export function QuoteComponent() {
   const { id } = data
 
   return (
-    <section className="relative w-48 h-40 p-2 bg-yellow-300 rounded md:w-60 lg:w-64">
+    <section className="relative h-40 p-2 bg-yellow-300 rounded w-36 md:w-64">
       <p className="w-full text-lg italic font-light line-clamp-3">“{data.quote}”</p>
       <div className="absolute flex items-center justify-between w-full pr-2 bottom-1">
         <div className="flex flex-col justify-between w-3/4 h-12">
