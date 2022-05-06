@@ -8,10 +8,10 @@ html {
 @tailwind variants;
 
 body {
-  @apply font-base overflow-x-hidden bg-zinc-200;
+  @apply font-base overflow-x-hidden bg-zinc-200 dark:bg-neutral-300;
 }
 
 header,
 footer {
-  @apply bg-neutral-800;
+  @apply bg-zinc-400 dark:bg-neutral-800;
 }

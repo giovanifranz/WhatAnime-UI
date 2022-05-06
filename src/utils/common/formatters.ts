@@ -26,7 +26,7 @@ export function animeFormatter(response: IResponseAnime): IAnime {
     score: response.score || null,
     type: response.type,
     source: response.source,
-    imageUrl: response.images.jpg.image_url,
+    imageUrl: response.images.webp.image_url || response.images.jpg.image_url,
     status: response.status,
     duration: response.duration,
     rating: response.rating,

@@ -5,6 +5,7 @@ import { useEffectOnce } from 'react-use'
 import { SelectProvider } from 'hooks/useSearch'
 import { makeServer } from 'mocks/miraje'
 import type { AppProps } from 'next/app'
+import Head from 'next/head'
 
 import { isDevEnvironment } from 'utils'
 
@@ -34,6 +35,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <SelectProvider>
+          <Head>
+            <title>WhatAnime</title>
+          </Head>
           <Header />
           <Component {...pageProps} />
           <Footer />

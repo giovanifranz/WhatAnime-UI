@@ -3,13 +3,13 @@ import { dehydrate, QueryClient } from 'react-query'
 import { useWindowSize } from 'react-use'
 import { useAnimeRandom } from 'hooks'
 import { GetStaticProps } from 'next'
-import Head from 'next/head'
 
 import { ButtonBackToComponent, Loading } from 'components'
 import { Search, Title } from 'components/home'
 import { getAnimeRandom, getAnimeTop } from 'utils/http/jikan'
 import { getRandomAnimeQuote } from 'utils/http/quote'
 
+const Head = lazy(() => import('next/head'))
 const Quote = lazy(() => import('components/common/Quote'))
 const Result = lazy(() => import('components/home/Result'))
 const Ranking = lazy(() => import('components/home/Ranking'))
@@ -37,9 +37,11 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        <title>{animeRandom ? `WhatAnime | ${animeRandom.title}` : 'WhatAnime'}</title>
-      </Head>
+      {animeRandom && (
+        <Head>
+          <title>WhatAnime | {animeRandom.title}</title>
+        </Head>
+      )}
       <main className="flex flex-col py-5 gap-5">
         <div className="flex justify-between w-11/12 max-w-6xl mx-auto gap-14 xl:w-9/12">
           <Search />

@@ -3,6 +3,7 @@ const colors = require('tailwindcss/colors')
 const lineClamps = require('@tailwindcss/line-clamp')
 
 module.exports = {
+  darkMode: 'class',
   content: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     colors: {
