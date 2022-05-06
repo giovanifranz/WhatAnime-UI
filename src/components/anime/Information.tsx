@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 import { Text } from './Text'
 
 interface Props {
@@ -12,7 +14,7 @@ interface Props {
   episodes: number | null
 }
 
-export function Information({
+function InformationComponent({
   airedString,
   duration,
   rating,
@@ -40,3 +42,6 @@ export function Information({
     </div>
   )
 }
+
+const Information = memo(InformationComponent, (prevProps, nextProps) => Object.is(prevProps, nextProps))
+export default Information
