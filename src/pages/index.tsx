@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { dehydrate, QueryClient } from 'react-query'
 import { useWindowSize } from 'react-use'
-import { useAnimeRandom } from 'hooks'
+import { useAnimeRandom, useSelect } from 'hooks'
 import { GetStaticProps } from 'next'
 
 import { ButtonBackToComponent, Loading } from 'components'
@@ -32,7 +32,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 export default function Home() {
   const { width } = useWindowSize()
-
+  const { animes } = useSelect()
   const { data: animeRandom } = useAnimeRandom()
 
   return (
@@ -54,6 +54,13 @@ export default function Home() {
               <Result anime={animeRandom} isRandom />
             </Suspense>
             <Suspense fallback={<Loading />}>{width >= 1024 && <Ranking type="airing" />}</Suspense>
+          </div>
+        </div>
+        <div className="w-11/12 max-w-6xl mx-auto xl:w-9/12">
+          {animes && <Title text="Results" />}
+          <div className="flex justify-between gap-14">
+            {animes ? <Result anime={animes[0]} isRandom /> : <div className="flex w-full h-64  lg:w-2/3" />}
+            <Suspense fallback={<Loading />}>{width >= 1024 && <Ranking type="bypopularity" />}</Suspense>
           </div>
         </div>
         <div className="flex flex-col items-center mx-auto lg:max-w-6xl lg:w-11/12 lg:pr-96">
