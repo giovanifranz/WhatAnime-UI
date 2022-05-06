@@ -8,14 +8,15 @@ export function useAnimesByTitleOnJikan(title: string) {
   return useQuery<IAnime[]>(['anime-by-title', formatSlug(title)], async () => getAnimesByTitleOnJikan(title))
 }
 
-export function useAnimeByIdOnJikan(anime: IAnime | undefined, id: number) {
-  return useQuery<IAnime>(['anime-by-id', id], async () => getAnimeByIdOnJikan(id), {
+export function useAnimeByIdOnJikan(id: number, anime?: IAnime) {
+  return useQuery<IAnime>(['anime-result', id], async () => getAnimeByIdOnJikan(id), {
     initialData: anime,
   })
 }
 
-export function useAnimeRandom() {
-  return useQuery<IAnime>('anime-random', async () => getAnimeRandom(), {
+export function useAnimeRandom(anime?: IAnime) {
+  return useQuery<IAnime>(['anime-result', 'random'], async () => getAnimeRandom(), {
+    initialData: anime,
     staleTime: 1000 * 60 * 60 * 60 * 24,
   })
 }

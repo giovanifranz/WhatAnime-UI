@@ -19,7 +19,7 @@ interface SelectContextType {
   payload: string
   setPayload: Dispatch<SetStateAction<string>>
   handleSubmit: () => void
-  animes?: IAnime[]
+  results?: IAnime[]
   error?: Error
   isLoading: boolean
 }
@@ -34,7 +34,7 @@ const initialState: SelectContextType = {
   payload: '',
   setPayload: () => null,
   handleSubmit: () => null,
-  animes: undefined,
+  results: undefined,
   error: undefined,
   isLoading: false,
 }
@@ -45,7 +45,7 @@ const useSelect = () => useContext(SelectContext)
 function SelectProvider({ children }: SelectProviderProps) {
   const [select, setSelect] = useState<TSelect>('word')
   const [payload, setPayload] = useState<string>('')
-  const [animes, setAnimes] = useState<IAnime[] | undefined>()
+  const [results, setResults] = useState<IAnime[] | undefined>()
   const [error, setError] = useState<Error>()
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -60,7 +60,7 @@ function SelectProvider({ children }: SelectProviderProps) {
 
       new QueryClient().prefetchQuery('anime-by-title', async () =>
         getAnimesByTitleOnJikan(payload)
-          .then((response) => setAnimes(response))
+          .then((response) => setResults(response))
           .catch((err: Error) => setError(err))
           .finally(() => setIsLoading(false)),
       )
@@ -74,11 +74,11 @@ function SelectProvider({ children }: SelectProviderProps) {
       payload,
       setPayload,
       handleSubmit,
-      animes,
+      results,
       error,
       isLoading,
     }),
-    [select, setSelect, payload, setPayload, handleSubmit, animes, error, isLoading],
+    [select, setSelect, payload, setPayload, handleSubmit, results, error, isLoading],
   )
 
   return <SelectContext.Provider value={context}>{children}</SelectContext.Provider>

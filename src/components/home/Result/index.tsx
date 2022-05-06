@@ -1,6 +1,6 @@
-import { memo, useCallback } from 'react'
+import { memo } from 'react'
 import { useWindowSize } from 'react-use'
-import { useAnimeByIdOnJikan, useAnimeRandom } from 'hooks/useJikan'
+import { useAnimeByIdOnJikan } from 'hooks/useJikan'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { IAnime } from 'types/anime'
@@ -11,20 +11,13 @@ import { StatisticsProps } from './Statistics'
 const Statistics = dynamic<StatisticsProps>(() => import('./Statistics').then((module) => module.Statistics))
 
 interface Props {
-  anime?: IAnime
-  isRandom?: boolean
+  anime: IAnime
 }
 
-function ResultComponent({ anime, isRandom }: Props) {
+function ResultComponent({ anime }: Props) {
   const { width } = useWindowSize()
-  const useAnime = useCallback(() => {
-    if (isRandom || !anime) {
-      return useAnimeRandom()
-    }
-    return useAnimeByIdOnJikan(anime, anime.id)
-  }, [anime, isRandom])
 
-  const { isLoading, isError, data } = useAnime()
+  const { isLoading, isError, data } = useAnimeByIdOnJikan(anime.id, anime)
 
   if (isLoading || isError || !data) {
     return null

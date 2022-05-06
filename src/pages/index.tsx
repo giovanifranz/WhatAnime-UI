@@ -32,14 +32,14 @@ export const getStaticProps: GetStaticProps = async () => {
 
 export default function Home() {
   const { width } = useWindowSize()
-  const { animes } = useSelect()
-  const { data: animeRandom } = useAnimeRandom()
+  const { results } = useSelect()
+  const { data: randomResult } = useAnimeRandom()
 
   return (
     <>
-      {animeRandom && (
+      {randomResult && (
         <Head>
-          <title>WhatAnime | {animeRandom.title}</title>
+          <title>WhatAnime | {randomResult.title}</title>
         </Head>
       )}
       <main className="flex flex-col py-5 gap-5">
@@ -50,16 +50,14 @@ export default function Home() {
         <div className="w-11/12 max-w-6xl mx-auto xl:w-9/12">
           <Title text="Anime of the day" />
           <div className="flex justify-between gap-14">
-            <Suspense fallback={<Loading />}>
-              <Result anime={animeRandom} isRandom />
-            </Suspense>
+            <Suspense fallback={<Loading />}>{randomResult && <Result anime={randomResult} />}</Suspense>
             <Suspense fallback={<Loading />}>{width >= 1024 && <Ranking type="airing" />}</Suspense>
           </div>
         </div>
         <div className="w-11/12 max-w-6xl mx-auto xl:w-9/12">
-          {animes && <Title text="Results" />}
+          {results && <Title text="Results" />}
           <div className="flex justify-between gap-14">
-            {animes ? <Result anime={animes[0]} isRandom /> : <div className="flex w-full h-64  lg:w-2/3" />}
+            {results ? <Result anime={results[0]} /> : <div className="flex w-full h-64  lg:w-2/3" />}
             <Suspense fallback={<Loading />}>{width >= 1024 && <Ranking type="bypopularity" />}</Suspense>
           </div>
         </div>
