@@ -30,12 +30,9 @@ export function Search() {
 
   return (
     <section className="w-full lg:h-40  lg:w-2/3">
-      <div className="flex items-center">
+      <div className="flex items-center gap-3">
         <Title text="Search" />
-        <select
-          className="w-40 text-lg uppercase bg-transparent"
-          onChange={(event) => handleChangeSelect(event)}
-        >
+        <select className="text-lg uppercase bg-transparent" onChange={(event) => handleChangeSelect(event)}>
           <option value="word">by word</option>
           <option value="image">by image</option>
         </select>
@@ -49,7 +46,7 @@ export function Search() {
         />
         <button
           type="submit"
-          className="right-0 w-12 h-12 p-1 border border-black border-solid rounded-r transition-opacity hover:opacity-60"
+          className="right-0 w-12 h-12 p-1 text-black border border-black border-solid rounded-r bg-zinc-100 transition-opacity hover:opacity-60"
           onClick={(event: MouseEvent) => handleClick(event)}
         >
           <HiOutlineSearch size="40px" />
