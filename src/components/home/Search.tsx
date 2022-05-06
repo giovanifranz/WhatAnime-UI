@@ -43,20 +43,20 @@ export function Search() {
       </div>
       <form className="flex w-full">
         <input
-          className="font-xl line-clamp-1 p-2 h-12 w-full rounded-l border border-r-0 border-zinc-400 border-solid bg-white"
+          className="w-full h-12 p-2 bg-white border border-r-0 border-solid rounded-l font-xl line-clamp-1 border-zinc-400"
           placeholder={placeholder[select]}
           onChange={(event) => setPayload(event.target.value)}
         />
         <button
           type="submit"
-          className="border border-black border-solid transition-opacity hover:opacity-60 right-0 w-12 h-12 p-1 rounded-r"
+          className="right-0 w-12 h-12 p-1 border border-black border-solid rounded-r transition-opacity hover:opacity-60"
           onClick={(event: MouseEvent) => handleClick(event)}
         >
           <HiOutlineSearch size="40px" />
         </button>
       </form>
       {error && (
-        <div className="flex items-left w-full gap-2 mt-2 text-red">
+        <div className="flex w-full mt-2 items-left gap-2 text-red">
           <MdSmsFailed size="24px" />
           <span>{error.message}</span>
         </div>

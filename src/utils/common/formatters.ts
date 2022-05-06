@@ -9,7 +9,7 @@ export function formatSlug(text: string): string {
   return slugify(text, { lower: true, strict: true })
 }
 
-export function quoteMapper(response: IResponseQuote): IQuote {
+export function quoteFormatter(response: IResponseQuote): IQuote {
   return {
     title: response.anime,
     character: response.character,
@@ -17,7 +17,7 @@ export function quoteMapper(response: IResponseQuote): IQuote {
   }
 }
 
-export function animeMapper(response: IResponseAnime): IAnime {
+export function animeFormatter(response: IResponseAnime): IAnime {
   return {
     id: response.mal_id,
     title: response.title,

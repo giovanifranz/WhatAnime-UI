@@ -18,10 +18,10 @@ function RankingComponent({ type }: Props) {
   }
 
   return (
-    <section className="bg-white w-64 border rounded border-black border-solid relative">
+    <section className="relative w-64 bg-white border border-black border-solid rounded">
       <Heading title={type === 'airing' ? 'Top Airing' : 'Most Popular'} />
-      <article className="w-11/12 mx-auto p-2 items-center justify-center flex-col mt-12 px-4">
-        <ol className="flex flex-col text-lg gap-3 list-decimal items-left ml-3">
+      <article className="flex-col items-center justify-center w-11/12 p-2 px-4 mx-auto mt-12">
+        <ol className="flex flex-col ml-3 text-lg list-decimal gap-3 items-left">
           {data.map(({ id, title }) => (
             <li key={id}>
               <Link href={`/${id}`} passHref>

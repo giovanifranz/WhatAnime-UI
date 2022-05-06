@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { dehydrate, QueryClient } from 'react-query'
-import { useAnimeRandom, useWindowSize } from 'hooks'
+import { useWindowSize } from 'react-use'
+import { useAnimeRandom } from 'hooks'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 
@@ -9,7 +10,7 @@ import { Search, Title } from 'components/home'
 import { getAnimeRandom, getAnimeTop } from 'utils/http/jikan'
 import { getRandomAnimeQuote } from 'utils/http/quote'
 
-const Quote = lazy(() => import('components/home/Quote'))
+const Quote = lazy(() => import('components/common/Quote'))
 const Result = lazy(() => import('components/home/Result'))
 const Ranking = lazy(() => import('components/home/Ranking'))
 
@@ -39,21 +40,21 @@ export default function Home() {
       <Head>
         <title>{animeRandom ? `WhatAnime | ${animeRandom.title}` : 'WhatAnime'}</title>
       </Head>
-      <main className="flex flex-col gap-5 py-5 bg-zinc-200">
-        <div className="flex gap-14 mx-auto w-11/12 xl:w-9/12 max-w-6xl justify-between">
+      <main className="flex flex-col py-5 gap-5">
+        <div className="flex justify-between w-11/12 max-w-6xl mx-auto gap-14 xl:w-9/12">
           <Search />
           <Suspense fallback={<Loading />}>{width >= 1024 && <Quote />}</Suspense>
         </div>
-        <div className="mx-auto w-11/12 xl:w-9/12 max-w-6xl">
+        <div className="w-11/12 max-w-6xl mx-auto xl:w-9/12">
           <Title text="Anime of the day" />
-          <div className="flex gap-14  justify-between">
+          <div className="flex justify-between gap-14">
             <Suspense fallback={<Loading />}>
               <Result anime={animeRandom} isRandom />
             </Suspense>
             <Suspense fallback={<Loading />}>{width >= 1024 && <Ranking type="airing" />}</Suspense>
           </div>
         </div>
-        <div className="lg:max-w-6xl lg:w-11/12 mx-auto lg:pr-96 flex flex-col items-center">
+        <div className="flex flex-col items-center mx-auto lg:max-w-6xl lg:w-11/12 lg:pr-96">
           <ButtonBackToComponent to="top" />
         </div>
       </main>

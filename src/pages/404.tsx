@@ -2,8 +2,8 @@ import { ButtonBackTo } from 'components'
 
 export default function NotFound() {
   return (
-    <section className="w-9/12 max-h-screen mx-auto items-center justify-center flex-col">
-      <h1 className="text-3xl font-bold text-center mb-6">
+    <section className="flex flex-col justify-center w-full h-full my-32 align-middle gap-6">
+      <h1 className="text-3xl font-bold text-center">
         Page not found:
         <br />
         404

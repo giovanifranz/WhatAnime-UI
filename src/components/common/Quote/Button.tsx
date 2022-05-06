@@ -10,11 +10,11 @@ export interface Props {
 function Button({ id }: Props) {
   return (
     <button
-      className="h-9 m-2 justify-center bg-slate-100 rounded-md transition-colors hover:bg-zinc-400 "
+      className="justify-center m-2 h-9 bg-slate-100 rounded-md transition-colors hover:bg-zinc-400"
       type="button"
     >
       <Link href={`/${id}`} passHref>
-        <a className="text-zinc-800 hover:text-yellow-400" onMouseEnter={() => handlePrefetchAnime(id)}>
+        <a className="text-neutral-800 hover:text-yellow-400" onMouseEnter={() => handlePrefetchAnime(id)}>
           <HiArrowRight size="36px" />
         </a>
       </Link>

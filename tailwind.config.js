@@ -10,7 +10,7 @@ module.exports = {
       zinc: colors.zinc,
       yellow: colors.yellow,
       slate: colors.slate,
-      neutral: colors.neutral[800],
+      neutral: colors.neutral,
       black: colors.black,
       white: colors.white,
       red: '#f2594E',

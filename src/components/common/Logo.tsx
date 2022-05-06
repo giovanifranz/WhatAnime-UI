@@ -1,4 +1,4 @@
-import { useWindowSize } from 'hooks/useWindowSize'
+import { useWindowSize } from 'react-use'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -7,12 +7,12 @@ export function Logo() {
 
   return (
     <Link href="/" passHref>
-      <a className="flex flex-row gap-3 mb-2">
+      <a className="flex flex-row mb-2 gap-3">
         <div className="relative md:w-20 md:h-20 w-44 h-44">
-          <Image src="/logo.svg" layout="fill" alt="WhatAnime" />
+          <Image src="/logo.svg" height={80} width={80} layout="responsive" alt="WhatAnime" />
         </div>
         {width >= 768 && (
-          <h1 className="font-mono text-4xl text-yellow-300 font-normal w-40 uppercase">What Anime?</h1>
+          <h1 className="w-40 font-mono text-4xl font-normal text-yellow-300 uppercase">What Anime?</h1>
         )}
       </a>
     </Link>

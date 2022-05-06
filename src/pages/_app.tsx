@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
+import { useEffectOnce } from 'react-use'
 import { SelectProvider } from 'hooks/useSearch'
 import { makeServer } from 'mocks/miraje'
 import type { AppProps } from 'next/app'
@@ -20,12 +21,12 @@ const queryClient = new QueryClient()
 function MyApp({ Component, pageProps }: AppProps) {
   const [shouldRender, setShouldRender] = useState(false)
 
-  useEffect(() => {
+  useEffectOnce(() => {
     if (isDevEnvironment()) {
       makeServer()
       setShouldRender(true)
     } else setShouldRender(true)
-  }, [])
+  })
 
   if (!shouldRender) return null
 

@@ -3,7 +3,7 @@ interface Props {
 }
 
 function Text({ title }: Props) {
-  return <p className="font-mono text-zinc text-sm uppercase mt-5 md:mt-2">{title}</p>
+  return <p className="mt-5 font-mono text-sm uppercase text-zinc md:mt-2">{title}</p>
 }
 
 export { Text }

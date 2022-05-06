@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { IQuote, IResponseQuote } from 'types/quote'
 
-import { quoteMapper } from 'utils/common'
+import { quoteFormatter } from 'utils/common'
 
 import { getAnimesByTitleOnJikan } from './jikan'
 
@@ -13,12 +13,12 @@ export async function getAnimesQuoteByTitle(title: string): Promise<Array<IQuote
   const data: IResponseQuote[] = await animeChan
     .get(`quotes/anime?title=${title}`)
     .then((response) => response.data)
-  return data.map((quote: IResponseQuote) => quoteMapper(quote))
+  return data.map((quote: IResponseQuote) => quoteFormatter(quote))
 }
 
 export async function getRandomAnimeQuote(): Promise<IQuote> {
   const data = await animeChan.get<IResponseQuote>('random').then((response) => response.data)
-  const quote = quoteMapper(data)
+  const quote = quoteFormatter(data)
 
   const animes = await getAnimesByTitleOnJikan(quote.title)
   return {
