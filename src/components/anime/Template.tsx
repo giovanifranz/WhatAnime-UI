@@ -1,10 +1,10 @@
 import { lazy, memo } from 'react'
+import { useWindowSize } from 'react-use'
 import { IAnime } from 'types'
 
 import { ButtonBackTo } from 'components/common/atoms/ButtonBackTo'
 
 import { Heading, Synopsis } from './atoms'
-import { useWindowSize } from 'react-use'
 
 const Image = lazy(() => import('./atoms/Image'))
 const Head = lazy(() => import('../common/atoms/Head'))

@@ -1,5 +1,4 @@
 import { dehydrate, QueryClient } from 'react-query'
-
 import { GetStaticProps } from 'next'
 
 import { HomeTemplate } from 'components/home/Template'

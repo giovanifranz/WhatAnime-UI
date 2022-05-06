@@ -1,13 +1,12 @@
 import { lazy, memo, Suspense } from 'react'
+import { useWindowSize } from 'react-use'
 import { useAnimeByIdOnJikan, useSelect } from 'hooks'
-import { IAnime } from 'types'
 
 import { ButtonBackToComponent, Loading } from 'components/common/atoms'
 import Head from 'components/common/atoms/Head'
 
 import { Title } from './atoms/Title'
 import { Search } from './organisms/Search'
-import { useWindowSize } from 'react-use'
 
 const Quote = lazy(() => import('components/common/molecules/Quote'))
 const Result = lazy(() => import('./molecules/Result'))
