@@ -7,7 +7,7 @@ interface Props {
 
 export function Heading({ episodes, title, year, score }: Props) {
   return (
-    <section className="flex flex-row justify-between">
+    <section className="flex flex-row justify-between gap-3">
       <div>
         <div className="flex gap-3">
           <h1 className="text-3xl font-bold line-clamp-1">{title}</h1>
