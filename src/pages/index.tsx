@@ -6,7 +6,6 @@ import { GetStaticProps } from 'next'
 
 import { ButtonBackToComponent, Loading } from 'components'
 import { Search, Title } from 'components/home'
-import Card from 'components/home/Cards'
 import { getAnimeRandom, getAnimeTop } from 'utils/http/jikan'
 import { getRandomAnimeQuote } from 'utils/http/quote'
 
@@ -14,6 +13,7 @@ const Head = lazy(() => import('next/head'))
 const Quote = lazy(() => import('components/common/Quote'))
 const Result = lazy(() => import('components/home/Result'))
 const Ranking = lazy(() => import('components/home/Ranking'))
+const Card = lazy(() => import('components/home/Card'))
 
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient()
@@ -58,7 +58,7 @@ export default function Home() {
           </div>
         </div>
         <div className="w-11/12 max-w-6xl mx-auto xl:w-9/12">
-          {results && <Title text="Results" />}
+          {results ? <Title text="Results" /> : <div className="h-9" />}
           <div className="flex justify-between gap-14">
             <div className="flex flex-col w-full lg:w-2/3 gap-5">
               {results ? (
@@ -74,7 +74,9 @@ export default function Home() {
                 <div className="w-full lg:w-2/3" />
               )}
             </div>
-            <Suspense fallback={<Loading />}>{width >= 1024 && <Ranking type="bypopularity" />}</Suspense>
+            <Suspense fallback={<Loading />}>
+              {width >= 1024 && <Ranking type="bypopularity" isPopular />}
+            </Suspense>
           </div>
         </div>
         <div className="flex flex-col items-center mx-auto lg:max-w-6xl lg:w-11/12 lg:pr-96">

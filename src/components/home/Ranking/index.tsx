@@ -8,9 +8,10 @@ import { Heading } from './Heading'
 
 interface Props {
   type: TFilter
+  isPopular?: boolean
 }
 
-function RankingComponent({ type }: Props) {
+function RankingComponent({ type, isPopular = false }: Props) {
   const { isLoading, isError, data } = useAnimeTop(type)
 
   if (isLoading || isError || !data) {
@@ -18,10 +19,14 @@ function RankingComponent({ type }: Props) {
   }
 
   return (
-    <section className="relative w-64 bg-white border border-black border-solid rounded">
+    <section
+      className={`relative w-64 bg-white border border-black border-solid rounded ${
+        isPopular && 'h-[500px]'
+      }`}
+    >
       <Heading title={type === 'airing' ? 'Top Airing' : 'Most Popular'} />
-      <article className="flex-col items-center justify-center w-11/12 p-2 px-4 mx-auto mt-12">
-        <ol className="flex flex-col ml-3 text-lg list-decimal gap-3 items-left">
+      <article className="relative flex-col w-11/12  mx-auto mt-12 p-[10px]">
+        <ol className={`absolute flex flex-col ml-3 list-decimal gap-${isPopular ? '5' : '4'}`}>
           {data.map(({ id, title }) => (
             <li key={id}>
               <Link href={`/${id}`} passHref>

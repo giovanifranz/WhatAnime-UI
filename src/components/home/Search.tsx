@@ -29,7 +29,7 @@ export function Search() {
   }
 
   return (
-    <section className="w-full lg:w-2/3">
+    <section className="w-full lg:h-40  lg:w-2/3">
       <div className="flex items-center">
         <Title text="Search" />
         <select
