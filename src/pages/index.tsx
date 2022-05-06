@@ -25,7 +25,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       id: Math.floor(Math.random() * 120 + 1),
-      dehydratedState: dehydrate(queryClient),
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
     },
     revalidate: 60 * 60 * 60 * 24,
   }
