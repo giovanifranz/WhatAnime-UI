@@ -1,4 +1,4 @@
-import { lazy, memo, Suspense } from 'react'
+import { lazy, Suspense } from 'react'
 import { useWindowSize } from 'react-use'
 import { useAnimeByIdOnJikan, useSelect } from 'hooks'
 
@@ -17,7 +17,7 @@ interface Props {
   id: number
 }
 
-function Template({ id }: Props) {
+export function HomeTemplate({ id }: Props) {
   const { results } = useSelect()
   const { width } = useWindowSize()
   const { data: randomResult } = useAnimeByIdOnJikan(id)
@@ -68,6 +68,3 @@ function Template({ id }: Props) {
     </>
   )
 }
-
-const HomeTemplate = memo(Template, (prevProps, nextProps) => Object.is(prevProps, nextProps))
-export { HomeTemplate }
