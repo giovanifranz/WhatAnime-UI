@@ -1,8 +1,9 @@
 import { lazy, Suspense } from 'react'
 import { dehydrate, QueryClient } from 'react-query'
 import { useWindowSize } from 'react-use'
-import { useAnimeRandom, useSelect } from 'hooks'
+import { useAnimeByIdOnJikan, useAnimeRandom, useSelect } from 'hooks'
 import { GetStaticProps } from 'next'
+import { IAnime } from 'types/anime'
 
 import { ButtonBackToComponent, Loading } from 'components'
 import { Search, Title } from 'components/home'
@@ -18,22 +19,26 @@ export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient()
 
   await queryClient.prefetchQuery('quote', async () => getRandomAnimeQuote())
-  await queryClient.prefetchQuery('anime-random', async () => getAnimeRandom())
   await queryClient.prefetchQuery('airing', async () => getAnimeTop('airing'))
   await queryClient.prefetchQuery('bypopularity', async () => getAnimeTop('bypopularity'))
 
   return {
     props: {
+      random: await getAnimeRandom(),
       dehydratedState: dehydrate(queryClient),
     },
     revalidate: 60 * 60 * 60 * 24,
   }
 }
 
-export default function Home() {
+interface Props {
+  random?: IAnime
+}
+
+export default function Home({ random }: Props) {
   const { width } = useWindowSize()
   const { results } = useSelect()
-  const { data: randomResult } = useAnimeRandom()
+  const { data: randomResult } = random ? useAnimeByIdOnJikan(random.id, random) : useAnimeRandom()
 
   return (
     <>
