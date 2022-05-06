@@ -13,7 +13,7 @@ function Button({ id }: Props) {
       className="justify-center m-2 h-9 bg-slate-100 rounded-md transition-colors hover:bg-zinc-400"
       type="button"
     >
-      <Link href={`/${id}`} passHref>
+      <Link href={`/anime/${id}`} passHref>
         <a className="text-neutral-800 hover:text-yellow-300" onMouseEnter={() => handlePrefetchAnime(id)}>
           <HiArrowRight size="36px" />
         </a>

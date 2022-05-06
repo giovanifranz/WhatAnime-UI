@@ -12,7 +12,7 @@ function Button({ id }: Props) {
       className="p-1 text-sm font-bold text-center uppercase bg-yellow-300 border-4 border-yellow-300 border-solid rounded-lg text-zinc-400 transition-colors hover:bg-white hover:text-yellow-300"
       type="button"
     >
-      <Link href={`/${id}`}>
+      <Link href={`/anime/${id}`}>
         <a onMouseEnter={() => handlePrefetchAnime(id)}>Go to Page</a>
       </Link>
     </button>

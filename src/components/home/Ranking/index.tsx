@@ -29,7 +29,7 @@ function RankingComponent({ type, isPopular = false }: Props) {
         <ol className={`absolute flex flex-col ml-3 list-decimal gap-${isPopular ? '5' : '4'}`}>
           {data.map(({ id, title }) => (
             <li key={id}>
-              <Link href={`/${id}`} passHref>
+              <Link href={`/anime/${id}`} passHref>
                 <a
                   className="line-clamp-1 transition hover:underline"
                   onMouseEnter={() => handlePrefetchAnime(id)}

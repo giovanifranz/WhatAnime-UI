@@ -12,7 +12,7 @@ interface Props {
 
 function CardComponent({ id, imageUrl, title }: Props) {
   return (
-    <Link href={`/${id}`} passHref>
+    <Link href={`/anime/${id}`} passHref>
       <a type="button" className="relative w-40 h-56 rounded transition-opacity hover:opacity-80">
         <Image src={imageUrl} alt={title} layout="fill" className="rounded" />
 
