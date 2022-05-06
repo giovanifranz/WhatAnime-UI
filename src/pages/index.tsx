@@ -1,9 +1,8 @@
 import { lazy, Suspense } from 'react'
 import { dehydrate, QueryClient } from 'react-query'
 import { useWindowSize } from 'react-use'
-import { useAnimeByIdOnJikan, useAnimeRandom, useSelect } from 'hooks'
+import { useAnimeRandom, useSelect } from 'hooks'
 import { GetStaticProps } from 'next'
-import { IAnime } from 'types/anime'
 
 import { ButtonBackToComponent, Loading } from 'components'
 import { Search, Title } from 'components/home'
@@ -19,26 +18,22 @@ export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient()
 
   await queryClient.prefetchQuery('quote', async () => getRandomAnimeQuote())
+  await queryClient.prefetchQuery(['anime-result', 'random'], async () => getAnimeRandom())
   await queryClient.prefetchQuery('airing', async () => getAnimeTop('airing'))
   await queryClient.prefetchQuery('bypopularity', async () => getAnimeTop('bypopularity'))
 
   return {
     props: {
-      random: await getAnimeRandom(),
       dehydratedState: dehydrate(queryClient),
     },
     revalidate: 60 * 60 * 60 * 24,
   }
 }
 
-interface Props {
-  random?: IAnime
-}
-
-export default function Home({ random }: Props) {
+export default function Home() {
   const { width } = useWindowSize()
   const { results } = useSelect()
-  const { data: randomResult } = random ? useAnimeByIdOnJikan(random.id, random) : useAnimeRandom()
+  const { data: randomResult } = useAnimeRandom()
 
   return (
     <>
@@ -55,7 +50,9 @@ export default function Home({ random }: Props) {
         <div className="w-11/12 max-w-6xl mx-auto xl:w-9/12">
           <Title text="Anime of the day" />
           <div className="flex justify-between gap-14">
-            <Suspense fallback={<Loading />}>{randomResult && <Result anime={randomResult} />}</Suspense>
+            <Suspense fallback={<div className="flex w-full h-64  lg:w-2/3" />}>
+              {randomResult && <Result anime={randomResult} />}
+            </Suspense>
             <Suspense fallback={<Loading />}>{width >= 1024 && <Ranking type="airing" />}</Suspense>
           </div>
         </div>
