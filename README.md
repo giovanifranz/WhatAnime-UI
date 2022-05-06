@@ -1,32 +1,19 @@
 # WhatAnime
 
-## Descrição 
+## Descrição
 
-Site oficial do WhatAnime, desenvolvido em conjunto com o designer Iago Centenaro Paz. Feito com a proposta de utilizar diversas APIs de algo que a gente sempre curtiu muito. 
+Site oficial do WhatAnime, desenvolvido em conjunto com o designer Iago Centenaro Paz. Feito com a proposta de utilizar diversas APIs de algo que a gente sempre curtiu muito.
 
-## Links 
+## Links
 
-Site: https://www.whatanime.org/	
+Site: https://www.whatanime.org/
 
-API: https://www.whatanime.org/api/
-
-![Logo WhatAnime](https://github.com/giovanifranz/WhatAnime/blob/main/src/assets/LogoWhatAnime.png)
+![Logo WhatAnime](https://raw.githubusercontent.com/giovanifranz/WhatAnime-UI/main/public/logo.svg)
 
 
-## Endpoints 
+## Desenvolvedor
 
-### Anime:
-
-/anime/name/naruto/1 - default /title/pag		
-
-/anime/id/20 - ID referente a myanimelist 		
-
-### Welcome:
-
-/api/welcome - ramdom ID + top Airing + top Popular		
-
-### Quote:
-/api/quote - randon quote anime 		
-
-### Image:
-/api/image - em construção			
+| [<img src="https://avatars.githubusercontent.com/u/79429654?v=4" width="75px;"/>](https://github.com/giovanifranz) |
+| :-: |
+|[Linkedin](https://www.linkedin.com/in/giovanifranz)|
+|[Email](mailto:giovanifranz151@gmail.com)|
