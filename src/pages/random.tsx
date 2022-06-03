@@ -1,4 +1,3 @@
-import { useAnimeRandom } from 'hooks'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import { IAnime } from 'types'
@@ -23,13 +22,7 @@ interface Props {
 export default function AnimePage({ randomAnime }: Props) {
   const router = useRouter()
 
-  const { isLoading, isError, data } = useAnimeRandom(randomAnime)
+  if (!randomAnime) router.push('/404')
 
-  if (isLoading || !data) {
-    return null
-  }
-
-  if (isError) router.push('/404')
-
-  return <AnimeTemplate anime={data} />
+  return <AnimeTemplate anime={randomAnime} />
 }
