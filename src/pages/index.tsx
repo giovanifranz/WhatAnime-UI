@@ -1,23 +1,25 @@
 import { dehydrate, QueryClient } from 'react-query'
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 
 import { HomeTemplate } from 'components/home/Template'
-import { getAnimeTop } from 'utils/http/jikan'
+import { getAnimeRandom, getAnimeTop } from 'utils/http/jikan'
 import { getRandomAnimeQuote } from 'utils/http/quote'
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+  res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=86400')
+
   const queryClient = new QueryClient()
 
   await queryClient.prefetchQuery('quote', async () => getRandomAnimeQuote())
   await queryClient.prefetchQuery('airing', async () => getAnimeTop('airing'))
   await queryClient.prefetchQuery('bypopularity', async () => getAnimeTop('bypopularity'))
+  await queryClient.prefetchQuery(['anime-result', 'random'], async () => getAnimeRandom())
 
   return {
     props: {
       id: Math.floor(Math.random() * 120 + 1),
       dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
     },
-    revalidate: 60 * 60 * 60 * 24,
   }
 }
 
