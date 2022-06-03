@@ -1,5 +1,6 @@
 import { dehydrate, QueryClient } from 'react-query'
 import { GetServerSideProps } from 'next'
+import { IAnime } from 'types'
 
 import { HomeTemplate } from 'components/home/Template'
 import { getAnimeRandom, getAnimeTop } from 'utils/http/jikan'
@@ -13,20 +14,19 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   await queryClient.prefetchQuery('quote', async () => getRandomAnimeQuote())
   await queryClient.prefetchQuery('airing', async () => getAnimeTop('airing'))
   await queryClient.prefetchQuery('bypopularity', async () => getAnimeTop('bypopularity'))
-  await queryClient.prefetchQuery(['anime-result', 'random'], async () => getAnimeRandom())
 
   return {
     props: {
-      id: Math.floor(Math.random() * 120 + 1),
+      randomAnime: await getAnimeRandom(),
       dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
     },
   }
 }
 
 interface Props {
-  id: number
+  randomAnime: IAnime
 }
 
-export default function Home({ id }: Props) {
-  return <HomeTemplate id={id} />
+export default function Home({ randomAnime }: Props) {
+  return <HomeTemplate anime={randomAnime} />
 }

@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { useWindowSize } from 'react-use'
-import { useAnimeByIdOnJikan, useSelect } from 'hooks'
+import { useAnimeRandom, useSelect } from 'hooks'
+import { IAnime } from 'types'
 
 import { ButtonBackToComponent, Loading } from 'components/common/atoms'
 import Head from 'components/common/atoms/Head'
@@ -14,13 +15,13 @@ const Ranking = lazy(() => import('./molecules/Ranking'))
 const Card = lazy(() => import('./molecules/Card'))
 
 interface Props {
-  id: number
+  anime: IAnime
 }
 
-export function HomeTemplate({ id }: Props) {
+export function HomeTemplate({ anime }: Props) {
   const { results } = useSelect()
   const { width } = useWindowSize()
-  const { data: randomResult } = useAnimeByIdOnJikan(id)
+  const { data: randomResult } = useAnimeRandom(anime)
 
   return (
     <>
