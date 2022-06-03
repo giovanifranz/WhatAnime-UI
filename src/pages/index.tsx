@@ -6,7 +6,7 @@ import { getAnimeRandom, getAnimeTop } from 'utils/http/jikan'
 import { getRandomAnimeQuote } from 'utils/http/quote'
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=86400')
+  res.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate')
 
   const queryClient = new QueryClient()
 
