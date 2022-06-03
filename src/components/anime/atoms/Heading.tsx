@@ -16,9 +16,9 @@ export function Heading({ episodes, title, year, score }: Props) {
         {episodes && <p className="text-xl">Episodes: {episodes}</p>}
       </div>
       {score && (
-        <div className="w-16 text-center">
+        <div className="w-20 text-center">
           <div className="py-1 bg-yellow-300 rounded">
-            <p className="text-xl font-bold uppercase text-zinc-300">Score</p>
+            <p className="text-xl font-bold uppercase text-zinc-400">Score</p>
           </div>
           <span className="text-3xl font-bold">{score}</span>
         </div>
