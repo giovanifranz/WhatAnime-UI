@@ -24,7 +24,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
 }
 
 interface Props {
-  randomAnime: IAnime
+  randomAnime?: IAnime
 }
 
 export default function Home({ randomAnime }: Props) {

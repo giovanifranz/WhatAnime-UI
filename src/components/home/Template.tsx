@@ -1,6 +1,7 @@
-import { lazy, Suspense } from 'react'
+import { Suspense } from 'react'
 import { useWindowSize } from 'react-use'
 import { useAnimeRandom, useSelect } from 'hooks'
+import dynamic from 'next/dynamic'
 import { IAnime } from 'types'
 
 import { ButtonBackToComponent, Loading } from 'components/common/atoms'
@@ -9,13 +10,13 @@ import Head from 'components/common/atoms/Head'
 import { Title } from './atoms/Title'
 import { Search } from './organisms/Search'
 
-const Quote = lazy(() => import('components/common/molecules/Quote'))
-const Result = lazy(() => import('./molecules/Result'))
-const Ranking = lazy(() => import('./molecules/Ranking'))
-const Card = lazy(() => import('./molecules/Card'))
+const Quote = dynamic(() => import('components/common/molecules/Quote'), { suspense: true })
+const Result = dynamic(() => import('./molecules/Result'), { suspense: true })
+const Ranking = dynamic(() => import('./molecules/Ranking'), { suspense: true })
+const Card = dynamic(() => import('./molecules/Card'), { suspense: true })
 
 interface Props {
-  anime: IAnime
+  anime?: IAnime
 }
 
 export function HomeTemplate({ anime }: Props) {

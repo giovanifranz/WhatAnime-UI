@@ -1,9 +1,10 @@
-import { lazy, Suspense } from 'react'
+import { Suspense } from 'react'
 import { useWindowSize } from 'react-use'
+import dynamic from 'next/dynamic'
 
 import { Loading, Logo } from '../atoms'
 
-const Quote = lazy(() => import('../molecules/Quote'))
+const Quote = dynamic(() => import('../molecules/Quote'), { suspense: true })
 
 export function Header() {
   const { width } = useWindowSize()

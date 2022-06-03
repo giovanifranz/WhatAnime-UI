@@ -1,15 +1,16 @@
-import { lazy, memo } from 'react'
+import { memo } from 'react'
 import { useWindowSize } from 'react-use'
+import dynamic from 'next/dynamic'
 import { IAnime } from 'types'
 
 import { ButtonBackTo } from 'components/common/atoms/ButtonBackTo'
 
 import { Heading, Synopsis } from './atoms'
 
-const Image = lazy(() => import('./atoms/Image'))
-const Head = lazy(() => import('../common/atoms/Head'))
-const Aside = lazy(() => import('./organisms/Aside'))
-const Information = lazy(() => import('./molecules/Information'))
+const Image = dynamic(() => import('./atoms/Image'))
+const Head = dynamic(() => import('../common/atoms/Head'))
+const Aside = dynamic(() => import('./organisms/Aside'))
+const Information = dynamic(() => import('./molecules/Information'))
 
 interface Props {
   anime: IAnime
